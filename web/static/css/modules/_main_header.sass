@@ -19,21 +19,6 @@
     &.right
       float: right
 
-    .current-user
-      display: inline-block
-      background: rgba(#fff, .15)
-      line-height: 1em
-      border-radius: $base-border-radius
-      padding-right: .5em
-      margin-right: 1em
-
-    .react-gravatar
-      vertical-align: middle
-      width: 30px
-      height: 30px
-      border-radius: $base-border-radius
-      margin-right: .5em
-
     ul
       list-style: none
       display: inline-block
@@ -46,6 +31,28 @@
         a
           +transition
           color: rgba(#fff, .5)
+          background: rgba(#fff, .15)
+          border-radius: $base-border-radius
+          padding: .3em .5em
+          line-height: 1em
+
+          &.current-user
+            position: relative
+            overflow: hidden
+            padding-left: 35px
+            margin-right: .5em
+
+            .react-gravatar
+              width: 30px
+              height: 30px
+              border-radius: $base-border-radius
+              margin-right: .5em
+              position: absolute
+              top: 50%
+              margin-top: -15px
+              left: 0
+
+
 
           .fa
             color: #fff

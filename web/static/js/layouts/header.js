@@ -18,9 +18,9 @@ export default class Header extends React.Component {
     const fullName = [currentUser.first_name, currentUser.last_name].join(' ');
 
     return (
-      <div className="current-user">
+      <a className="current-user">
         <ReactGravatar email={currentUser.email} /> {fullName}
-      </div>
+      </a>
     );
   }
 
@@ -54,9 +54,10 @@ export default class Header extends React.Component {
           <span className='logo'/>
         </Link>
         <nav className="right">
-          {this._renderCurrentUser()}
-
           <ul>
+            <li>
+              {this._renderCurrentUser()}
+            </li>
             <li>
               {this._renderSignOutLink()}
             </li>
