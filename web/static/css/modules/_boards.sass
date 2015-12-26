@@ -9,24 +9,44 @@
   .board
     +transition
     +flex(0 0 25%)
+    cursor: pointer
 
     .inner
-      will-change: scale
       background: $light-gray
       border-radius: $base-border-radius
       margin: $margin
       line-height: 1.75em
       overflow: hidden
       padding: $base-spacing/2
+      min-height: 5em
 
-    &:not(.form):hover
-      +transform(scale(1.1))
-      cursor: pointer
 
     &.form
-      input, button
+      input
         +fill-parent
-        margin-bottom: .5em
+        margin-bottom: 1em
+
+    &.add-new
+      .inner
+        +transition
+        background: rgba(#000, .1)
+        cursor: pointer
+        color: $gray
+
+        &:hover
+          background: rgba(#000, .2)
+
+      .inner
+        position: relative
+
+        a
+          +transition
+          +transform(translate(-50%, -50%))
+          display: block
+          position: absolute
+          top: 50%
+          left: 50%
+          color: $gray
 
 .boards.show
   .view-header
@@ -75,8 +95,6 @@
         +transition(opacity 300ms ease-in)
         opacity: 0.01
 
-
-
   .lists-wrapper
     $margin: 1em
 
@@ -93,10 +111,19 @@
       .inner
         background: $light-gray
         border-radius: $base-border-radius
-        margin: 1em 0
         padding: $base-spacing/2
 
       &.form
-        input, button
+        input
           +fill-parent
-          margin-bottom: .5em
+          margin-bottom: 1em
+
+      &.add-new
+        .inner
+          +transition
+          background: rgba(#000, .1)
+          cursor: pointer
+          color: $gray
+
+          &:hover
+            background: rgba(#000, .2)

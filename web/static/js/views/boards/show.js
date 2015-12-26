@@ -58,7 +58,7 @@ class BoardsShowView extends React.Component {
         <div key={list.id} className="list">
           <div className="inner">
             <header>
-              {list.name}
+              <h4>{list.name}</h4>
             </header>
             <div className="cards-wrapper">
 
@@ -72,11 +72,24 @@ class BoardsShowView extends React.Component {
   _renderAddNewList() {
     let { dispatch, formErrors, boardsFetched, currentBoard } = this.props;
 
+    if (!currentBoard.showForm) return this._renderAddButton();
+
     return (
       <ListForm
         dispatch={dispatch}
         errors={formErrors}
-        channel={currentBoard.channel} />
+        channel={currentBoard.channel}
+        onCancelClick={::this._handleCancelClick} />
+    );
+  }
+
+  _renderAddButton() {
+    return (
+      <div className="list add-new" onClick={::this._handleAddNewClick}>
+        <div className="inner">
+          Add new list...
+        </div>
+      </div>
     );
   }
 
@@ -85,7 +98,11 @@ class BoardsShowView extends React.Component {
 
     if (showForm && boardsFetched) return false;
 
-    //dispatch(Actions.showForm(true));
+    dispatch(Actions.showForm(true));
+  }
+
+  _handleCancelClick() {
+    this.props.dispatch(Actions.showForm(false));
   }
 
   render() {

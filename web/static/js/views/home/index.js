@@ -28,12 +28,25 @@ class HomeIndexView extends React.Component {
   }
 
   _renderAddNewBoard() {
-    let { dispatch, formErrors, boardsFetched } = this.props;
+    let { showForm, dispatch, formErrors, boardsFetched } = this.props;
+
+    if (!showForm) return this._renderAddButton();
 
     return (
       <BoardForm
         dispatch={dispatch}
-        errors={formErrors}/>
+        errors={formErrors}
+        onCancelClick={::this._handleCancelClick}/>
+    );
+  }
+
+  _renderAddButton() {
+    return (
+      <div className="board add-new" onClick={::this._handleAddNewClick}>
+        <div className="inner">
+          <a>Add new board...</a>
+        </div>
+      </div>
     );
   }
 
@@ -43,6 +56,10 @@ class HomeIndexView extends React.Component {
     if (showForm && boardsFetched) return false;
 
     dispatch(Actions.showForm(true));
+  }
+
+  _handleCancelClick() {
+    this.props.dispatch(Actions.showForm(false));
   }
 
   render() {

@@ -31,15 +31,21 @@ export default class BoardForm extends React.Component {
     });
   }
 
+  _handleCancelClick(e) {
+    e.preventDefault();
+
+    this.props.onCancelClick();
+  }
+
   render() {
     return (
       <div className="board form">
         <div className="inner">
-          <h3>New board</h3>
+          <h4>New board</h4>
           <form onSubmit={::this._handleSubmit}>
             <input ref="name" type="text" placeholder="Board name" required="true"/>
             {::this._renderErrors('name')}
-            <button type="submit">Create board</button>
+            <button type="submit">Create board</button> or <a href="#" onClick={::this._handleCancelClick}>cancel</a>
           </form>
         </div>
       </div>

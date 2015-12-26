@@ -1,6 +1,15 @@
 import Constants  from '../constants';
 
 const Actions = {
+  showForm: (show) => {
+    return dispatch => {
+      dispatch({
+        type: Constants.CURRENT_BOARD_SHOW_FORM,
+        show: show,
+      });
+    };
+  },
+
   connectToChannel: (socket, boardId) => {
     return dispatch => {
       let channel = socket.channel(`boards:${boardId}`);

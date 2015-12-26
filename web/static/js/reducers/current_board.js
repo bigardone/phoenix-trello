@@ -7,6 +7,7 @@ import get        from 'lodash/object/get';
 const initialState = {
   connectedUsers: [],
   channel: null,
+  showForm: false,
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -20,6 +21,9 @@ export default function reducer(state = initialState, action = {}) {
     case Constants.CURRENT_BOARD_CONNECTED_TO_CHANNEL:
       return {...state, channel: action.channel};
 
+    case Constants.CURRENT_BOARD_SHOW_FORM:
+      return {...state, showForm: action.show};
+
     case Constants.CURRENT_BOARD_RESET:
       return initialState;
 
@@ -27,7 +31,7 @@ export default function reducer(state = initialState, action = {}) {
       const {lists} = state;
       lists.push(action.list);
 
-      return {...state, lists: lists};
+      return {...state, lists: lists, showForm: false};
 
     default:
       return state;

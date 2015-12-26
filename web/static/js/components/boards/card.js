@@ -10,7 +10,7 @@ export default class BoardCard extends React.Component {
     return (
       <div className="board" onClick={this._handleClick}>
         <div className="inner">
-          <h3>{this.props.name}</h3>
+          <h4>{this.props.name}</h4>
         </div>
       </div>
     );

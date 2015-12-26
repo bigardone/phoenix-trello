@@ -31,15 +31,20 @@ export default class ListForm extends React.Component {
     });
   }
 
+  _handleCancelClick(e) {
+    e.preventDefault();
+
+    this.props.onCancelClick();
+  }
+
   render() {
     return (
       <div className="list form">
         <div className="inner">
-          <h4>New list</h4>
           <form onSubmit={::this._handleSubmit}>
-            <input ref="name" type="text" placeholder="List name" required="true"/>
+            <input ref="name" type="text" placeholder="Add a new list..." required="true"/>
             {::this._renderErrors('name')}
-            <button type="submit">Create list</button>
+            <button type="submit">Create list</button> or <a href="#" onClick={::this._handleCancelClick}>cancel</a>
           </form>
         </div>
       </div>
