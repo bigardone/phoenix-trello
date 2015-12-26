@@ -1,0 +1,51 @@
+// - - - - - - - - - - - - - - - - - - -
+// - - utilities
+// placeholders extends, mixins, functions, and utility classes
+
+// - - - - - - - - - - - - - - - - - - -
+// - - placeholder extends
+
+// - - - - - - - - - - - - - - - - - - -
+// - - mixins
+
+// - - clearfix
+// @mixin clearfix {
+//   &:before,
+//   &:after {
+//     content: ' ';
+//     display: table;
+//   }
+//   &:after {
+//     clear: both;
+//   }
+//   & {
+//     *zoom: 1;
+//   }
+// }
+
+// - - breakpoint
+// adds responsive breakpoints.
+// @mixin breakpoint($width) {
+//   @media (min-width: $width) {
+//     @content;
+//   }
+// }
+
+// - - attention
+// adds accessibility pseudo selectors to hover states.
+// @mixin attention() {
+//   &:hover,
+//   &:active,
+//   &:focus {
+//     @content;
+//   }
+// }
+
+// - - - - - - - - - - - - - - - - - - -
+// - - functions
+
+// - - - - - - - - - - - - - - - - - - -
+// - - utilities
+@each $color in (purple, orange, red, green)
+  .#{$color}
+    color: $color

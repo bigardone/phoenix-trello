@@ -1,0 +1,15 @@
+form, .form
+  [type=text], [type=password], [type=date], [type=email], select, .selectize-input, textarea, [type=number], button
+    border: 1px solid $gray
+    padding: .75em
+    border-radius: $base-border-radius
+    box-shadow: none
+    line-height: 1.2em
+
+    &:focus
+      box-shadow: none
+      outline: none
+
+  .error
+    +animation(fadeIn .3s)
+    color: $red

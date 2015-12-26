@@ -1,0 +1,54 @@
+.main-header
+  background: $dark-purple
+  line-height: $base-line-height * 1.8
+  padding: 0 $base-spacing
+  color: #fff
+
+  .logo
+    display: inline-block
+    background: url(/images/logo.png)
+    height: 31px
+    width: 125px
+    vertical-align: middle
+
+  nav
+    float: left
+    margin: 0
+    padding: 0
+
+    &.right
+      float: right
+
+    .current-user
+      display: inline-block
+      background: rgba(#fff, .15)
+      line-height: 1em
+      border-radius: $base-border-radius
+      padding-right: .5em
+      margin-right: 1em
+
+    .react-gravatar
+      vertical-align: middle
+      width: 30px
+      height: 30px
+      border-radius: $base-border-radius
+      margin-right: .5em
+
+    ul
+      list-style: none
+      display: inline-block
+      margin: 0
+      -webkit-margin-before: 0
+      -webkit-padding-start: 0
+      li
+        display: inline-block
+
+        a
+          +transition
+          color: rgba(#fff, .5)
+
+          .fa
+            color: #fff
+
+          &:hover
+            color: #fff

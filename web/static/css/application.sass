@@ -1,0 +1,64 @@
+// - - css-burrito v1.5 | mit license | github.com/jasonreece/css-burrito
+
+// - - - - - - - - - - - - - - - - - - -
+// - - application.scss
+// contains an import section for libs, global, and modules, the inbox,
+// and a shame section for quick fixes and hacks.
+
+// - - - - - - - - - - - - - - - - - - -
+// - - libs
+// add css frameworks and libraries here.
+// be sure to load them after the variable overrides file
+// if you want to change variable values.
+
+// - - variable overrides for sass libraries
+// @import "libs/library-variable-overrides";
+
+// - - reset - normalize.css v3.0.2
+@import libs/normalize
+
+@import ../../../node_modules/bourbon/app/assets/stylesheets/bourbon
+@import ../../../node_modules/bourbon-neat/app/assets/stylesheets/neat-helpers
+@import global/grid_settings
+@import ../../../node_modules/bourbon-neat/app/assets/stylesheets/neat
+
+// - - - - - - - - - - - - - - - - - - -
+// - - global
+
+// - - global/settings
+// @font-face declarations, variables
+@import global/settings
+
+// - - global/utilities
+// extends, functions, and mixins
+@import global/utilities
+
+// - - global/base
+// base-level tags (body, p, etc.)
+@import global/base
+
+// - - global/layout
+// margin, padding, sizing
+@import global/layout
+
+// - - global/skin
+// backgrounds, borders, box-shadow, etc
+@import global/skin
+
+// - - global/typography
+// fonts and colors
+@import global/typography
+
+// - - - - - - - - - - - - - - - - - - -
+// - - modules
+// add new modules to the modules/_modules.scss file and they'll get pulled in here.
+@import modules/modules
+
+// - - - - - - - - - - - - - - - - - - -
+// - - inbox
+// the inbox allows developers, and those not actively working on the project
+// to quickly add styles that are easily seen by the maintainer of the file.
+
+// - - - - - - - - - - - - - - - - - - -
+// - - shame
+// need to add a quick fix, hack, or questionable technique?  add it here, fix it later.

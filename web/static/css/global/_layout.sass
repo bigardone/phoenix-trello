@@ -1,0 +1,18 @@
+// - - - - - - - - - - - - - - - - - - -
+// - - layout
+// global layout classes - height, width, padding, margin, etc.
+
+html
+  min-height: 100vh
+  body
+    min-height: 100vh
+    
+    .application-container
+      min-height: 100vh
+
+    .main-container
+      +display(flex)
+
+      .view-container
+        flex: 1
+        padding: $base-spacing

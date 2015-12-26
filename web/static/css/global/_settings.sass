@@ -1,0 +1,90 @@
+// - - - - - - - - - - - - - - - - - - -
+// - - settings
+// @font-face declarations, variables
+
+// - - - - - - - - - - - - - - - - - - -
+// - - @font-face
+// add fonts to project as needed by updating the $fonts map below in the following format -
+// 'font-family-name': 'font-weight'
+
+// $fonts: (
+//   'font-family-one': ('font-one-light', 'font-one-dark'),
+//   'font-family-two': ('font-two-light','font-two-medium')
+// )
+
+// @each $font-family, $font-weights in $fonts {
+//   @each $font-weight in $font-weights {
+//     @font-face {
+//       name: $font-weight
+//       src:
+//         url('/path/to/fonts/#{$font-family}/#{$font-weight}.eot?#iefix') format('embedded-opentype'),
+//         url('/path/to/fonts/#{$font-family}/#{$font-weight}.woff') format('woff'),
+//         url('/path/to/fonts/#{$font-family}/#{$font-weight}.ttf') format('truetype'),
+//         url('/path/to/fonts/#{$font-family}/#{$font-weight}.svg##{$font-weight}') format('svg')
+//     }
+//   }
+// }
+
+// - - - - - - - - - - - - - - - - - - -
+// - - variables
+$base-line-height: 1.5
+$heading-line-height: 1.2em
+$base-border-radius: 3px
+$base-spacing: $base-line-height * 1em
+$small-spacing: $base-spacing / 2
+$base-z-index: 0
+
+// - - colors
+$blue: #3498db
+$green: #2ecc71
+$red: #e74c3c
+$yellow: #f1c40f
+$orange: #e67e22
+$purple: #9b59b6
+$gray: #bdc3c7
+$asphalt: #34495e
+$pink: #ff5aec
+
+$dark-blue: shade($blue, 15)
+$dark-purple: shade($purple, 15)
+$light-gray: tint($gray, 50)
+$lighter-gray: tint($gray, 20)
+$medium-gray: shade($gray, 10)
+$dark-gray: shade($gray, 60)
+$light-red: tint($red, 15)
+$light-yellow: tint($yellow, 15)
+$light-green: tint($green, 15)
+$dark-asphalt: shade($asphalt, 7)
+$light-asphalt: tint($asphalt, 30)
+$light-blue: tint($blue, 20)
+$dark-orange: shade($orange, 15)
+$dark-red: shade($red, 15)
+$light-pink: tint($pink, 31)
+
+$base-font-color: $dark-gray
+$action-color: $blue
+
+$base-body-color: $light-gray
+
+$base-link-color: $blue
+$hover-link-color: shade($base-link-color, 15)
+
+$base-border-color: $light-gray
+$base-border: 1px solid $base-border-color
+
+$base-background-color: #fff
+$secondary-background-color: tint($base-border-color, 75%)
+
+$form-box-shadow: none
+$form-box-shadow-focus: none
+
+// - - animations
+$base-duration: 150ms
+$base-timing: ease
+
+// - - typography
+$base-font-family: "Source Sans Pro", sans-serif
+$heading-font-family: 'Open Sans', sans-serif
+$base-font-size: 1em
+
+// - - grid

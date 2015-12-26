@@ -1,0 +1,102 @@
+.boards-wrapper
+  $margin: 1em
+
+  +display(flex)
+  +flex-wrap(wrap)
+  +flex-flow(row wrap)
+  margin: $margin (-$margin)
+
+  .board
+    +transition
+    +flex(0 0 25%)
+
+    .inner
+      will-change: scale
+      background: $light-gray
+      border-radius: $base-border-radius
+      margin: $margin
+      line-height: 1.75em
+      overflow: hidden
+      padding: $base-spacing/2
+
+    &:not(.form):hover
+      +transform(scale(1.1))
+      cursor: pointer
+
+    &.form
+      input, button
+        +fill-parent
+        margin-bottom: .5em
+
+.boards.show
+  .view-header
+    position: relative
+    margin-bottom: 1em
+
+    h3
+      margin: 0
+      color: #fff
+
+    .connected-users
+      +transform(translateY(-50%))
+      list-style: none
+      margin: 0
+      padding: 0
+      position: absolute
+      right: 0
+      top: 50%
+
+      li
+        display: inline-block
+        margin-left: .5em
+        .react-gravatar
+          border-radius: 50%
+          width: 30px
+          height: 30px
+
+      .avatar-appear
+        opacity: 0.01
+
+      .avatar-appear.avatar-appear-active
+        +transition(opacity .5s ease-in)
+        opacity: 1
+
+      .avatar-enter
+        opacity: 0.01
+
+      .avatar-enter.avatar-enter-active
+        +transition(opacity 500ms ease-in)
+        opacity: 1
+
+      .avatar-leave
+        opacity: 1
+
+      .avatar-leave.avatar-leave-active
+        +transition(opacity 300ms ease-in)
+        opacity: 0.01
+
+
+
+  .lists-wrapper
+    $margin: 1em
+
+    +display(flex)
+    +flex-wrap(wrap)
+    +flex-flow(row wrap)
+    margin: 0 (-$margin)
+
+    .list
+      +transition
+      +flex(0 0 20em)
+      margin: 0 $margin
+
+      .inner
+        background: $light-gray
+        border-radius: $base-border-radius
+        margin: 1em 0
+        padding: $base-spacing/2
+
+      &.form
+        input, button
+          +fill-parent
+          margin-bottom: .5em
