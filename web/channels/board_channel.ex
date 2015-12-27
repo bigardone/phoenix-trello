@@ -39,12 +39,34 @@ defmodule PhoenixTrello.BoardChannel do
 
     case Repo.insert(changeset) do
       {:ok, list} ->
-        Repo.preload(list, :board)
+        list = Repo.preload(list, [:board, :cards])
 
         broadcast! socket, "list:created", %{list: list}
         {:noreply, socket}
       {:error, _changeset} ->
         {:reply, {:error, %{error: "Error creating list"}}, socket}
+    end
+  end
+
+  def handle_in("create_card", %{"card" => card_params}, socket) do
+    board = socket.assigns.board
+    list = board
+      |> assoc(:lists)
+      |> Repo.get!(card_params["list_id"])
+
+    changeset =
+      list
+      |> build(:cards)
+      |> Card.changeset(card_params)
+
+    case Repo.insert(changeset) do
+      {:ok, card} ->
+        Repo.preload(card, :list)
+
+        broadcast! socket, "card:created", %{card: card}
+        {:noreply, socket}
+      {:error, _changeset} ->
+        {:reply, {:error, %{error: "Error creating card"}}, socket}
     end
   end
 
