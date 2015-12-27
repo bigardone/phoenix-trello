@@ -6,6 +6,7 @@ import Actions                  from '../../actions/current_board';
 import Constants                from '../../constants';
 import { getParentKey }         from '../../utils';
 import ListForm                 from '../../components/lists/form';
+import ListCard                 from '../../components/lists/card';
 
 class BoardsShowView extends React.Component {
   componentDidMount(nextProps, nextState) {
@@ -43,7 +44,12 @@ class BoardsShowView extends React.Component {
 
     return (
       <ul className="connected-users">
-        <ReactCSSTransitionGroup transitionName="avatar" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+        <ReactCSSTransitionGroup
+          transitionName="avatar"
+          transitionAppear={true}
+          transitionAppearTimeout={500}
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}>
           {users}
         </ReactCSSTransitionGroup>
       </ul>
@@ -51,20 +57,15 @@ class BoardsShowView extends React.Component {
   }
 
   _renderLists() {
-    const {lists} = this.props.currentBoard;
+    const {lists, channel} = this.props.currentBoard;
 
     return lists.map((list) => {
       return (
-        <div key={list.id} className="list">
-          <div className="inner">
-            <header>
-              <h4>{list.name}</h4>
-            </header>
-            <div className="cards-wrapper">
-
-            </div>
-          </div>
-        </div>
+        <ListCard
+          key={list.id}
+          dispatch={this.props.dispatch}
+          channel={channel}
+          {...list} />
       );
     });
   }

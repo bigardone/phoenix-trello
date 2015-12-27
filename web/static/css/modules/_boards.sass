@@ -24,7 +24,7 @@
     &.form
       input
         +fill-parent
-        margin-bottom: 1em
+        margin-bottom: .5em
 
     &.add-new
       .inner
@@ -108,15 +108,18 @@
       +flex(0 0 20em)
       margin: 0 $margin
 
-      .inner
+      > .inner
         background: $light-gray
         border-radius: $base-border-radius
         padding: $base-spacing/2
 
+      header
+        margin-bottom: $base-spacing
+
       &.form
         input
           +fill-parent
-          margin-bottom: 1em
+          margin-bottom: .5em
 
       &.add-new
         .inner
@@ -127,3 +130,22 @@
 
           &:hover
             background: rgba(#000, .2)
+      footer
+        .add-new
+          +transition
+          display: block
+          margin: -($base-spacing/2)
+          padding: .5em $base-spacing/2
+          color: $gray
+          border-radius: 0 0 $base-border-radius $base-border-radius
+
+          &:hover
+            background: $gray
+            color: $dark-gray
+
+      .card
+        &.form
+          textarea
+            +fill-parent
+            margin-bottom: .5em
+            border: 0px none
