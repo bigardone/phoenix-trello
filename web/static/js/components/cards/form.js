@@ -14,6 +14,7 @@ export default class CardForm extends React.Component {
     };
 
     dispatch(Actions.createCard(channel, data));
+    this.props.onSubmit();
   }
 
   _renderErrors(field) {

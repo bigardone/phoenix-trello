@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import CardForm           from '../../components/cards/form';
+import Card           from '../../components/cards/card';
 
 export default class ListCard extends React.Component {
   constructor(props) {
@@ -13,9 +14,7 @@ export default class ListCard extends React.Component {
   _renderCards() {
     return this.props.cards.map((card) => {
       return (
-        <div key={card.id} className="card">
-          {card.name}
-        </div>
+        <Card key={card.id} {...card} />
       );
     });
   }
@@ -31,7 +30,8 @@ export default class ListCard extends React.Component {
         dispatch={dispatch}
         errors={formErrors}
         channel={channel}
-        onCancelClick={::this._handleCancelClick} />
+        onCancelClick={::this._handleCancelClick}
+        onSubmit={::this._handleFormSubmit}/>
     );
   }
 
@@ -50,6 +50,10 @@ export default class ListCard extends React.Component {
   }
 
   _handleCancelClick() {
+    this.setState({showForm: false});
+  }
+
+  _handleFormSubmit() {
     this.setState({showForm: false});
   }
 
