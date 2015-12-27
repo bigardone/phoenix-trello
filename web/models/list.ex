@@ -7,16 +7,16 @@ defmodule PhoenixTrello.List do
   alias PhoenixTrello.Board
   alias PhoenixTrello.Repo
   alias PhoenixTrello.List
+  alias PhoenixTrello.Card
 
-  require IEx
-
-  @derive {Poison.Encoder, only: [:id, :name]}
+  @derive {Poison.Encoder, only: [:id, :name, :cards]}
 
   schema "lists" do
     field :name, :string
     field :position, :integer
 
     belongs_to :board, Board
+    has_many :cards, Card
 
     timestamps
   end
