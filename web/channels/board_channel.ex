@@ -5,15 +5,19 @@ defmodule PhoenixTrello.BoardChannel do
 
   alias PhoenixTrello.Repo
   alias PhoenixTrello.List
+  alias PhoenixTrello.Card
   alias PhoenixTrello.BoardChannel.Monitor
 
   def join("boards:" <> board_id, _params, socket) do
     current_user = socket.assigns.current_user
 
+    cards_query = from c in Card, order_by: c.position
+    lists_query = from l in List, order_by: l.position, preload: [cards: ^cards_query]
+
     board =
       assoc(current_user, :owned_boards)
       |> Repo.get!(board_id)
-      |> Repo.preload([lists: from(l in List, order_by: l.position)])
+      |> Repo.preload([lists: lists_query])
 
     send(self, {:after_join, Monitor.user_joined(board_id, current_user)[board_id]})
 
