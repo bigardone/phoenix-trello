@@ -11,7 +11,7 @@ defmodule PhoenixTrello.BoardController do
     current_user = Guardian.Plug.current_resource(conn)
     boards = assoc(current_user, :owned_boards)
       |> Repo.all
-      |> Repo.preload(:lists)
+      |> Repo.preload([lists: :cards])
 
     render(conn, "index.json", boards: boards)
   end
