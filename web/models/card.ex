@@ -4,15 +4,16 @@ defmodule PhoenixTrello.Card do
   import Ecto.Changeset
   import Ecto.Query, only: [from: 2]
 
+  alias PhoenixTrello.Repo
   alias PhoenixTrello.List
   alias PhoenixTrello.Card
 
-  @derive {Poison.Encoder, only: [:id, :name]}
+  @derive {Poison.Encoder, only: [:id, :name, :list_id]}
 
   schema "cards" do
     field :name, :string
     field :position, :integer
-    
+
     belongs_to :list, List
 
     timestamps
