@@ -9,10 +9,11 @@ export default class CardForm extends React.Component {
     let { name }              = this.refs;
 
     let data = {
+      list_id: this.props.listId,
       name: name.value,
     };
 
-    dispatch(Actions.create(channel, data));
+    dispatch(Actions.createCard(channel, data));
   }
 
   _renderErrors(field) {
@@ -41,7 +42,7 @@ export default class CardForm extends React.Component {
     return (
       <div className="card form">
         <form onSubmit={::this._handleSubmit}>
-          <textarea ref="name" type="text" required="true"/>
+          <textarea ref="name" type="text" required="true" rows={5}/>
           {::this._renderErrors('name')}
           <button type="submit">Add</button> or <a href="#" onClick={::this._handleCancelClick}>cancel</a>
         </form>

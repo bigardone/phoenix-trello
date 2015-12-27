@@ -17,6 +17,12 @@ const Actions = {
       channel.push('create_list', {list: data});
     };
   },
+
+  createCard: (channel, data) => {
+    return dispatch => {
+      channel.push('create_card', {card: data});
+    };
+  },
 };
 
 export default Actions;

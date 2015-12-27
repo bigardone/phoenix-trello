@@ -42,6 +42,13 @@ const Actions = {
         });
       });
 
+      channel.on('card:created', (msg) => {
+        dispatch({
+          type: Constants.CURRENT_BOARD_CARD_CREATED,
+          card: msg.card,
+        });
+      });
+
       dispatch({
         type: Constants.CURRENT_BOARD_CONNECTED_TO_CHANNEL,
         channel: channel,

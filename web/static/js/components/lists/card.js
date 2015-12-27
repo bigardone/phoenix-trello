@@ -10,13 +10,24 @@ export default class ListCard extends React.Component {
     };
   }
 
+  _renderCards() {
+    return this.props.cards.map((card) => {
+      return (
+        <div key={card.id} className="card">
+          {card.name}
+        </div>
+      );
+    });
+  }
+
   _renderForm() {
     if (!this.state.showForm) return false;
 
-    let { dispatch, formErrors, channel } = this.props;
+    let { id, dispatch, formErrors, channel } = this.props;
 
     return (
       <CardForm
+        listId={id}
         dispatch={dispatch}
         errors={formErrors}
         channel={channel}
@@ -50,6 +61,7 @@ export default class ListCard extends React.Component {
             <h4>{this.props.name}</h4>
           </header>
           <div className="cards-wrapper">
+            {::this._renderCards()}
           </div>
           <footer>
             {::this._renderForm()}
