@@ -35,12 +35,19 @@ class BoardsShowView extends React.Component {
   _renderUsers() {
     const {connectedUsers} = this.props.currentBoard;
     const users = [this.props.currentBoard.user, ...this.props.currentBoard.invited_users];
+    const currentUserIsOwner = this.props.currentBoard.user.id === this.props.currentUser.id;
 
     return (
       <BoardUsers
+        currentUserIsOwner={currentUserIsOwner}
         users={users}
-        connectedUsers={connectedUsers} />
+        connectedUsers={connectedUsers}
+        onNewMemberSubmit={::this._handleNewMemberSubmit}/>
     );
+  }
+
+  _handleNewMemberSubmit(email) {
+    this.props.dispatch(Actions.addNewMember(this.props.currentBoard.channel, email));
   }
 
   _renderLists() {
@@ -116,6 +123,7 @@ class BoardsShowView extends React.Component {
 const mapStateToProps = (state) => ({
   currentBoard: state.currentBoard,
   socket: state.session.socket,
+  currentUser: state.session.currentUser,
 });
 
 export default connect(mapStateToProps)(BoardsShowView);

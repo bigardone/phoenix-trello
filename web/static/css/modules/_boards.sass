@@ -66,19 +66,62 @@
       right: 0
       top: 50%
 
-      li
-        +transition
+      > span > li
         display: inline-block
         margin-left: .5em
-        opacity: .2
 
         &.connected
           opacity: 1
 
-        .react-gravatar
+          .react-gravatar
+            opacity: 1
+
+        .react-gravatar, .add-new
+          +transition
           border-radius: 50%
           width: 30px
           height: 30px
+          opacity: .2
+
+        .add-new
+          +transition
+          opacity: 1
+          display: block
+          position: relative
+          border: 1px solid rgba(#fff, .5)
+          color: rgba(#fff, .5)
+          line-height: 1em
+          font-size: .9em
+
+          .fa
+            +transform(translate(-50%, -50%))
+            position: absolute
+            top: 50%
+            left: 50%
+
+          &:hover
+            color: #fff
+            border-color: #fff
+
+        .drop-down
+          +transition
+          position: absolute
+          right: 0
+          top: 100%
+          list-style: none
+          padding: $base-spacing/2
+          background: $light-gray
+          border-radius: $base-border-radius
+          min-width: 20em
+          display: none
+
+          &.active
+            display: block
+
+          form
+            input
+              +fill-parent
+              margin-bottom: .5em
 
       .avatar-appear
         opacity: 0.01

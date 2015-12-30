@@ -44,6 +44,12 @@ export default function reducer(state = initialState, action = {}) {
 
       return {...state, lists: lists};
 
+    case Constants.CURRENT_BOARD_MEMBER_ADDED:
+      const {invited_users} = state;
+      invited_users.push(action.user);
+
+      return {...state, invited_users: invited_users};
+
     default:
       return state;
   }

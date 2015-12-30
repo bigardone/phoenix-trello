@@ -49,6 +49,13 @@ const Actions = {
         });
       });
 
+      channel.on('member:added', (msg) => {
+        dispatch({
+          type: Constants.CURRENT_BOARD_MEMBER_ADDED,
+          user: msg.user,
+        });
+      });
+
       dispatch({
         type: Constants.CURRENT_BOARD_CONNECTED_TO_CHANNEL,
         channel: channel,
@@ -63,6 +70,12 @@ const Actions = {
       dispatch({
         type: Constants.CURRENT_BOARD_RESET,
       });
+    };
+  },
+
+  addNewMember: (channel, email) => {
+    return dispatch => {
+      channel.push('add_new_member', {email: email});
     };
   },
 };
