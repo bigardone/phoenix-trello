@@ -1,12 +1,11 @@
 import React, {PropTypes}       from 'react';
 import { connect }              from 'react-redux';
-import Gravatar                 from 'react-gravatar';
-import ReactCSSTransitionGroup  from 'react-addons-css-transition-group';
 import Actions                  from '../../actions/current_board';
 import Constants                from '../../constants';
 import { getParentKey }         from '../../utils';
 import ListForm                 from '../../components/lists/form';
 import ListCard                 from '../../components/lists/card';
+import BoardUsers               from '../../components/boards/users';
 
 class BoardsShowView extends React.Component {
   componentDidMount(nextProps, nextState) {
@@ -33,26 +32,14 @@ class BoardsShowView extends React.Component {
     this.props.dispatch(Actions.leaveChannel(this.props.currentBoard.channel));
   }
 
-  _renderConnectedUsers() {
-    const users = this.props.currentBoard.connectedUsers.map((user) => {
-      return (
-        <li key={user.id}>
-          <Gravatar email={user.email} />
-        </li>
-      );
-    });
+  _renderUsers() {
+    const {connectedUsers} = this.props.currentBoard;
+    const users = [this.props.currentBoard.user, ...this.props.currentBoard.invited_users];
 
     return (
-      <ul className="connected-users">
-        <ReactCSSTransitionGroup
-          transitionName="avatar"
-          transitionAppear={true}
-          transitionAppearTimeout={500}
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={300}>
-          {users}
-        </ReactCSSTransitionGroup>
-      </ul>
+      <BoardUsers
+        users={users}
+        connectedUsers={connectedUsers} />
     );
   }
 
@@ -115,7 +102,7 @@ class BoardsShowView extends React.Component {
       <div className='view-container boards show'>
         <header className="view-header">
           <h3>{name}</h3>
-          {::this._renderConnectedUsers()}
+          {::this._renderUsers()}
         </header>
         <div className="lists-wrapper">
           {::this._renderLists()}

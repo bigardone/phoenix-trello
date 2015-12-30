@@ -57,7 +57,7 @@
       margin: 0
       color: #fff
 
-    .connected-users
+    .board-users
       +transform(translateY(-50%))
       list-style: none
       margin: 0
@@ -67,8 +67,14 @@
       top: 50%
 
       li
+        +transition
         display: inline-block
         margin-left: .5em
+        opacity: .2
+
+        &.connected
+          opacity: 1
+
         .react-gravatar
           border-radius: 50%
           width: 30px
@@ -148,7 +154,7 @@
         +transition
         background: #fff
         margin-bottom: $base-spacing/3
-        padding: $base-spacing
+        padding: $base-spacing/3
         border-radius: $base-border-radius
         border-bottom: 1px solid $gray
         cursor: pointer
