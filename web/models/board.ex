@@ -1,8 +1,11 @@
 defmodule PhoenixTrello.Board do
   use Ecto.Schema
   import Ecto.Changeset
+  import Ecto.Query
 
-  @derive {Poison.Encoder, only: [:id, :name, :lists]}
+  alias __MODULE__
+
+  @derive {Poison.Encoder, only: [:id, :name, :lists, :user, :invited_users]}
 
   schema "boards" do
     field :name, :string
@@ -27,5 +30,11 @@ defmodule PhoenixTrello.Board do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+  end
+
+  def for_user(user_id) do
+    from board in Board,
+    join: user_boards in assoc(board, :user_boards),
+    where: board.user_id == ^user_id or user_boards.user_id == ^user_id
   end
 end
