@@ -34,7 +34,7 @@ defmodule PhoenixTrello.Board do
 
   def for_user(user_id) do
     from board in Board,
-    join: user_boards in assoc(board, :user_boards),
+    left_join: user_boards in assoc(board, :user_boards),
     where: board.user_id == ^user_id or user_boards.user_id == ^user_id
   end
 end
