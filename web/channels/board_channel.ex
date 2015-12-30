@@ -4,7 +4,9 @@ defmodule PhoenixTrello.BoardChannel do
   use PhoenixTrello.Web, :channel
 
   alias PhoenixTrello.Repo
+  alias PhoenixTrello.User
   alias PhoenixTrello.Board
+  alias PhoenixTrello.UserBoard
   alias PhoenixTrello.List
   alias PhoenixTrello.Card
   alias PhoenixTrello.BoardChannel.Monitor
@@ -68,6 +70,32 @@ defmodule PhoenixTrello.BoardChannel do
       {:error, _changeset} ->
         {:reply, {:error, %{error: "Error creating card"}}, socket}
     end
+  end
+
+  def handle_in("add_new_member", %{"email" => email}, socket) do
+    try do
+      board = socket.assigns.board
+      user = User.by_email(email)
+        |> Repo.one
+
+      if user do
+        changeset = user
+        |> build(:user_boards)
+        |> UserBoard.changeset(%{board_id: board.id})
+
+        case Repo.insert(changeset) do
+          {:ok, _board_user} ->
+            broadcast! socket, "member:added", %{user: user}
+            {:noreply, socket}
+          _ ->
+            {:reply, {:error, %{error: "Error adding new member"}}, socket}
+        end
+      end
+    catch
+      _, _-> {:reply, {:error, %{error: "Error adding new member"}}, socket}
+    end
+
+    {:noreply, socket}
   end
 
   def terminate(_reason, socket) do
