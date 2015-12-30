@@ -8,7 +8,7 @@ defmodule PhoenixTrello.UserBoard do
     timestamps
   end
 
-  @required_fields ~w()
+  @required_fields ~w(user_id board_id)
   @optional_fields ~w()
 
   @doc """
