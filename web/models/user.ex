@@ -1,6 +1,9 @@
 defmodule PhoenixTrello.User do
   use Ecto.Schema
   import Ecto.Changeset
+  import Ecto.Query
+
+  alias __MODULE__
 
   @derive {Poison.Encoder, only: [:id, :first_name, :last_name, :email]}
 
@@ -34,6 +37,11 @@ defmodule PhoenixTrello.User do
     |> validate_format(:email, ~r/@/)
     |> validate_length(:password, min: 5)
     |> put_password_hash
+  end
+
+  def by_email(email) do
+    from user in User,
+    where: user.email == ^email
   end
 
   defp put_password_hash(current_changeset) do
