@@ -9,11 +9,16 @@ defmodule PhoenixTrello.BoardController do
 
   def index(conn, _params) do
     current_user = Guardian.Plug.current_resource(conn)
-    boards = assoc(current_user, :owned_boards)
+
+    owned_boards = assoc(current_user, :owned_boards)
       |> Repo.all
       |> Repo.preload([lists: :cards])
 
-    render(conn, "index.json", boards: boards)
+    invited_boards = assoc(current_user, :invited_boards)
+      |> Repo.all
+      |> Repo.preload([lists: :cards])
+
+    render(conn, "index.json", owned_boards: owned_boards, invited_boards: invited_boards)
   end
 
   def create(conn, %{"board" => board_params}) do

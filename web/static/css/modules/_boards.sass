@@ -101,12 +101,12 @@
     +display(flex)
     +flex-wrap(wrap)
     +flex-flow(row wrap)
-    margin: 0 (-$margin)
+    margin: 0 (-$margin/2)
 
     .list
       +transition
-      +flex(0 0 20em)
-      margin: 0 $margin
+      +flex(0 0 17em)
+      margin: 0 $margin/2
 
       > .inner
         background: $light-gray
@@ -135,7 +135,7 @@
           +transition
           display: block
           margin: -($base-spacing/2)
-          margin-top: 1em
+          margin-top: $base-spacing/2
           padding: .5em $base-spacing/2
           color: $gray
           border-radius: 0 0 $base-border-radius $base-border-radius
@@ -145,13 +145,20 @@
             color: $dark-gray
 
       .card:not(.form)
+        +transition
         background: #fff
-        margin-bottom: $base-spacing/2
-        padding: $base-spacing/2
+        margin-bottom: $base-spacing/3
+        padding: $base-spacing
         border-radius: $base-border-radius
+        border-bottom: 1px solid $gray
+        cursor: pointer
+
+        &:hover
+          background: rgba($gray, .4)
 
       .card.form
         textarea
           +fill-parent
           margin-bottom: .5em
           border: 0px none
+          border-bottom: 1px solid $gray

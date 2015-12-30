@@ -18,8 +18,8 @@ class HomeIndexView extends React.Component {
     this.props.dispatch(Actions.reset());
   }
 
-  _renderBoards() {
-    return this.props.boards.map((board) => {
+  _renderBoards(boards) {
+    return boards.map((board) => {
       return <BoardCard
                 key={board.id}
                 dispatch={this.props.dispatch}
@@ -37,6 +37,23 @@ class HomeIndexView extends React.Component {
         dispatch={dispatch}
         errors={formErrors}
         onCancelClick={::this._handleCancelClick}/>
+    );
+  }
+
+  _renderOtherBoards() {
+    const {invitedBoards} = this.props;
+
+    if (invitedBoards.length === 0) return false;
+
+    return (
+      <section>
+        <header>
+          <h2>Other boards</h2>
+        </header>
+        <div className="boards-wrapper">
+          {::this._renderBoards(invitedBoards)}
+        </div>
+      </section>
     );
   }
 
@@ -65,13 +82,16 @@ class HomeIndexView extends React.Component {
   render() {
     return (
       <div className='view-container boards index'>
-        <header>
-          <h1>My boards</h1>
-        </header>
-        <div className="boards-wrapper">
-          {::this._renderBoards()}
-          {::this._renderAddNewBoard()}
-        </div>
+        <section>
+          <header>
+            <h2>My boards</h2>
+          </header>
+          <div className="boards-wrapper">
+            {::this._renderBoards(this.props.ownedBoards)}
+            {::this._renderAddNewBoard()}
+          </div>
+        </section>
+        {::this._renderOtherBoards()}
       </div>
     );
   }

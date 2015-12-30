@@ -1,16 +1,17 @@
 import Constants from '../constants';
 
 const initialState = {
-  boards: [],
+  ownedBoards: [],
+  invitedBoards: [],
   showForm: false,
   formErrors: null,
-  boardsFetched: false,
+  ownedFetched: false,
 };
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case Constants.BOARDS_RECEIVED:
-      return {...state, boards: action.boards, boardsFetched: true};
+      return {...state, ownedBoards: action.ownedBoards, invitedBoards: action.invitedBoards, boardsFetched: true};
 
     case Constants.BOARDS_SHOW_FORM:
       return {...state, showForm: action.show};
