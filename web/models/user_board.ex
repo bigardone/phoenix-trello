@@ -1,21 +1,14 @@
-defmodule PhoenixTrello.Board do
-  use Ecto.Schema
-  import Ecto.Changeset
+defmodule PhoenixTrello.UserBoard do
+  use PhoenixTrello.Web, :model
 
-  @derive {Poison.Encoder, only: [:id, :name, :lists]}
-
-  schema "boards" do
-    field :name, :string
-
+  schema "user_boards" do
     belongs_to :user, PhoenixTrello.User
-    has_many :lists, PhoenixTrello.List
-    has_many :user_boards, PhoenixTrello.UserBoard
-    has_many :invited_users, through: [:user_boards, :user]
+    belongs_to :board, PhoenixTrello.Board
 
     timestamps
   end
 
-  @required_fields ~w(name)
+  @required_fields ~w()
   @optional_fields ~w()
 
   @doc """
