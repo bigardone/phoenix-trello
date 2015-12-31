@@ -13,13 +13,7 @@ defmodule PhoenixTrello.BoardChannel do
 
   def join("boards:" <> board_id, _params, socket) do
     current_user = socket.assigns.current_user
-
-    cards_query = from c in Card, order_by: c.position
-    lists_query = from l in List, order_by: l.position, preload: [cards: ^cards_query]
-
-    board = Board.for_user(current_user.id)
-      |> Repo.get(board_id)
-      |> Repo.preload([:user, :invited_users, lists: lists_query])
+    board = get_current_board(board_id, socket)
 
     send(self, {:after_join, Monitor.user_joined(board_id, current_user)[board_id]})
 
@@ -98,6 +92,23 @@ defmodule PhoenixTrello.BoardChannel do
     {:noreply, socket}
   end
 
+  def handle_in("cards:update", %{"card" => card_params}, socket) do
+    card = socket.assigns.board
+      |> assoc(:cards)
+      |> Repo.get!(card_params["id"])
+
+    changeset = Card.changeset(card, card_params)
+
+    case Repo.update(changeset) do
+      {:ok, _card} ->
+        board = get_current_board(socket.assigns.board.id, socket)
+        broadcast! socket, "card:updated", %{board: board}
+        {:noreply, socket}
+      {:error, _changeset} ->
+        {:reply, {:error, %{error: "Error updating card"}}}
+    end
+  end
+
   def terminate(_reason, socket) do
     board_id = to_string(socket.assigns.board.id)
     user_id = socket.assigns.current_user.id
@@ -105,5 +116,16 @@ defmodule PhoenixTrello.BoardChannel do
     broadcast! socket, "user:left", %{users: Monitor.user_left(board_id, user_id)[board_id]}
 
     :ok
+  end
+
+  defp get_current_board(board_id, socket) do
+    current_user = socket.assigns.current_user
+
+    cards_query = from c in Card, order_by: c.position
+    lists_query = from l in List, order_by: l.position, preload: [cards: ^cards_query]
+
+    Board.for_user(current_user.id)
+      |> Repo.get(board_id)
+      |> Repo.preload([:user, :invited_users, lists: lists_query])
   end
 end
