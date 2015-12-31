@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import Actions              from '../../actions/boards';
+import PageClick            from 'react-page-click';
 
 export default class BoardForm extends React.Component {
   _handleSubmit(e) {
@@ -39,16 +40,18 @@ export default class BoardForm extends React.Component {
 
   render() {
     return (
-      <div className="board form">
-        <div className="inner">
-          <h4>New board</h4>
-          <form onSubmit={::this._handleSubmit}>
-            <input ref="name" type="text" placeholder="Board name" required="true"/>
-            {::this._renderErrors('name')}
-            <button type="submit">Create board</button> or <a href="#" onClick={::this._handleCancelClick}>cancel</a>
-          </form>
+      <PageClick onClick={::this._handleCancelClick}>
+        <div className="board form">
+          <div className="inner">
+            <h4>New board</h4>
+            <form onSubmit={::this._handleSubmit}>
+              <input ref="name" type="text" placeholder="Board name" required="true"/>
+              {::this._renderErrors('name')}
+              <button type="submit">Create board</button> or <a href="#" onClick={::this._handleCancelClick}>cancel</a>
+            </form>
+          </div>
         </div>
-      </div>
+      </PageClick>
     );
   }
 }

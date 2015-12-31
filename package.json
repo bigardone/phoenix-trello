@@ -42,6 +42,7 @@
     "react-addons-css-transition-group": "^0.14.5",
     "react-dom": "^0.14.5",
     "react-gravatar": "^2.2.2",
+    "react-page-click": "^2.0.0",
     "react-redux": "^4.0.4",
     "react-router": "^1.0.3",
     "recursive-iterator": "^2.0.0",

@@ -2,6 +2,7 @@ import React, {PropTypes}       from 'react';
 import Gravatar                 from 'react-gravatar';
 import ReactCSSTransitionGroup  from 'react-addons-css-transition-group';
 import classnames               from 'classnames';
+import PageClick                from 'react-page-click';
 
 export default class BoardUsers extends React.Component {
   constructor(props) {
@@ -39,15 +40,17 @@ export default class BoardUsers extends React.Component {
     return (
       <li>
         <a onClick={::this._handleAddNewClick} className="add-new" href="#"><i className="fa fa-plus"/></a>
-        <ul className={classes}>
-          <li>
-            <form onSubmit={::this._handleSubmit}>
-              <h4>Add new members</h4>
-              <input ref="email" type="email" required={true} placeholder="Member email"/>
-              <button type="submit">Add member</button> or <a onClick={::this._handleCancelClick} href="#">cancel</a>
-            </form>
-          </li>
-        </ul>
+        <PageClick onClick={::this._handleCancelClick}>
+          <ul className={classes}>
+            <li>
+              <form onSubmit={::this._handleSubmit}>
+                <h4>Add new members</h4>
+                <input ref="email" type="email" required={true} placeholder="Member email"/>
+                <button type="submit">Add member</button> or <a onClick={::this._handleCancelClick} href="#">cancel</a>
+              </form>
+            </li>
+          </ul>
+        </PageClick>
       </li>
     );
   }
