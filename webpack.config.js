@@ -44,6 +44,8 @@ var config = module.exports = {
         exclude: /node_modules/,
         loader: 'babel',
         query: {
+          cacheDirectory: true,
+          plugins: ['transform-decorators-legacy'],
           presets: ['react', 'es2015', 'stage-2', 'stage-0'],
         },
       },
