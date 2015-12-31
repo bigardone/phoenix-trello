@@ -24,6 +24,8 @@ const Constants = {
 
   NOTIFICATION_SHOW_NEW: 'NOTIFICATION_SHOW_NEW',
   NOTIFICATION_HIDE: 'NOTIFICATION_HIDE',
+
+  CARDS_MOVE: 'CARDS_MOVE',
 };
 
 export default Constants;

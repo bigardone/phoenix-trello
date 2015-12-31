@@ -1,11 +1,16 @@
 import React, {PropTypes}       from 'react';
 import { connect }              from 'react-redux';
+import {DragDropContext}        from 'react-dnd';
+import HTML5Backend             from 'react-dnd-html5-backend';
+
 import Actions                  from '../../actions/current_board';
 import Constants                from '../../constants';
 import { getParentKey }         from '../../utils';
 import ListForm                 from '../../components/lists/form';
 import ListCard                 from '../../components/lists/card';
 import BoardUsers               from '../../components/boards/users';
+
+@DragDropContext(HTML5Backend)
 
 class BoardsShowView extends React.Component {
   componentDidMount(nextProps, nextState) {
@@ -59,6 +64,8 @@ class BoardsShowView extends React.Component {
           key={list.id}
           dispatch={this.props.dispatch}
           channel={channel}
+          onMoveCard={::this._handleMoveCard}
+          onMoveCardWhenEmpty={::this._handleMoveCardWhenEmpty}
           {...list} />
       );
     });
@@ -98,6 +105,35 @@ class BoardsShowView extends React.Component {
 
   _handleCancelClick() {
     this.props.dispatch(Actions.showForm(false));
+  }
+
+  _handleMoveCard({source, target}) {
+    console.log(source, target);
+    const {lists, channel} = this.props.currentBoard;
+    const {dispatch} = this.props;
+
+    const sourceListIndex = lists.findIndex((list) => { return list.id === source.list_id; });
+    const sourceList = lists[sourceListIndex];
+    const sourceCard = sourceList.cards.find((card) => { return card.id === source.id; });
+
+    const targetListIndex = lists.findIndex((list) => { return list.id === target.list_id; });
+    const targetList = lists[targetListIndex];
+    const targetCard = targetList.cards.find((card) => { return card.id === target.id; });
+
+    const data = {
+      id: sourceCard.id,
+      list_id: targetList.id,
+      position: targetCard.position - 100,
+    };
+
+    dispatch(Actions.updateCard(channel, data));
+  }
+
+  _handleMoveCardWhenEmpty(card) {
+    const {channel} = this.props.currentBoard;
+    const {dispatch} = this.props;
+
+    dispatch(Actions.updateCard(channel, card));
   }
 
   render() {

@@ -56,6 +56,13 @@ const Actions = {
         });
       });
 
+      channel.on('card:updated', (msg) => {
+        dispatch({
+          type: Constants.BOARDS_SET_CURRENT_BOARD,
+          board: msg.board,
+        });
+      });
+
       dispatch({
         type: Constants.CURRENT_BOARD_CONNECTED_TO_CHANNEL,
         channel: channel,
@@ -76,6 +83,12 @@ const Actions = {
   addNewMember: (channel, email) => {
     return dispatch => {
       channel.push('add_new_member', {email: email});
+    };
+  },
+
+  updateCard: (channel, card) => {
+    return dispatch => {
+      channel.push('cards:update', {card: card});
     };
   },
 };

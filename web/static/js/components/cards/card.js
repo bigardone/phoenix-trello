@@ -1,13 +1,63 @@
-import React, {PropTypes} from 'react';
+import React, {PropTypes}       from 'react';
+import {DragSource, DropTarget} from 'react-dnd';
+
+import ItemTypes                from '../../constants/item_types';
+
+const cardSource = {
+  beginDrag(props) {
+    return {
+      id: props.id,
+      list_id: props.list_id,
+      name: props.name,
+      position: props.position,
+    };
+  },
+
+  isDragging(props, monitor) {
+    return props.id === monitor.getItem().id;
+  },
+};
+
+const cardTarget = {
+  drop(targetProps, monitor) {
+    const source = monitor.getItem();
+
+    if (source.id !== targetProps.id) {
+      const target = {
+        id: targetProps.id,
+        list_id: targetProps.list_id,
+        name: targetProps.name,
+        position: targetProps.position,
+      };
+
+      targetProps.onMove({source, target});
+    }
+  },
+};
+
+@DragSource(ItemTypes.CARD, cardSource, (connect, monitor) => ({
+  connectDragSource: connect.dragSource(),
+  isDragging: monitor.isDragging()
+}))
+
+@DropTarget(ItemTypes.CARD, cardTarget, (connect) => ({
+  connectDropTarget: connect.dropTarget()
+}))
 
 export default class Card extends React.Component {
   render() {
-    const {name} = this.props;
+    const {connectDragSource, connectDropTarget, isDragging, name} = this.props;
 
-    return (
-      <div className="card">
-        {name}
-      </div>
+    const styles = {
+      opacity: isDragging ? 0 : 1,
+    };
+
+    return connectDragSource(
+      connectDropTarget(
+        <div className="card" styles={styles}>
+          {name}
+        </div>
+      )
     );
   }
 }
