@@ -32,26 +32,29 @@ export default class BoardUsers extends React.Component {
   _renderAddNewUser() {
     if (!this.props.currentUserIsOwner) return false;
 
-    const classes = classnames({
-      'drop-down': true,
-      active: this.state.show,
-    });
-
     return (
       <li>
         <a onClick={::this._handleAddNewClick} className="add-new" href="#"><i className="fa fa-plus"/></a>
-        <PageClick onClick={::this._handleCancelClick}>
-          <ul className={classes}>
-            <li>
-              <form onSubmit={::this._handleSubmit}>
-                <h4>Add new members</h4>
-                <input ref="email" type="email" required={true} placeholder="Member email"/>
-                <button type="submit">Add member</button> or <a onClick={::this._handleCancelClick} href="#">cancel</a>
-              </form>
-            </li>
-          </ul>
-        </PageClick>
+        {::this._renderForm()}
       </li>
+    );
+  }
+
+  _renderForm() {
+    if (!this.state.show) return false;
+
+    return (
+      <PageClick onClick={::this._handleCancelClick}>
+        <ul className="drop-down active">
+          <li>
+            <form onSubmit={::this._handleSubmit}>
+              <h4>Add new members</h4>
+              <input ref="email" type="email" required={true} placeholder="Member email"/>
+              <button type="submit">Add member</button> or <a onClick={::this._handleCancelClick} href="#">cancel</a>
+            </form>
+          </li>
+        </ul>
+      </PageClick>
     );
   }
 
