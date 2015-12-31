@@ -40,6 +40,8 @@
     "lodash": "^3.10.1",
     "react": "^0.14.5",
     "react-addons-css-transition-group": "^0.14.5",
+    "react-dnd": "^2.0.2",
+    "react-dnd-html5-backend": "^2.0.2",
     "react-dom": "^0.14.5",
     "react-gravatar": "^2.2.2",
     "react-page-click": "^2.0.0",
