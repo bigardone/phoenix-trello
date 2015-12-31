@@ -12,6 +12,7 @@ defmodule PhoenixTrello.Board do
 
     belongs_to :user, PhoenixTrello.User
     has_many :lists, PhoenixTrello.List
+    has_many :cards, through: [:lists, :cards]
     has_many :user_boards, PhoenixTrello.UserBoard
     has_many :invited_users, through: [:user_boards, :user]
 
