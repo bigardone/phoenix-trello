@@ -8,7 +8,7 @@ defmodule PhoenixTrello.Card do
   alias PhoenixTrello.List
   alias PhoenixTrello.Card
 
-  @derive {Poison.Encoder, only: [:id, :name, :list_id]}
+  @derive {Poison.Encoder, only: [:id, :list_id, :name, :position]}
 
   schema "cards" do
     field :name, :string
@@ -19,7 +19,7 @@ defmodule PhoenixTrello.Card do
     timestamps
   end
 
-  @required_fields ~w(name)
+  @required_fields ~w(name list_id)
   @optional_fields ~w(position)
 
   @doc """
