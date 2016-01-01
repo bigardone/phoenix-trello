@@ -64,8 +64,8 @@ class BoardsShowView extends React.Component {
           key={list.id}
           dispatch={this.props.dispatch}
           channel={channel}
-          onMoveCard={::this._handleMoveCard}
-          onMoveCardWhenEmpty={::this._handleMoveCardWhenEmpty}
+          onDropCard={::this._handleDropCard}
+          onDropCardWhenEmpty={::this._handleDropCardWhenEmpty}
           {...list} />
       );
     });
@@ -107,29 +107,46 @@ class BoardsShowView extends React.Component {
     this.props.dispatch(Actions.showForm(false));
   }
 
-  _handleMoveCard({source, target}) {
+  _handleDropCard({source, target}) {
     console.log(source, target);
     const {lists, channel} = this.props.currentBoard;
     const {dispatch} = this.props;
 
     const sourceListIndex = lists.findIndex((list) => { return list.id === source.list_id; });
     const sourceList = lists[sourceListIndex];
-    const sourceCard = sourceList.cards.find((card) => { return card.id === source.id; });
+    const sourceCardIndex = sourceList.cards.findIndex((card) => { return card.id === source.id; });
+    const sourceCard = sourceList.cards[sourceCardIndex];
 
     const targetListIndex = lists.findIndex((list) => { return list.id === target.list_id; });
-    const targetList = lists[targetListIndex];
-    const targetCard = targetList.cards.find((card) => { return card.id === target.id; });
+    let targetList = lists[targetListIndex];
+    const targetCardIndex = targetList.cards.findIndex((card) => { return card.id === target.id; });
+    const targetCard = targetList.cards[targetCardIndex];
+
+    sourceList.cards.splice(sourceCardIndex, 1);
+
+    if (sourceList === targetList) {
+      // move at once to avoid complications
+      targetList = sourceList;
+      sourceList.cards.splice(targetCardIndex, 0, source);
+    } else {
+      // and move it to target
+      targetList.cards.splice(targetCardIndex, 0, source);
+    }
+
+    const newIndex = targetList.cards.findIndex((card) => { return card.id === source.id; });
+
+    const position = newIndex == 0 ? targetList.cards[newIndex + 1].position / 2 : newIndex == (targetList.cards.length - 1) ? targetList.cards[newIndex - 1].position + 1024 : (targetList.cards[newIndex - 1].position + targetList.cards[newIndex + 1].position) / 2;
 
     const data = {
       id: sourceCard.id,
       list_id: targetList.id,
-      position: targetCard.position - 100,
+      position: position,
     };
 
     dispatch(Actions.updateCard(channel, data));
   }
 
-  _handleMoveCardWhenEmpty(card) {
+  _handleDropCardWhenEmpty(card) {
     const {channel} = this.props.currentBoard;
     const {dispatch} = this.props;
 

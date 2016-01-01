@@ -17,7 +17,7 @@ const cardTarget = {
     };
 
     if (!targetProps.cards.length) {
-      targetProps.onMoveCardWhenEmpty(source);
+      targetProps.onDropCardWhenEmpty(source);
     }
   },
 };
@@ -36,9 +36,15 @@ export default class ListCard extends React.Component {
   }
 
   _renderCards() {
-    return this.props.cards.map((card) => {
+    const {cards, dispatch} = this.props;
+
+    return cards.map((card) => {
       return (
-        <Card key={card.id} {...card} onMove={::this._handleMoveCard} />
+        <Card
+          key={card.id}
+          dispatch={dispatch}
+          {...card}
+          onDrop={::this._handleDropCard} />
       );
     });
   }
@@ -81,8 +87,8 @@ export default class ListCard extends React.Component {
     this.setState({showForm: false});
   }
 
-  _handleMoveCard({source, target}) {
-    this.props.onMoveCard({source, target});
+  _handleDropCard({source, target}) {
+    this.props.onDropCard({source, target});
   }
 
   render() {

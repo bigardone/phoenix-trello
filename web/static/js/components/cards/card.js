@@ -2,6 +2,7 @@ import React, {PropTypes}       from 'react';
 import {DragSource, DropTarget} from 'react-dnd';
 
 import ItemTypes                from '../../constants/item_types';
+import Actions                  from '../../actions/current_board';
 
 const cardSource = {
   beginDrag(props) {
@@ -30,7 +31,7 @@ const cardTarget = {
         position: targetProps.position,
       };
 
-      targetProps.onMove({source, target});
+      targetProps.onDrop({source, target});
     }
   },
 };
