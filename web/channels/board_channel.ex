@@ -105,7 +105,7 @@ defmodule PhoenixTrello.BoardChannel do
         broadcast! socket, "card:updated", %{board: board}
         {:noreply, socket}
       {:error, _changeset} ->
-        {:reply, {:error, %{error: "Error updating card"}}}
+        {:reply, {:error, %{error: "Error updating card"}}, socket}
     end
   end
 
