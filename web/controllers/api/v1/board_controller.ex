@@ -32,7 +32,7 @@ defmodule PhoenixTrello.BoardController do
       {:ok, board} ->
         conn
         |> put_status(:created)
-        |> render("show.json", board: board |> Repo.preload(:lists))
+        |> render("show.json", board: board |> Repo.preload([:user, :invited_users, lists: :cards]))
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
