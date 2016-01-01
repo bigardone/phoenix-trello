@@ -97,7 +97,7 @@ defmodule PhoenixTrello.BoardChannel do
       |> assoc(:cards)
       |> Repo.get!(card_params["id"])
 
-    changeset = Card.changeset(card, card_params)
+    changeset = Card.update_changeset(card, card_params)
 
     case Repo.update(changeset) do
       {:ok, _card} ->
