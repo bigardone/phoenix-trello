@@ -188,9 +188,13 @@ class BoardsShowView extends React.Component {
           <h3>{name}</h3>
           {::this._renderUsers()}
         </header>
-        <div className="lists-wrapper">
-          {::this._renderLists()}
-          {::this._renderAddNewList()}
+        <div className="canvas-wrapper">
+          <div className="canvas">
+            <div className="lists-wrapper">
+              {::this._renderLists()}
+              {::this._renderAddNewList()}
+            </div>
+          </div>
         </div>
       </div>
     );

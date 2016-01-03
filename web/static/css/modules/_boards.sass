@@ -65,6 +65,7 @@
       position: absolute
       right: 0
       top: 50%
+      z-index: 99
 
       > span > li
         display: inline-block
@@ -144,16 +145,28 @@
         +transition(opacity 300ms ease-in)
         opacity: 0.01
 
+  .canvas-wrapper
+    position: relative
+    height: calc(100% - 1em)
+
+    .canvas
+      position: absolute
+      top: 0
+      bottom: 0
+      left: 0
+      right: 0
+      overflow-x: auto
+      overflow-y: hidden
+      white-space: nowrap
+
+
   .lists-wrapper
     $margin: 1em
-
-    +display(flex)
-    +flex-wrap(wrap)
-    +flex-flow(row wrap)
+    +clearfix
     margin: 0 (-$margin/2)
+    +display(flex)
 
     .list
-      +transition
       +flex(0 0 17em)
       margin: 0 $margin/2
 
@@ -166,8 +179,10 @@
         margin-bottom: $base-spacing/2
 
       &.form
+        display: inline-block
         input
           +fill-parent
+          display: block
           margin-bottom: .5em
 
       &.add-new
@@ -208,6 +223,7 @@
       .card.form
         textarea
           +fill-parent
+          display: block
           margin-bottom: .5em
           border: 0px none
           border-bottom: 1px solid $gray
