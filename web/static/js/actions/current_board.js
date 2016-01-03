@@ -104,6 +104,15 @@ const Actions = {
       channel.push('list:update', {list: list});
     };
   },
+
+  showUsersForm: (show) => {
+    return dispatch => {
+      dispatch({
+        type: Constants.CURRENT_BOARD_SHOW_USERS_FORM,
+        show: show,
+      });
+    };
+  },
 };
 
 export default Actions;

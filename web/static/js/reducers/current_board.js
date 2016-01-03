@@ -8,6 +8,7 @@ const initialState = {
   connectedUsers: [],
   channel: null,
   showForm: false,
+  showUsersForm: false,
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -25,6 +26,9 @@ export default function reducer(state = initialState, action = {}) {
 
     case Constants.CURRENT_BOARD_SHOW_FORM:
       return {...state, showForm: action.show};
+
+    case Constants.CURRENT_BOARD_SHOW_USERS_FORM:
+      return {...state, showUsersForm: action.show};
 
     case Constants.CURRENT_BOARD_RESET:
       return initialState;
@@ -48,7 +52,7 @@ export default function reducer(state = initialState, action = {}) {
       const {invited_users} = state;
       invited_users.push(action.user);
 
-      return {...state, invited_users: invited_users};
+      return {...state, invited_users: invited_users, showUsersForm: false};
 
     default:
       return state;

@@ -3,16 +3,9 @@ import Gravatar                 from 'react-gravatar';
 import ReactCSSTransitionGroup  from 'react-addons-css-transition-group';
 import classnames               from 'classnames';
 import PageClick                from 'react-page-click';
+import Actions                  from '../../actions/current_board';
 
 export default class BoardUsers extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      show: false,
-    };
-  }
-
   _renderUsers() {
     return this.props.users.map((user) => {
       const index = this.props.connectedUsers.findIndex((cu) => {
@@ -41,7 +34,7 @@ export default class BoardUsers extends React.Component {
   }
 
   _renderForm() {
-    if (!this.state.show) return false;
+    if (!this.props.show) return false;
 
     return (
       <PageClick onClick={::this._handleCancelClick}>
@@ -61,17 +54,13 @@ export default class BoardUsers extends React.Component {
   _handleAddNewClick(e) {
     e.preventDefault();
 
-    this.setState({
-      show: !this.state.show,
-    });
+    this.props.dispatch(Actions.showUsersForm(true));
   }
 
   _handleCancelClick(e) {
     e.preventDefault();
 
-    this.setState({
-      show: false,
-    });
+    this.props.dispatch(Actions.showUsersForm(false));
   }
 
   _handleSubmit(e) {
