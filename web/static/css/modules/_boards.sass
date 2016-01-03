@@ -115,6 +115,8 @@
           border-radius: $base-border-radius
           min-width: 20em
           display: none
+          animation-duration: .3s
+          animation-name: fadeIn
 
           &.active
             display: block
@@ -169,6 +171,8 @@
     .list
       +flex(0 0 17em)
       margin: 0 $margin/2
+      animation-duration: .3s
+      animation-name: fadeIn
 
       > .inner
         background: $light-gray
@@ -216,6 +220,8 @@
         border-radius: $base-border-radius
         border-bottom: 1px solid $gray
         cursor: pointer
+        animation-duration: .3s
+        animation-name: fadeIn
 
         &:hover
           background: rgba($gray, .4)
@@ -223,6 +229,8 @@
       .card.form
         textarea
           +fill-parent
+          animation-duration: .3s
+          animation-name: fadeIn
           display: block
           margin-bottom: .5em
           border: 0px none
