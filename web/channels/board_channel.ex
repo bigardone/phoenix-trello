@@ -92,7 +92,7 @@ defmodule PhoenixTrello.BoardChannel do
     {:noreply, socket}
   end
 
-  def handle_in("cards:update", %{"card" => card_params}, socket) do
+  def handle_in("card:update", %{"card" => card_params}, socket) do
     card = socket.assigns.board
       |> assoc(:cards)
       |> Repo.get!(card_params["id"])
@@ -106,6 +106,23 @@ defmodule PhoenixTrello.BoardChannel do
         {:noreply, socket}
       {:error, _changeset} ->
         {:reply, {:error, %{error: "Error updating card"}}, socket}
+    end
+  end
+
+  def handle_in("list:update", %{"list" => list_params}, socket) do
+    list = socket.assigns.board
+      |> assoc(:lists)
+      |> Repo.get!(list_params["id"])
+
+    changeset = List.update_changeset(list, list_params)
+
+    case Repo.update(changeset) do
+      {:ok, _list} ->
+        board = get_current_board(socket.assigns.board.id, socket)
+        broadcast! socket, "list:updated", %{board: board}
+        {:noreply, socket}
+      {:error, _changeset} ->
+        {:reply, {:error, %{error: "Error updating list"}}, socket}
     end
   end
 
