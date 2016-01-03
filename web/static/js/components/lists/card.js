@@ -1,9 +1,39 @@
-import React, {PropTypes} from 'react';
-import {DropTarget}       from 'react-dnd';
-import ItemTypes          from '../../constants/item_types';
+import React, {PropTypes}       from 'react';
+import {DragSource, DropTarget} from 'react-dnd';
+import ItemTypes                from '../../constants/item_types';
 
-import CardForm           from '../../components/cards/form';
-import Card               from '../../components/cards/card';
+import CardForm                 from '../../components/cards/form';
+import Card                     from '../../components/cards/card';
+
+const listSource = {
+  beginDrag(props) {
+    return {
+      id: props.id,
+      name: props.name,
+      position: props.position,
+    };
+  },
+
+  isDragging(props, monitor) {
+    return props.id === monitor.getItem().id;
+  },
+};
+
+const listTarget = {
+  drop(targetProps, monitor) {
+    const source = monitor.getItem();
+
+    if (source.id !== targetProps.id) {
+      const target = {
+        id: targetProps.id,
+        name: targetProps.name,
+        position: targetProps.position,
+      };
+
+      targetProps.onDrop({source, target});
+    }
+  },
+};
 
 const cardTarget = {
   drop(targetProps, monitor) {
@@ -22,8 +52,17 @@ const cardTarget = {
   },
 };
 
-@DropTarget(ItemTypes.CARD, cardTarget, (connect) => ({
+@DragSource(ItemTypes.LIST, listSource, (connect, monitor) => ({
+  connectDragSource: connect.dragSource(),
+  isDragging: monitor.isDragging()
+}))
+
+@DropTarget(ItemTypes.LIST, listTarget, (connect) => ({
   connectDropTarget: connect.dropTarget()
+}))
+
+@DropTarget(ItemTypes.CARD, cardTarget, (connect) => ({
+  connectCardDropTarget: connect.dropTarget()
 }))
 
 export default class ListCard extends React.Component {
@@ -92,23 +131,31 @@ export default class ListCard extends React.Component {
   }
 
   render() {
-    const {connectDropTarget} = this.props;
+    const {connectDragSource, connectDropTarget, connectCardDropTarget, isDragging} = this.props;
 
-    return connectDropTarget(
-      <div className="list">
-        <div className="inner">
-          <header>
-            <h4>{this.props.name}</h4>
-          </header>
-          <div className="cards-wrapper">
-            {::this._renderCards()}
+    const styles = {
+      display: isDragging ? 'none' : 'block',
+    };
+
+    return connectDragSource(
+      connectDropTarget(
+        connectCardDropTarget(
+          <div className="list" style={styles}>
+            <div className="inner">
+              <header>
+                <h4>{this.props.name}</h4>
+              </header>
+              <div className="cards-wrapper">
+                {::this._renderCards()}
+              </div>
+              <footer>
+                {::this._renderForm()}
+                {::this._renderAddNewCard()}
+              </footer>
+            </div>
           </div>
-          <footer>
-            {::this._renderForm()}
-            {::this._renderAddNewCard()}
-          </footer>
-        </div>
-      </div>
+        )
+      )
     );
   }
 }

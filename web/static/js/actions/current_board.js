@@ -63,6 +63,13 @@ const Actions = {
         });
       });
 
+      channel.on('list:updated', (msg) => {
+        dispatch({
+          type: Constants.BOARDS_SET_CURRENT_BOARD,
+          board: msg.board,
+        });
+      });
+
       dispatch({
         type: Constants.CURRENT_BOARD_CONNECTED_TO_CHANNEL,
         channel: channel,
@@ -88,7 +95,13 @@ const Actions = {
 
   updateCard: (channel, card) => {
     return dispatch => {
-      channel.push('cards:update', {card: card});
+      channel.push('card:update', {card: card});
+    };
+  },
+
+  updateList: (channel, list) => {
+    return dispatch => {
+      channel.push('list:update', {list: list});
     };
   },
 };

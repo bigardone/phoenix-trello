@@ -66,6 +66,7 @@ class BoardsShowView extends React.Component {
           channel={channel}
           onDropCard={::this._handleDropCard}
           onDropCardWhenEmpty={::this._handleDropCardWhenEmpty}
+          onDrop={::this._handleDropList}
           {...list} />
       );
     });
@@ -108,7 +109,6 @@ class BoardsShowView extends React.Component {
   }
 
   _handleDropCard({source, target}) {
-    console.log(source, target);
     const {lists, channel} = this.props.currentBoard;
     const {dispatch} = this.props;
 
@@ -144,6 +144,30 @@ class BoardsShowView extends React.Component {
     };
 
     dispatch(Actions.updateCard(channel, data));
+  }
+
+  _handleDropList({source, target}) {
+    const {lists, channel} = this.props.currentBoard;
+    const {dispatch} = this.props;
+
+    const sourceListIndex = lists.findIndex((list) => { return list.id === source.id; });
+    const sourceList = lists[sourceListIndex];
+    lists.splice(sourceListIndex, 1);
+
+    const targetListIndex = lists.findIndex((list) => { return list.id === target.id; });
+    const targetList = lists[targetListIndex];
+    lists.splice(targetListIndex, 0, sourceList);
+
+    const newIndex = lists.findIndex((list) => { return list.id === source.id; });
+
+    const position = newIndex == 0 ? lists[newIndex + 1].position / 2 : newIndex == (lists.length - 1) ? lists[newIndex - 1].position + 1024 : (lists[newIndex - 1].position + lists[newIndex + 1].position) / 2;
+
+    const data = {
+      id: source.id,
+      position: position,
+    };
+
+    dispatch(Actions.updateList(channel, data));
   }
 
   _handleDropCardWhenEmpty(card) {

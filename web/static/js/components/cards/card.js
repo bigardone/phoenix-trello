@@ -50,12 +50,12 @@ export default class Card extends React.Component {
     const {connectDragSource, connectDropTarget, isDragging, name} = this.props;
 
     const styles = {
-      opacity: isDragging ? 0 : 1,
+      display: isDragging ? 'none' : 'block',
     };
 
     return connectDragSource(
       connectDropTarget(
-        <div className="card" styles={styles}>
+        <div className="card" style={styles}>
           {name}
         </div>
       )
