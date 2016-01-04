@@ -29,6 +29,6 @@ defmodule PhoenixTrello.Router do
   scope "/", PhoenixTrello do
     pipe_through :browser # Use the default browser stack
 
-    get "*path", PageController, :index
+    get "/", PageController, :index
   end
 end
