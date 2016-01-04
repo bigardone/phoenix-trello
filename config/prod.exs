@@ -24,8 +24,12 @@ config :logger, level: :info
 # Configure your database
 config :phoenix_trello, PhoenixTrello.Repo,
   adapter: Ecto.Adapters.Postgres,
-  url: System.get_env("DATABASE_URL"),
+  url: ,
   pool_size: 20
+
+# Configure guardian
+config :guardian, Guardian,
+  secret_key: System.get_env("GUARDIAN_SECRET_KEY")
 
 # ## SSL Support
 #
