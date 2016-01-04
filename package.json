@@ -12,6 +12,10 @@
   "author": "Ricardo García Vega",
   "license": "ISC",
   "private": true,
+  "engines": {
+    "node": "5.3.0",
+    "npm": "3.5.x"
+  },
   "devDependencies": {
     "babel-core": "^6.3.26",
     "babel-loader": "^6.2.0",
