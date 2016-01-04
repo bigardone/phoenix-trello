@@ -1,15 +1,22 @@
 .main-header
+  +clearfix
   background: $dark-purple
   line-height: $base-line-height * 1.8
   padding: 0 $base-spacing
   color: #fff
+  position: relative
 
   .logo
+    +transform(translate(-50%, -50%))
     display: inline-block
-    background: url(/images/logo.png)
-    height: 31px
-    width: 125px
-    vertical-align: middle
+    background: url(/images/logo.png) 0 0 no-repeat
+    background-size: contain
+    height: 32px
+    width: 110px
+    position: absolute
+    top: 50%
+    left: 50%
+
 
   nav
     float: left
