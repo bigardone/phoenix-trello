@@ -7,14 +7,33 @@ html
   body
     height: 100vh
 
+    #main_container
+      height: calc(100% - 40px)
+      > div
+        height: 100%
+
+    #main_footer
+      text-align: center
+      small
+        line-height: 40px
+        color: rgba(#fff, .5)
+
+        a
+          +transition
+          color: $gray
+          &:hover
+            color: #fff
+
+
     .application-container
       height: 100vh
 
+
     .main-container
       +display(flex)
-      height: calc(100% - 45px)
+      height: calc(100% - 65px)
 
       .view-container
         flex: 1
         padding: $base-spacing
-        height: 100%
+        height: calc(100% - 3em)
