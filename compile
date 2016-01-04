@@ -1,2 +1,3 @@
-MIX_ENV=production node_modules/.bin/webpack
-MIX_ENV=production mix phoenix.digest
+info "****** Building Phoenix static assets"
+webpack
+mix phoenix.digest
