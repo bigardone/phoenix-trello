@@ -16,7 +16,7 @@ export default class BoardUsers extends React.Component {
 
       return (
         <li className={classes} key={user.id}>
-          <Gravatar email={user.email} />
+          <Gravatar email={user.email} https/>
         </li>
       );
     });
