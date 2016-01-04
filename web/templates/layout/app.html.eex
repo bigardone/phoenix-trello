@@ -13,8 +13,13 @@
   </head>
 
   <body>
-    <main id="main_container" role="main">
-    </main>
+    <main id="main_container" role="main"></main>
+    <footer id="main_footer">
+      <small>
+        <a href="https://trello.com/" target="_blank">Trello</a> tribute for educational porpoises
+        crafted with ♥ for <a href="https://diacode.com/">Diacode</a>
+        by <a href="https://twitter.com/bigardone">@bigardone</a></small>
+    </footer>
     <script src="<%= static_path(@conn, "/js/application.js") %>"></script>
   </body>
 </html>
