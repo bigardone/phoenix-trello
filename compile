@@ -1,1 +1,2 @@
 MIX_ENV=production node_modules/.bin/webpack
+MIX_ENV=production mix phoenix.digest
