@@ -1,4 +1,4 @@
-.sessions.new
+.sessions.new, .registrations.new
   background: $purple
   background-size: cover
   position: relative
@@ -25,11 +25,11 @@
         vertical-align: middle
 
   form
-
+    margin-bottom: $base-spacing
     .field
       margin: .5em 0
 
-    [type="email"], [type="password"], button
+    [type="text"], [type="email"], [type="password"], button
       border: 0px none
       width: 350px
       padding: 1em
@@ -44,3 +44,10 @@
       &:hover
         color: $purple
         background: #fff
+
+  a
+    +transition
+    color: rgba(#fff, .5)
+
+    &:hover
+      color: #fff
