@@ -30,11 +30,11 @@ export default class Header extends React.Component {
     }
 
     return (
-      <a href="#" onClick={this._handleSignOutClick}><i className="fa fa-sign-out"/> Sign out</a>
+      <a href="#" onClick={::this._handleSignOutClick}><i className="fa fa-sign-out"/> Sign out</a>
     );
   }
 
-  _handleSignOutClick = (e) => {
+  _handleSignOutClick(e) {
     e.preventDefault();
 
     this.props.dispatch(Actions.signOut());

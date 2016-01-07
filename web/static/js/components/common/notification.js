@@ -3,11 +3,6 @@ import Actions            from '../../actions/notification';
 import classnames         from 'classnames';
 
 export default class Notification extends React.Component {
-  static propTypes = {
-    type: React.PropTypes.string,
-    text: React.PropTypes.string,
-  }
-
   constructor(props) {
     super(props);
 
