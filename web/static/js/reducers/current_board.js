@@ -1,8 +1,4 @@
 import Constants  from '../constants';
-import uniq       from 'lodash/array/uniq';
-import cloneDeep  from 'lodash/lang/cloneDeep';
-import sortBy     from 'lodash/collection/sortBy';
-import get        from 'lodash/object/get';
 
 const initialState = {
   connectedUsers: [],
