@@ -18,7 +18,7 @@ Actions.setCurrentUser = (dispatch, user) => {
   });
 
   let socket = new Socket('/socket', {
-    params: {token: localStorage.phoenixAuthToken},
+    params: { token: localStorage.phoenixAuthToken },
     logger: (kind, msg, data) => { console.log(`${kind}: ${msg}`, data); },
   });
 
@@ -59,7 +59,6 @@ Actions.signIn = (email, password) => {
 };
 
 Actions.currentUser = () => {
-  console.log('Action currentUser');
   return dispatch => {
     Actions.fetchCurrenUser()
     .then(function(data) {
