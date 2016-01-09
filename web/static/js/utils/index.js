@@ -54,8 +54,23 @@ export function httpPost(url, data) {
 
   return fetch(url, {
     method: 'post',
-    headers: {...headers, Authorization: authToken},
+    headers: { ...headers, Authorization: authToken },
     body: body,
+  })
+  .then(checkStatus)
+  .then(parseJSON);
+}
+
+export function httpDelete(url) {
+  const authToken = localStorage.phoenixAuthToken;
+
+  return fetch(url, {
+    method: 'delete',
+    headers: {
+      Authorization: authToken,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
   })
   .then(checkStatus)
   .then(parseJSON);

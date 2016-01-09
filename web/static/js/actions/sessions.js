@@ -1,7 +1,7 @@
-import { pushPath }           from 'redux-simple-router';
-import Constants              from '../constants';
-import { Socket }             from '../phoenix';
-import { httpGet, httpPost }  from '../utils';
+import { pushPath }                       from 'redux-simple-router';
+import Constants                          from '../constants';
+import { Socket }                         from '../phoenix';
+import { httpGet, httpPost, httpDelete }  from '../utils';
 
 const Actions = {};
 
@@ -73,13 +73,19 @@ Actions.currentUser = () => {
 
 Actions.signOut = () => {
   return dispatch => {
-    localStorage.removeItem('phoenixAuthToken');
+    httpDelete('/api/v1/sessions')
+    .then((data) => {
+      localStorage.removeItem('phoenixAuthToken');
 
-    dispatch({
-      type: Constants.USER_SIGNED_OUT,
+      dispatch({
+        type: Constants.USER_SIGNED_OUT,
+      });
+
+      dispatch(pushPath('/sign_in'));
+    })
+    .catch(function(error) {
+      console.log(error);
     });
-
-    dispatch(pushPath('/sign_in'));
   };
 };
 
