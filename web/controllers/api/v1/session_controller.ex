@@ -10,13 +10,23 @@ defmodule PhoenixTrello.SessionController do
 
         conn
         |> put_status(:created)
-        |> render(PhoenixTrello.SessionView, "show.json", jwt: jwt, user: user)
+        |> render("show.json", jwt: jwt, user: user)
 
       :error ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(PhoenixTrello.SessionView, "error.json")
+        |> render("error.json")
     end
+  end
+
+  def delete(conn, _) do
+    jwt = Guardian.Plug.current_token(conn)
+    claims = Guardian.Plug.claims(conn)
+
+    Guardian.revoke!(jwt, claims)
+
+    conn
+    |> render "delete.json"
   end
 
   def unauthenticated(conn, _params) do
