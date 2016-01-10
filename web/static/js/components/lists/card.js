@@ -2,6 +2,7 @@ import React, {PropTypes}       from 'react';
 import {DragSource, DropTarget} from 'react-dnd';
 import ItemTypes                from '../../constants/item_types';
 
+import ListForm                 from './form';
 import CardForm                 from '../../components/cards/form';
 import Card                     from '../../components/cards/card';
 
@@ -30,7 +31,7 @@ const listTarget = {
         position: targetProps.position,
       };
 
-      targetProps.onDrop({source, target});
+      targetProps.onDrop({ source, target });
     }
   },
 };
@@ -75,7 +76,7 @@ export default class ListCard extends React.Component {
   }
 
   _renderCards() {
-    const {cards, dispatch} = this.props;
+    const { cards, dispatch } = this.props;
 
     return cards.map((card) => {
       return (
@@ -115,23 +116,58 @@ export default class ListCard extends React.Component {
   _handleAddClick(e) {
     e.preventDefault();
 
-    this.setState({showForm: true});
+    this.setState({ showForm: true });
   }
 
   _handleCancelClick() {
-    this.setState({showForm: false});
+    this.setState({ showForm: false });
   }
 
   _handleFormSubmit() {
-    this.setState({showForm: false});
+    this.setState({ showForm: false });
   }
 
-  _handleDropCard({source, target}) {
-    this.props.onDropCard({source, target});
+  _handleDropCard({ source, target }) {
+    this.props.onDropCard({ source, target });
+  }
+
+  _renderHeader() {
+    if (this.props.isEditing) {
+      const { id, name, dispatch, channel } = this.props;
+
+      const data = {
+        id: id,
+        name: name,
+      };
+
+      return (
+        <ListForm
+          list={data}
+          dispatch={dispatch}
+          channel={channel}
+          onCancelClick={::this._handleCancelEditFormClick}/>
+      );
+    } else {
+      return (
+        <header onDoubleClick={::this._handleHeaderDoubleClick}>
+          <h4>{this.props.name}</h4>
+        </header>
+      );
+    }
+  }
+
+  _handleHeaderDoubleClick(e) {
+    e.preventDefault();
+
+    this.props.onEnableEdit(this.props.id);
+  }
+
+  _handleCancelEditFormClick() {
+    this.props.stopEditing();
   }
 
   render() {
-    const {connectDragSource, connectDropTarget, connectCardDropTarget, isDragging} = this.props;
+    const { connectDragSource, connectDropTarget, connectCardDropTarget, isDragging } = this.props;
 
     const styles = {
       display: isDragging ? 'none' : 'block',
@@ -142,9 +178,7 @@ export default class ListCard extends React.Component {
         connectCardDropTarget(
           <div className="list" style={styles}>
             <div className="inner">
-              <header>
-                <h4>{this.props.name}</h4>
-              </header>
+              {::this._renderHeader()}
               <div className="cards-wrapper">
                 {::this._renderCards()}
               </div>

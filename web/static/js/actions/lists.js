@@ -12,15 +12,17 @@ const Actions = {
     };
   },
 
-  create: (channel, data) => {
+  save: (channel, data) => {
     return dispatch => {
-      channel.push('create_list', {list: data});
+      const topic = data.id ? 'list:update' : 'lists:create';
+
+      channel.push(topic, { list: data });
     };
   },
 
   createCard: (channel, data) => {
     return dispatch => {
-      channel.push('create_card', {card: data});
+      channel.push('create_card', { card: data });
     };
   },
 };

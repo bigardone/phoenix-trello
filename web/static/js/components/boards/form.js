@@ -17,7 +17,7 @@ export default class BoardForm extends React.Component {
   }
 
   _renderErrors(field) {
-    const {errors} = this.props;
+    const { errors } = this.props;
 
     if (!errors) return false;
 

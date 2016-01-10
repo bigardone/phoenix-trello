@@ -89,19 +89,19 @@ const Actions = {
 
   addNewMember: (channel, email) => {
     return dispatch => {
-      channel.push('add_new_member', {email: email});
+      channel.push('add_new_member', { email: email });
     };
   },
 
   updateCard: (channel, card) => {
     return dispatch => {
-      channel.push('card:update', {card: card});
+      channel.push('card:update', { card: card });
     };
   },
 
   updateList: (channel, list) => {
     return dispatch => {
-      channel.push('list:update', {list: list});
+      channel.push('list:update', { list: list });
     };
   },
 
@@ -110,6 +110,15 @@ const Actions = {
       dispatch({
         type: Constants.CURRENT_BOARD_SHOW_USERS_FORM,
         show: show,
+      });
+    };
+  },
+
+  editList: (listId) => {
+    return dispatch => {
+      dispatch({
+        type: Constants.CURRENT_BOARD_EDIT_LIST,
+        listId: listId,
       });
     };
   },
