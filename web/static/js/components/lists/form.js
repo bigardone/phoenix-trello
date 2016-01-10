@@ -6,18 +6,19 @@ export default class ListForm extends React.Component {
   _handleSubmit(e) {
     e.preventDefault();
 
-    let { dispatch, channel }           = this.props;
+    let { dispatch, channel, list } = this.props;
     let { name } = this.refs;
 
     let data = {
+      id: list ? list.id : null,
       name: name.value,
     };
 
-    dispatch(Actions.create(channel, data));
+    dispatch(Actions.save(channel, data));
   }
 
   _renderErrors(field) {
-    const {errors} = this.props;
+    const { errors } = this.props;
 
     if (!errors) return false;
 
@@ -39,14 +40,17 @@ export default class ListForm extends React.Component {
   }
 
   render() {
+    const defaultValue = this.props.list ? this.props.list.name : '';
+    const buttonText   = this.props.list ? 'Update list' : 'Save list';
+
     return (
       <PageClick onClick={::this._handleCancelClick}>
         <div className="list form">
           <div className="inner">
             <form onSubmit={::this._handleSubmit}>
-              <input ref="name" type="text" placeholder="Add a new list..." required="true"/>
+              <input ref="name" type="text" defaultValue={defaultValue} placeholder="Add a new list..." required="true"/>
               {::this._renderErrors('name')}
-              <button type="submit">Create list</button> or <a href="#" onClick={::this._handleCancelClick}>cancel</a>
+              <button type="submit">{buttonText}</button> or <a href="#" onClick={::this._handleCancelClick}>cancel</a>
             </form>
           </div>
         </div>

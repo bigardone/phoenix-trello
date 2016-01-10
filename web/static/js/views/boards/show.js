@@ -38,8 +38,8 @@ class BoardsShowView extends React.Component {
   }
 
   _renderUsers() {
-    const {connectedUsers, showUsersForm} = this.props.currentBoard;
-    const {dispatch} = this.props;
+    const { connectedUsers, showUsersForm } = this.props.currentBoard;
+    const { dispatch } = this.props;
     const users = [this.props.currentBoard.user, ...this.props.currentBoard.invited_users];
     const currentUserIsOwner = this.props.currentBoard.user.id === this.props.currentUser.id;
 
@@ -59,7 +59,7 @@ class BoardsShowView extends React.Component {
   }
 
   _renderLists() {
-    const {lists, channel} = this.props.currentBoard;
+    const { lists, channel, editingListId } = this.props.currentBoard;
 
     return lists.map((list) => {
       return (
@@ -67,9 +67,12 @@ class BoardsShowView extends React.Component {
           key={list.id}
           dispatch={this.props.dispatch}
           channel={channel}
+          isEditing={editingListId === list.id}
           onDropCard={::this._handleDropCard}
           onDropCardWhenEmpty={::this._handleDropCardWhenEmpty}
           onDrop={::this._handleDropList}
+          onEnableEdit={::this._handleEnableEdit}
+          stopEditing={::this._onStopEditing}
           {...list} />
       );
     });
@@ -100,7 +103,7 @@ class BoardsShowView extends React.Component {
   }
 
   _handleAddNewClick() {
-    let {showForm, dispatch, boardsFetched} = this.props;
+    let { showForm, dispatch, boardsFetched } = this.props;
 
     if (showForm && boardsFetched) return false;
 
@@ -111,9 +114,9 @@ class BoardsShowView extends React.Component {
     this.props.dispatch(Actions.showForm(false));
   }
 
-  _handleDropCard({source, target}) {
-    const {lists, channel} = this.props.currentBoard;
-    const {dispatch} = this.props;
+  _handleDropCard({ source, target }) {
+    const { lists, channel } = this.props.currentBoard;
+    const { dispatch } = this.props;
 
     const sourceListIndex = lists.findIndex((list) => { return list.id === source.list_id; });
     const sourceList = lists[sourceListIndex];
@@ -149,9 +152,9 @@ class BoardsShowView extends React.Component {
     dispatch(Actions.updateCard(channel, data));
   }
 
-  _handleDropList({source, target}) {
-    const {lists, channel} = this.props.currentBoard;
-    const {dispatch} = this.props;
+  _handleDropList({ source, target }) {
+    const { lists, channel } = this.props.currentBoard;
+    const { dispatch } = this.props;
 
     const sourceListIndex = lists.findIndex((list) => { return list.id === source.id; });
     const sourceList = lists[sourceListIndex];
@@ -174,10 +177,18 @@ class BoardsShowView extends React.Component {
   }
 
   _handleDropCardWhenEmpty(card) {
-    const {channel} = this.props.currentBoard;
-    const {dispatch} = this.props;
+    const { channel } = this.props.currentBoard;
+    const { dispatch } = this.props;
 
     dispatch(Actions.updateCard(channel, card));
+  }
+
+  _handleEnableEdit(listId) {
+    this.props.dispatch(Actions.editList(listId));
+  }
+
+  _onStopEditing() {
+    this.props.dispatch(Actions.editList(null));
   }
 
   render() {
