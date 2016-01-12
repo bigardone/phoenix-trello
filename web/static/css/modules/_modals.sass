@@ -1,0 +1,79 @@
+.md-overlay
+  +transition()
+  position: fixed
+  width: 100%
+  height: 100%
+  top: 0
+  left: 0
+  z-index: 1000
+  background: rgba(#333, .7)
+  overflow-y: scroll
+
+  .md-modal
+    +transition(all 0.2s)
+    +backface-visibility(hidden)
+    position: fixed
+    pointer-events: none
+    z-index: 2000
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    overflow-y: scroll
+
+    .md-content
+      $width: 600px
+      +transition(all .5s)
+      +pad($base-spacing)
+      border-radius: $base-border-radius
+      background: $light-gray
+      position: absolute
+      pointer-events: all
+      width: $width
+      top: $base-spacing*2
+      left: 50%
+      margin-left: -$width/2
+      overflow: hidden
+
+      > header
+        margin-bottom: 1em
+
+
+  .card-modal
+    .form-wrapper
+      +clearfix
+      margin: $base-spacing 0
+
+      .gravatar-wrapper
+        +span-columns(1)
+        .react-gravatar
+          border-radius: $base-border-radius
+          width: 30px
+          height: 30px
+
+      .form-controls
+        +span-columns(11)
+
+        textarea
+          +fill-parent
+          margin-bottom: $base-spacing/3
+
+    .comment
+      +clearfix
+      margin-bottom: $base-spacing/2
+
+      .gravatar-wrapper
+        +span-columns(1)
+        .react-gravatar
+          border-radius: $base-border-radius
+          width: 30px
+          height: 30px
+
+      .info-wrapper
+        +span-columns(11)
+        h5
+          margin-bottom: .5em
+        .text
+          background: #fff
+          border-radius: $base-border-radius
+          padding: .5em
