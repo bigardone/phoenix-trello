@@ -20,6 +20,7 @@
       ga('send', 'pageview');
 
     </script>
+    <link id="favicon" rel="icon" type="image/png" sizes="64x64" href="<%= static_path(@conn, "/images/favicon.png") %>"/>
   </head>
 
   <body>
