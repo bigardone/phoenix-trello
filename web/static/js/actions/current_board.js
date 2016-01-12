@@ -137,14 +137,23 @@ const Actions = {
     };
   },
 
-  editCard: (boardId, cardId) => {
+  showCard: (boardId, cardId) => {
     return dispatch => {
       httpGet(`/api/v1/boards/${boardId}/cards/${cardId}`)
       .then((data) => {
         dispatch({
-          type: Constants.CURRENT_BOARD_EDIT_CARD,
+          type: Constants.CURRENT_BOARD_SHOW_CARD,
           card: data,
         });
+      });
+    };
+  },
+
+  editCard: (edit) => {
+    return dispatch => {
+      dispatch({
+        type: Constants.CURRENT_BOARD_EDIT_CARD,
+        edit: edit,
       });
     };
   },
@@ -152,8 +161,8 @@ const Actions = {
   resetEditCard: () => {
     return dispatch => {
       dispatch({
-        type: Constants.CURRENT_BOARD_EDIT_CARD,
-        listId: null,
+        type: Constants.CURRENT_BOARD_SHOW_CARD,
+        card: null,
       });
     };
   },

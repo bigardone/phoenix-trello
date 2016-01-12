@@ -24,7 +24,11 @@ export default class CardModal extends React.Component {
             <ReactGravatar email={currentUser.email} https />
           </div>
           <div className="form-controls">
-            <textarea ref="commentText" rows="5" placeholder="Write a comment..." required="true"/>
+            <textarea
+              ref="commentText"
+              rows="5"
+              placeholder="Write a comment..."
+              required="true"/>
             <button type="submit">Save comment</button>
           </div>
         </form>
@@ -79,6 +83,66 @@ export default class CardModal extends React.Component {
     );
   }
 
+  _handleHeaderClick(e) {
+    const { dispatch } = this.props;
+    dispatch(Actions.editCard(true));
+  }
+
+  _handleCancelClick(e) {
+    e.preventDefault();
+    const { dispatch } = this.props;
+    dispatch(Actions.editCard(false));
+  }
+
+  _handleFormSubmit(e) {
+    e.preventDefault();
+
+    const { name, description } = this.refs;
+
+    const { card } = this.props;
+
+    card.name = name.value.trim();
+    card.description = description.value.trim();
+
+    const { channel, dispatch } = this.props;
+
+    dispatch(Actions.updateCard(channel, card));
+  }
+
+  _renderHeader() {
+    const { card, edit } = this.props;
+
+    if (edit) {
+      return (
+        <header className="editing">
+          <form onSubmit={::this._handleFormSubmit}>
+            <input
+              ref="name"
+              type="text"
+              placeholder="Title"
+              required="true"
+              defaultValue={card.name} />
+            <textarea
+              ref="description"
+              type="text"
+              placeholder="Description"
+              rows="5"
+              defaultValue={card.description} />
+            <button type="submit">Save card</button> or <a href="#" onClick={::this._handleCancelClick}>cancel</a>
+          </form>
+        </header>
+      );
+    } else {
+      return (
+        <header onClick={::this._handleHeaderClick}>
+          <h3>{card.name}</h3>
+          <h5>Description</h5>
+          <p>{card.description}</p>
+        </header>
+      );
+    }
+  }
+
   render() {
     const { card } = this.props;
 
@@ -87,11 +151,7 @@ export default class CardModal extends React.Component {
         <div className="md-modal">
           <PageClick onClick={::this._closeModal}>
             <div className="md-content card-modal">
-              <header>
-                <h3>{card.name}</h3>
-              </header>
-              <h5>Description</h5>
-              <p>{card.description}</p>
+              {::this._renderHeader()}
               {::this._renderCommentForm()}
               {::this._renderComments(card)}
             </div>

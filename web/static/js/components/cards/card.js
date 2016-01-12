@@ -49,7 +49,7 @@ export default class Card extends React.Component {
   _handleClick(e) {
     const { dispatch, id, boardId } = this.props;
 
-    dispatch(Actions.editCard(boardId, id));
+    dispatch(Actions.showCard(boardId, id));
   }
 
   _renderFooter() {
