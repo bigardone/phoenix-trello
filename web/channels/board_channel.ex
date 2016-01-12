@@ -14,7 +14,7 @@ defmodule PhoenixTrello.BoardChannel do
 
   def join("boards:" <> board_id, _params, socket) do
     current_user = socket.assigns.current_user
-    board = get_current_board(board_id, socket)
+    board = get_current_board(socket, board_id)
 
     send(self, {:after_join, Monitor.user_joined(board_id, current_user)[board_id]})
 
@@ -58,7 +58,10 @@ defmodule PhoenixTrello.BoardChannel do
 
     case Repo.insert(changeset) do
       {:ok, card} ->
-        Repo.preload(card, :list)
+        card = socket.assigns.board
+          |> assoc(:cards)
+          |> Repo.get!(card.id)
+          |> Repo.preload(comments: [:user])
 
         broadcast! socket, "card:created", %{card: card}
         {:noreply, socket}
@@ -102,7 +105,7 @@ defmodule PhoenixTrello.BoardChannel do
 
     case Repo.update(changeset) do
       {:ok, _card} ->
-        board = get_current_board(socket.assigns.board.id, socket)
+        board = get_current_board(socket)
         broadcast! socket, "card:updated", %{board: board}
         {:noreply, socket}
       {:error, _changeset} ->
@@ -119,7 +122,7 @@ defmodule PhoenixTrello.BoardChannel do
 
     case Repo.update(changeset) do
       {:ok, _list} ->
-        board = get_current_board(socket.assigns.board.id, socket)
+        board = get_current_board(socket)
         broadcast! socket, "list:updated", %{board: board}
         {:noreply, socket}
       {:error, _changeset} ->
@@ -139,12 +142,7 @@ defmodule PhoenixTrello.BoardChannel do
 
     case Repo.insert(changeset) do
       {:ok, _comment} ->
-        card = socket.assigns.board
-          |> assoc(:cards)
-          |> Repo.get!(card_id)
-          |> Repo.preload(comments: [:user])
-          
-        broadcast! socket, "comment:created", %{card: card}
+        broadcast! socket, "comment:created", %{board: get_current_board(socket)}
         {:noreply, socket}
       {:error, _changeset} ->
         {:reply, {:error, %{error: "Error creating comment"}}, socket}
@@ -160,14 +158,21 @@ defmodule PhoenixTrello.BoardChannel do
     :ok
   end
 
-  defp get_current_board(board_id, socket) do
+  defp get_current_board(socket, board_id) do
     current_user = socket.assigns.current_user
 
-    cards_query = from c in Card, order_by: c.position, preload: [comments: [:user]]
+    comments_query = from c in Comment, order_by: [desc: c.inserted_at], preload: :user
+    cards_query = from c in Card, order_by: c.position, preload: [comments: ^comments_query]
     lists_query = from l in List, order_by: l.position, preload: [cards: ^cards_query]
 
     Board.for_user(current_user.id)
       |> Repo.get(board_id)
       |> Repo.preload([:user, :invited_users, lists: lists_query])
+  end
+
+  defp get_current_board(socket) do
+    board_id = socket.assigns.board.id
+
+    get_current_board(socket, board_id)
   end
 end
