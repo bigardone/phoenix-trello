@@ -2,7 +2,7 @@ defmodule PhoenixTrello.BoardController do
   use PhoenixTrello.Web, :controller
 
   plug Guardian.Plug.EnsureAuthenticated, handler: PhoenixTrello.SessionController
-  plug :scrub_params, "board" when action in [:create, :update]
+  plug :scrub_params, "board" when action in [:create]
 
   alias PhoenixTrello.Repo
   alias PhoenixTrello.Board
@@ -12,7 +12,7 @@ defmodule PhoenixTrello.BoardController do
 
     owned_boards = assoc(current_user, :owned_boards)
       |> Repo.all
-      |> Repo.preload([:user, :invited_users, lists: :cards])
+      |> Repo.preload([:user, :invited_users, lists: [cards: [:comments]]])
 
     invited_boards = assoc(current_user, :invited_boards)
       |> Repo.all
