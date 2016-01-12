@@ -21,11 +21,13 @@ defmodule PhoenixTrello.Router do
     scope "/v1" do
       post "/sessions", SessionController, :create
       delete "/sessions", SessionController, :delete
-      
+
       post "/registrations", RegistrationController, :create
       get "/current_user", CurrentUserController, :show
 
-      resources "boards", BoardController
+      resources "boards", BoardController, only: [:index, :create] do
+        resources "cards", CardController, only: [:show]
+      end
     end
   end
 
