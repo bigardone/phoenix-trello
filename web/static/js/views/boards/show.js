@@ -191,7 +191,7 @@ class BoardsShowView extends React.Component {
 
   _renderCardModal() {
     const { dispatch, currentUser } = this.props;
-    const { selectedCard, channel } = this.props.currentBoard;
+    const { selectedCard, channel, editSelectedCard } = this.props.currentBoard;
 
     if (!selectedCard) return false;
 
@@ -201,7 +201,8 @@ class BoardsShowView extends React.Component {
         currentUser={currentUser}
         dispatch={dispatch}
         show={true}
-        card={selectedCard} />
+        card={selectedCard}
+        edit={editSelectedCard} />
     );
   }
 

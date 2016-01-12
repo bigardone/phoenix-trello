@@ -41,6 +41,16 @@
 
 
   .card-modal
+    header
+      cursor: pointer
+
+    input, textarea
+      +fill-parent
+      display: block
+      margin-bottom: .5em
+      border: 0px none
+      border-bottom: 1px solid $gray
+
     .form-wrapper
       +clearfix
       margin: $base-spacing 0
@@ -54,10 +64,6 @@
 
       .form-controls
         +span-columns(11)
-
-        textarea
-          +fill-parent
-          margin-bottom: $base-spacing/3
 
     .comment
       +clearfix
@@ -80,3 +86,5 @@
           background: #fff
           border-radius: $base-border-radius
           padding: .5em
+          border: 0px none
+          border-bottom: 1px solid $gray
