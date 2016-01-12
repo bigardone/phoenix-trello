@@ -9,7 +9,7 @@ defmodule PhoenixTrello.List do
   alias PhoenixTrello.List
   alias PhoenixTrello.Card
 
-  @derive {Poison.Encoder, only: [:id, :name, :position, :cards]}
+  @derive {Poison.Encoder, only: [:id, :board_id, :name, :position, :cards]}
 
   schema "lists" do
     field :name, :string

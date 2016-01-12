@@ -31,7 +31,7 @@ const cardTarget = {
         position: targetProps.position,
       };
 
-      targetProps.onDrop({source, target});
+      targetProps.onDrop({ source, target });
     }
   },
 };
@@ -46,8 +46,31 @@ const cardTarget = {
 }))
 
 export default class Card extends React.Component {
+  _handleClick(e) {
+    const { dispatch, id, boardId } = this.props;
+
+    dispatch(Actions.editCard(boardId, id));
+  }
+
+  _renderFooter() {
+    let commentIcon = null;
+    const { comments } = this.props;
+
+    if (comments.length > 0) {
+      commentIcon = <small>
+        <i className="fa fa-comment-o"/> {comments.length}
+      </small>;
+    }
+
+    return (
+      <footer>
+        {commentIcon}
+      </footer>
+    );
+  }
+
   render() {
-    const {connectDragSource, connectDropTarget, isDragging, name} = this.props;
+    const { connectDragSource, connectDropTarget, isDragging, name } = this.props;
 
     const styles = {
       display: isDragging ? 'none' : 'block',
@@ -55,8 +78,9 @@ export default class Card extends React.Component {
 
     return connectDragSource(
       connectDropTarget(
-        <div className="card" style={styles}>
+        <div className="card" style={styles} onClick={::this._handleClick}>
           {name}
+          {::this._renderFooter()}
         </div>
       )
     );
