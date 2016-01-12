@@ -48,27 +48,30 @@ export default class CardModal extends React.Component {
   }
 
   _renderComments(card) {
+    if (card.comments.length == 0) return false;
+
     const comments = card.comments.map((comment) => {
       const { user } = comment;
 
       return (
         <div key={comment.id} className="comment">
-            <div className="gravatar-wrapper">
-              <ReactGravatar email={user.email} https />
+          <div className="gravatar-wrapper">
+            <ReactGravatar email={user.email} https />
+          </div>
+          <div className="info-wrapper">
+            <h5>{user.first_name}</h5>
+            <div className="text">
+              {comment.text}
             </div>
-            <div className="info-wrapper">
-              <h5>{user.first_name}</h5>
-              <div className="text">
-                {comment.text}
-              </div>
-              <small>{moment(comment.inserted_at).fromNow()}</small>
-            </div>
+            <small>{moment(comment.inserted_at).fromNow()}</small>
+          </div>
         </div>
       );
     });
 
     return (
       <div className="comments-wrapper">
+        <h4>Activity</h4>
         {comments}
       </div>
     );
@@ -88,7 +91,6 @@ export default class CardModal extends React.Component {
               <h5>Description <a>Edit</a></h5>
               <p>{card.description}</p>
               {::this._renderCommentForm()}
-              <h4>Activity</h4>
               {::this._renderComments(card)}
             </div>
           </PageClick>

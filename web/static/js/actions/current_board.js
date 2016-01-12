@@ -73,8 +73,8 @@ const Actions = {
 
       channel.on('comment:created', (msg) => {
         dispatch({
-          type: Constants.CURRENT_BOARD_EDIT_CARD,
-          card: msg.card,
+          type: Constants.BOARDS_SET_CURRENT_BOARD,
+          board: msg.board,
         });
       });
 

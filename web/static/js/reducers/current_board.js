@@ -6,7 +6,7 @@ const initialState = {
   showForm: false,
   showUsersForm: false,
   editingListId: null,
-  showCard: null,
+  selectedCard: null,
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -14,7 +14,19 @@ export default function reducer(state = initialState, action = {}) {
 
   switch (action.type) {
     case Constants.BOARDS_SET_CURRENT_BOARD:
-      return { ...state, editingListId: null, ...action.board };
+      let selectedCard = state.selectedCard;
+
+      if (selectedCard != null) {
+        const { lists } = action.board;
+
+        const cards = lists.reduce((p, c) => {
+          return { cards: p.cards.concat(c.cards) };
+        }).cards;
+
+        selectedCard = cards.find((card) => { return card.id == selectedCard.id; });
+      }
+
+      return { ...state, editingListId: null, selectedCard: selectedCard, ...action.board };
 
     case Constants.CURRENT_BOARD_CONNECTED_USERS:
       return { ...state, connectedUsers: action.users };
@@ -56,7 +68,7 @@ export default function reducer(state = initialState, action = {}) {
       return { ...state, editingListId: action.listId };
 
     case Constants.CURRENT_BOARD_EDIT_CARD:
-      return { ...state, showCard: action.card };
+      return { ...state, selectedCard: action.card };
 
     default:
       return state;
