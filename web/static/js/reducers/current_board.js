@@ -19,11 +19,9 @@ export default function reducer(state = initialState, action = {}) {
       if (selectedCard != null) {
         const { lists } = action.board;
 
-        const cards = lists.reduce((p, c) => {
+        selectedCard = lists.reduce((p, c) => {
           return { cards: p.cards.concat(c.cards) };
-        }).cards;
-
-        selectedCard = cards.find((card) => { return card.id == selectedCard.id; });
+        }).cards.find((card) => { return card.id == selectedCard.id; });
       }
 
       return { ...state, editingListId: null, selectedCard: selectedCard, ...action.board };

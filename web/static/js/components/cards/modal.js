@@ -45,6 +45,8 @@ export default class CardModal extends React.Component {
     };
 
     dispatch(Actions.createCardComment(channel, comment));
+
+    commentText.value = '';
   }
 
   _renderComments(card) {
@@ -88,7 +90,7 @@ export default class CardModal extends React.Component {
               <header>
                 <h3>{card.name}</h3>
               </header>
-              <h5>Description <a>Edit</a></h5>
+              <h5>Description</h5>
               <p>{card.description}</p>
               {::this._renderCommentForm()}
               {::this._renderComments(card)}
