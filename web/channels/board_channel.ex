@@ -9,6 +9,7 @@ defmodule PhoenixTrello.BoardChannel do
   alias PhoenixTrello.UserBoard
   alias PhoenixTrello.List
   alias PhoenixTrello.Card
+  alias PhoenixTrello.Comment
   alias PhoenixTrello.BoardChannel.Monitor
 
   def join("boards:" <> board_id, _params, socket) do
@@ -126,6 +127,30 @@ defmodule PhoenixTrello.BoardChannel do
     end
   end
 
+  def handle_in("card:add_comment", %{"card_id" => card_id, "text" => text}, socket) do
+    current_user = socket.assigns.current_user
+
+    comment = socket.assigns.board
+      |> assoc(:cards)
+      |> Repo.get!(card_id)
+      |> build(:comments)
+
+    changeset = Comment.changeset(comment, %{text: text, user_id: current_user.id})
+
+    case Repo.insert(changeset) do
+      {:ok, _comment} ->
+        card = socket.assigns.board
+          |> assoc(:cards)
+          |> Repo.get!(card_id)
+          |> Repo.preload(comments: [:user])
+          
+        broadcast! socket, "comment:created", %{card: card}
+        {:noreply, socket}
+      {:error, _changeset} ->
+        {:reply, {:error, %{error: "Error creating comment"}}, socket}
+    end
+  end
+
   def terminate(_reason, socket) do
     board_id = to_string(socket.assigns.board.id)
     user_id = socket.assigns.current_user.id
@@ -138,7 +163,7 @@ defmodule PhoenixTrello.BoardChannel do
   defp get_current_board(board_id, socket) do
     current_user = socket.assigns.current_user
 
-    cards_query = from c in Card, order_by: c.position
+    cards_query = from c in Card, order_by: c.position, preload: [comments: [:user]]
     lists_query = from l in List, order_by: l.position, preload: [cards: ^cards_query]
 
     Board.for_user(current_user.id)
