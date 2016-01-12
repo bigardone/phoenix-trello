@@ -1,4 +1,5 @@
 import Constants  from '../constants';
+import {httpGet} from '../utils';
 
 const Actions = {
   showForm: (show) => {
@@ -70,6 +71,13 @@ const Actions = {
         });
       });
 
+      channel.on('comment:created', (msg) => {
+        dispatch({
+          type: Constants.CURRENT_BOARD_EDIT_CARD,
+          card: msg.card,
+        });
+      });
+
       dispatch({
         type: Constants.CURRENT_BOARD_CONNECTED_TO_CHANNEL,
         channel: channel,
@@ -120,6 +128,33 @@ const Actions = {
         type: Constants.CURRENT_BOARD_EDIT_LIST,
         listId: listId,
       });
+    };
+  },
+
+  editCard: (boardId, cardId) => {
+    return dispatch => {
+      httpGet(`/api/v1/boards/${boardId}/cards/${cardId}`)
+      .then((data) => {
+        dispatch({
+          type: Constants.CURRENT_BOARD_EDIT_CARD,
+          card: data,
+        });
+      });
+    };
+  },
+
+  resetEditCard: () => {
+    return dispatch => {
+      dispatch({
+        type: Constants.CURRENT_BOARD_EDIT_CARD,
+        listId: null,
+      });
+    };
+  },
+
+  createCardComment: (channel, comment) => {
+    return dispatch => {
+      channel.push('card:add_comment', comment);
     };
   },
 };

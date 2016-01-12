@@ -6,6 +6,7 @@ const initialState = {
   showForm: false,
   showUsersForm: false,
   editingListId: null,
+  showCard: null,
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -53,6 +54,9 @@ export default function reducer(state = initialState, action = {}) {
 
     case Constants.CURRENT_BOARD_EDIT_LIST:
       return { ...state, editingListId: action.listId };
+
+    case Constants.CURRENT_BOARD_EDIT_CARD:
+      return { ...state, showCard: action.card };
 
     default:
       return state;

@@ -76,13 +76,14 @@ export default class ListCard extends React.Component {
   }
 
   _renderCards() {
-    const { cards, dispatch } = this.props;
+    const { cards, dispatch, board_id } = this.props;
 
     return cards.map((card) => {
       return (
         <Card
           key={card.id}
           dispatch={dispatch}
+          boardId={board_id}
           {...card}
           onDrop={::this._handleDropCard} />
       );

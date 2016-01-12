@@ -8,12 +8,13 @@ import Constants                from '../../constants';
 import { getParentKey }         from '../../utils';
 import ListForm                 from '../../components/lists/form';
 import ListCard                 from '../../components/lists/card';
+import CardModal                from '../../components/cards/modal';
 import BoardUsers               from '../../components/boards/users';
 
 @DragDropContext(HTML5Backend)
 
 class BoardsShowView extends React.Component {
-  componentDidMount(nextProps, nextState) {
+  componentDidMount() {
     const { socket } = this.props;
 
     if (!socket) {
@@ -191,6 +192,22 @@ class BoardsShowView extends React.Component {
     this.props.dispatch(Actions.editList(null));
   }
 
+  _renderCardModal() {
+    const { dispatch, currentUser } = this.props;
+    const { showCard, channel } = this.props.currentBoard;
+
+    if (!showCard) return false;
+
+    return (
+      <CardModal
+        channel={channel}
+        currentUser={currentUser}
+        dispatch={dispatch}
+        show={true}
+        card={showCard} />
+    );
+  }
+
   render() {
     const { id, name, currentKey, translations, leaf } = this.props.currentBoard;
 
@@ -210,6 +227,7 @@ class BoardsShowView extends React.Component {
             </div>
           </div>
         </div>
+        {::this._renderCardModal()}
       </div>
     );
   }
