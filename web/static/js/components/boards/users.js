@@ -12,7 +12,7 @@ export default class BoardUsers extends React.Component {
         return cu.id === user.id;
       });
 
-      const classes = classnames({connected: index != -1});
+      const classes = classnames({ connected: index != -1 });
 
       return (
         <li className={classes} key={user.id}>
@@ -42,12 +42,25 @@ export default class BoardUsers extends React.Component {
           <li>
             <form onSubmit={::this._handleSubmit}>
               <h4>Add new members</h4>
+              {::this._renderError()}
               <input ref="email" type="email" required={true} placeholder="Member email"/>
               <button type="submit">Add member</button> or <a onClick={::this._handleCancelClick} href="#">cancel</a>
             </form>
           </li>
         </ul>
       </PageClick>
+    );
+  }
+
+  _renderError() {
+    const { error } = this.props;
+
+    if (!error) return false;
+
+    return (
+      <div className="error">
+        {error}
+      </div>
     );
   }
 
@@ -66,25 +79,24 @@ export default class BoardUsers extends React.Component {
   _handleSubmit(e) {
     e.preventDefault();
 
-    const {email} = this.refs;
+    const { email } = this.refs;
+    const { dispatch, channel } = this.props;
 
-    if (email.value === '') return false;
-
-    return this.props.onNewMemberSubmit(email.value);
+    dispatch(Actions.addNewMember(channel, email.value));
   }
 
   render() {
     return (
       <ul className="board-users">
-      <ReactCSSTransitionGroup
-        transitionName="avatar"
-        transitionAppear={true}
-        transitionAppearTimeout={500}
-        transitionEnterTimeout={500}
-        transitionLeaveTimeout={300}>
-        {::this._renderUsers()}
-        {::this._renderAddNewUser()}
-      </ReactCSSTransitionGroup>
+        <ReactCSSTransitionGroup
+          transitionName="avatar"
+          transitionAppear={true}
+          transitionAppearTimeout={500}
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}>
+            {::this._renderUsers()}
+            {::this._renderAddNewUser()}
+        </ReactCSSTransitionGroup>
       </ul>
     );
   }

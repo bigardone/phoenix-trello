@@ -70,30 +70,26 @@ defmodule PhoenixTrello.BoardChannel do
     end
   end
 
-  def handle_in("add_new_member", %{"email" => email}, socket) do
+  def handle_in("members:add", %{"email" => email}, socket) do
     try do
       board = socket.assigns.board
       user = User.by_email(email)
         |> Repo.one
 
-      if user do
-        changeset = user
-        |> build(:user_boards)
-        |> UserBoard.changeset(%{board_id: board.id})
+      changeset = user
+      |> build(:user_boards)
+      |> UserBoard.changeset(%{board_id: board.id})
 
-        case Repo.insert(changeset) do
-          {:ok, _board_user} ->
-            broadcast! socket, "member:added", %{user: user}
-            {:noreply, socket}
-          _ ->
-            {:reply, {:error, %{error: "Error adding new member"}}, socket}
-        end
+      case Repo.insert(changeset) do
+        {:ok, _board_user} ->
+          broadcast! socket, "member:added", %{user: user}
+          {:noreply, socket}
+        {:error, _changeset} ->
+          {:reply, {:error, %{error: "Error adding new member"}}, socket}
       end
     catch
-      _, _-> {:reply, {:error, %{error: "Error adding new member"}}, socket}
+      _, _-> {:reply, {:error, %{error: "User does not exist"}}, socket}
     end
-
-    {:noreply, socket}
   end
 
   def handle_in("card:update", %{"card" => card_params}, socket) do

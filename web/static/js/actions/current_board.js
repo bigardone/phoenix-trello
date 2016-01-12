@@ -97,7 +97,13 @@ const Actions = {
 
   addNewMember: (channel, email) => {
     return dispatch => {
-      channel.push('add_new_member', { email: email });
+      channel.push('members:add', { email: email })
+      .receive('error', (data) => {
+        dispatch({
+          type: Constants.CURRENT_BOARD_ADD_MEMBER_ERROR,
+          error: data.error,
+        });
+      });
     };
   },
 

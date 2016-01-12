@@ -39,7 +39,7 @@ class BoardsShowView extends React.Component {
   }
 
   _renderUsers() {
-    const { connectedUsers, showUsersForm } = this.props.currentBoard;
+    const { connectedUsers, showUsersForm, channel, error } = this.props.currentBoard;
     const { dispatch } = this.props;
     const users = [this.props.currentBoard.user, ...this.props.currentBoard.invited_users];
     const currentUserIsOwner = this.props.currentBoard.user.id === this.props.currentUser.id;
@@ -47,16 +47,13 @@ class BoardsShowView extends React.Component {
     return (
       <BoardUsers
         dispatch={dispatch}
+        channel={channel}
         currentUserIsOwner={currentUserIsOwner}
         users={users}
         connectedUsers={connectedUsers}
-        show={showUsersForm}
-        onNewMemberSubmit={::this._handleNewMemberSubmit}/>
+        error={error}
+        show={showUsersForm} />
     );
-  }
-
-  _handleNewMemberSubmit(email) {
-    this.props.dispatch(Actions.addNewMember(this.props.currentBoard.channel, email));
   }
 
   _renderLists() {

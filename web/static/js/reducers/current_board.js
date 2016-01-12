@@ -7,6 +7,7 @@ const initialState = {
   showUsersForm: false,
   editingListId: null,
   selectedCard: null,
+  error: null,
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -36,7 +37,7 @@ export default function reducer(state = initialState, action = {}) {
       return { ...state, showForm: action.show };
 
     case Constants.CURRENT_BOARD_SHOW_USERS_FORM:
-      return { ...state, showUsersForm: action.show };
+      return { ...state, showUsersForm: action.show, error: false };
 
     case Constants.CURRENT_BOARD_RESET:
       return initialState;
@@ -61,6 +62,9 @@ export default function reducer(state = initialState, action = {}) {
       invited_users.push(action.user);
 
       return { ...state, invited_users: invited_users, showUsersForm: false };
+
+    case Constants.CURRENT_BOARD_ADD_MEMBER_ERROR:
+      return { ...state, error: action.error };
 
     case Constants.CURRENT_BOARD_EDIT_LIST:
       return { ...state, editingListId: action.listId };
