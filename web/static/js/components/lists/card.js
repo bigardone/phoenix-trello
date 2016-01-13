@@ -150,14 +150,14 @@ export default class ListCard extends React.Component {
       );
     } else {
       return (
-        <header onDoubleClick={::this._handleHeaderDoubleClick}>
+        <header onClick={::this._handleHeaderClick}>
           <h4>{this.props.name}</h4>
         </header>
       );
     }
   }
 
-  _handleHeaderDoubleClick(e) {
+  _handleHeaderClick(e) {
     e.preventDefault();
 
     this.props.onEnableEdit(this.props.id);
