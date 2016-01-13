@@ -2,6 +2,7 @@ defmodule PhoenixTrello.Board do
   use PhoenixTrello.Web, :model
 
   alias __MODULE__
+  alias PhoenixTrello.{List, Comment, Card}
 
   @derive {Poison.Encoder, only: [:id, :name, :lists, :user, :invited_users]}
 
@@ -36,5 +37,13 @@ defmodule PhoenixTrello.Board do
     left_join: user_boards in assoc(board, :user_boards),
     where: board.user_id == ^user_id or user_boards.user_id == ^user_id,
     limit: 1
+  end
+
+  def with_everything(query) do
+    comments_query = from c in Comment, order_by: [desc: c.inserted_at], preload: :user
+    cards_query = from c in Card, order_by: c.position, preload: [comments: ^comments_query]
+    lists_query = from l in List, order_by: l.position, preload: [cards: ^cards_query]
+
+    from b in query, preload: [:user, :invited_users, lists: ^lists_query]
   end
 end
