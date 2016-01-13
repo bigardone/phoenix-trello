@@ -3,7 +3,7 @@ defmodule PhoenixTrello.UserTest do
 
   alias PhoenixTrello.User
 
-  @valid_attrs %{crypted_password: "some content", email: "some content", first_name: "some content", last_name: "some content"}
+  @valid_attrs %{encrypted_password: "some content", email: "some content", first_name: "some content", last_name: "some content"}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do

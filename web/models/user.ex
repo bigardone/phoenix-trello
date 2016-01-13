@@ -11,7 +11,7 @@ defmodule PhoenixTrello.User do
     field :first_name, :string
     field :last_name, :string
     field :email, :string
-    field :crypted_password, :string
+    field :encrypted_password, :string
     field :password, :string, virtual: true
 
     has_many :owned_boards, PhoenixTrello.Board
@@ -22,7 +22,7 @@ defmodule PhoenixTrello.User do
   end
 
   @required_fields ~w(first_name last_name email password)
-  @optional_fields ~w(crypted_password)
+  @optional_fields ~w(encrypted_password)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -48,7 +48,7 @@ defmodule PhoenixTrello.User do
   defp put_password_hash(current_changeset) do
     case current_changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
-        put_change(current_changeset, :crypted_password, Comeonin.Bcrypt.hashpwsalt(password))
+        put_change(current_changeset, :encrypted_password, Comeonin.Bcrypt.hashpwsalt(password))
       _ ->
         current_changeset
     end
