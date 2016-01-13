@@ -10,11 +10,13 @@ defmodule PhoenixTrello.BoardController do
   def index(conn, _params) do
     current_user = Guardian.Plug.current_resource(conn)
 
-    owned_boards = assoc(current_user, :owned_boards)
+    owned_boards = current_user
+      |> assoc(:owned_boards)
       |> Repo.all
       |> Repo.preload([:user, :invited_users, lists: [cards: [comments: [:user]]]])
 
-    invited_boards = assoc(current_user, :invited_boards)
+    invited_boards = current_user
+      |> assoc(:invited_boards)
       |> Repo.all
       |> Repo.preload([:user, :invited_users, lists: [cards: [comments: [:user]]]])
 
@@ -25,7 +27,7 @@ defmodule PhoenixTrello.BoardController do
     current_user = Guardian.Plug.current_resource(conn)
     changeset =
       current_user
-      |> build(:owned_boards)
+      |> build_assoc(:owned_boards)
       |> Board.changeset(board_params)
 
     case Repo.insert(changeset) do

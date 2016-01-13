@@ -1,7 +1,5 @@
 defmodule PhoenixTrello.User do
-  use Ecto.Schema
-  import Ecto.Changeset
-  import Ecto.Query
+  use PhoenixTrello.Web, :model
 
   alias __MODULE__
 
@@ -40,8 +38,8 @@ defmodule PhoenixTrello.User do
     |> generate_encrypted_password
   end
 
-  def by_email(email) do
-    from user in User,
+  def by_email(query \\ %User{}, email) do
+    from user in query,
     where: user.email == ^email
   end
 

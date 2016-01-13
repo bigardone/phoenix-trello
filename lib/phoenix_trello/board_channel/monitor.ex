@@ -1,4 +1,8 @@
 defmodule PhoenixTrello.BoardChannel.Monitor do
+  @moduledoc """
+  Board channel monitor that keeps track of connected users per board.
+  """
+  
   use GenServer
 
   #####

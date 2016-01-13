@@ -1,7 +1,5 @@
 defmodule PhoenixTrello.Comment do
-  use Ecto.Schema
-
-  import Ecto.Changeset
+  use PhoenixTrello.Web, :model
 
   @derive {Poison.Encoder, only: [:id, :user, :card_id, :text, :inserted_at]}
 

@@ -1,8 +1,5 @@
 defmodule PhoenixTrello.Card do
-  use Ecto.Schema
-
-  import Ecto.Changeset
-  import Ecto.Query, only: [from: 2]
+  use PhoenixTrello.Web, :model
 
   alias PhoenixTrello.Repo
   alias PhoenixTrello.List
@@ -42,8 +39,8 @@ defmodule PhoenixTrello.Card do
     |> cast(params, @required_fields, @optional_fields)
   end
 
-  defp calculate_position(changeset) do
-    model = changeset.model
+  defp calculate_position(current_changeset) do
+    model = current_changeset.model
 
     query = from(c in Card,
             select: c.position,
@@ -52,8 +49,8 @@ defmodule PhoenixTrello.Card do
             limit: 1)
 
     case Repo.one(query) do
-      nil      -> put_change(changeset, :position, 1024)
-      position -> put_change(changeset, :position, position + 1024)
+      nil      -> put_change(current_changeset, :position, 1024)
+      position -> put_change(current_changeset, :position, position + 1024)
     end
   end
 end
