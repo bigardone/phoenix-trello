@@ -5,6 +5,12 @@ import moment             from 'moment';
 import Actions            from '../../actions/current_board';
 
 export default class CardModal extends React.Component {
+  componentDidUpdate() {
+    const { edit } = this.props;
+
+    if (edit) this.refs.name.focus();
+  }
+
   _closeModal() {
     const { dispatch } = this.props;
 
