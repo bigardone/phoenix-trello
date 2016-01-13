@@ -1,7 +1,5 @@
 defmodule PhoenixTrello.Board do
-  use Ecto.Schema
-  import Ecto.Changeset
-  import Ecto.Query
+  use PhoenixTrello.Web, :model
 
   alias __MODULE__
 
@@ -33,8 +31,8 @@ defmodule PhoenixTrello.Board do
     |> cast(params, @required_fields, @optional_fields)
   end
 
-  def for_user(user_id) do
-    from board in Board,
+  def for_user(query \\ %Board{}, user_id) do
+    from board in query,
     left_join: user_boards in assoc(board, :user_boards),
     where: board.user_id == ^user_id or user_boards.user_id == ^user_id,
     limit: 1

@@ -1,9 +1,7 @@
 defmodule PhoenixTrello.UserSocket do
   use Phoenix.Socket
 
-  alias PhoenixTrello.Repo
-  alias PhoenixTrello.User
-
+  alias PhoenixTrello.{Repo, User}
 
   # Channels
   channel "boards:*", PhoenixTrello.BoardChannel
@@ -23,7 +21,7 @@ defmodule PhoenixTrello.UserSocket do
         :error
     end
   end
-  
+
   def connect(_params, _socket), do: :error
 
   def id(socket), do: "users_socket:#{socket.assigns.current_user.id}"
