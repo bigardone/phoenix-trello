@@ -40,10 +40,20 @@ class SessionsNew extends React.Component {
           <form onSubmit={::this._handleSubmit}>
             {::this._renderError()}
             <div className="field">
-              <input ref="email" type="Email" placeholder="Email" required="true" />
+              <input
+                ref="email"
+                type="Email"
+                placeholder="Email"
+                required="true"
+                defaultValue="john@phoenix-trello.com"/>
             </div>
             <div className="field">
-              <input ref="password" type="password" placeholder="Password" required="true" />
+              <input
+                ref="password"
+                type="password"
+                placeholder="Password"
+                required="true"
+                defaultValue="12345678"/>
             </div>
             <button type="submit">Sign in</button>
           </form>

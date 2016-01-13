@@ -14,35 +14,11 @@ alias PhoenixTrello.User
 
 [
   %{
-    first_name: "Javier",
-    last_name: "Cuevas",
-    email: "javi@diacode.com",
+    first_name: "John",
+    last_name: "Doe",
+    email: "john@phoenix-trello.com",
     password: "12345678"
   },
-  %{
-    first_name: "Victor",
-    last_name: "Viruete",
-    email: "victor@diacode.com",
-    password: "12345678"
-  },
-  %{
-    first_name: "Ricardo",
-    last_name: "Carcía",
-    email: "ricardo@diacode.com",
-    password: "12345678"
-  },
-  %{
-    first_name: "Bruno",
-    last_name: "Bayón",
-    email: "bruno@diacode.com",
-    password: "12345678"
-  },
-  %{
-    first_name: "Artur",
-    last_name: "Chruszcz",
-    email: "artur@diacode.com",
-    password: "12345678"
-  }
 ]
 |> Enum.map(&User.changeset(%User{}, &1))
 |> Enum.each(&Repo.insert!(&1))
