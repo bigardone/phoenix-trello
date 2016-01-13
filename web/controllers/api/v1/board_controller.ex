@@ -4,8 +4,7 @@ defmodule PhoenixTrello.BoardController do
   plug Guardian.Plug.EnsureAuthenticated, handler: PhoenixTrello.SessionController
   plug :scrub_params, "board" when action in [:create]
 
-  alias PhoenixTrello.Repo
-  alias PhoenixTrello.Board
+  alias PhoenixTrello.{Repo, Board}
 
   def index(conn, _params) do
     current_user = Guardian.Plug.current_resource(conn)

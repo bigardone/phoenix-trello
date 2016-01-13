@@ -1,10 +1,7 @@
 defmodule PhoenixTrello.Card do
   use PhoenixTrello.Web, :model
 
-  alias PhoenixTrello.Repo
-  alias PhoenixTrello.List
-  alias PhoenixTrello.Card
-  alias PhoenixTrello.Comment
+  alias PhoenixTrello.{Repo, List, Card, Comment}
 
   @derive {Poison.Encoder, only: [:id, :list_id, :name, :description, :position, :comments]}
 
