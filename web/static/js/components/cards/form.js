@@ -34,6 +34,10 @@ export default class CardForm extends React.Component {
     });
   }
 
+  componentDidMount(){
+    this.refs.name.getDOMNode().focus();
+  }
+
   _handleCancelClick(e) {
     e.preventDefault();
 
