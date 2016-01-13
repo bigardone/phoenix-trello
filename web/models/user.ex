@@ -33,11 +33,11 @@ defmodule PhoenixTrello.User do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
-    |> unique_constraint(:email, message: "Email already taken")
     |> validate_format(:email, ~r/@/)
     |> validate_length(:password, min: 5)
     |> validate_confirmation(:password, message: "Password does not match")
-    |> put_password_hash
+    |> unique_constraint(:email, message: "Email already taken")
+    |> generate_encrypted_password
   end
 
   def by_email(email) do
@@ -45,7 +45,7 @@ defmodule PhoenixTrello.User do
     where: user.email == ^email
   end
 
-  defp put_password_hash(current_changeset) do
+  defp generate_encrypted_password(current_changeset) do
     case current_changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
         put_change(current_changeset, :encrypted_password, Comeonin.Bcrypt.hashpwsalt(password))
