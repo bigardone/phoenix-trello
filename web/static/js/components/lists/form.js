@@ -33,6 +33,10 @@ export default class ListForm extends React.Component {
     });
   }
 
+  componentDidMount(){
+    this.refs.name.focus();
+  }
+
   _handleCancelClick(e) {
     e.preventDefault();
 

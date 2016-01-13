@@ -33,7 +33,7 @@ export default class BoardForm extends React.Component {
   }
 
   componentDidMount(){
-    this.refs.name.getDOMNode().focus();
+    this.refs.name.focus();
   }
 
   _handleCancelClick(e) {
