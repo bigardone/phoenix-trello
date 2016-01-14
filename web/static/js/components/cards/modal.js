@@ -11,7 +11,9 @@ export default class CardModal extends React.Component {
     if (edit) this.refs.name.focus();
   }
 
-  _closeModal() {
+  _closeModal(e) {
+    e.preventDefault();
+
     const { dispatch } = this.props;
 
     dispatch(Actions.resetEditCard());
@@ -140,10 +142,14 @@ export default class CardModal extends React.Component {
       );
     } else {
       return (
-        <header onClick={::this._handleHeaderClick}>
+        <header>
           <h3>{card.name}</h3>
           <h5>Description</h5>
           <p>{card.description}</p>
+          <a href="#" onClick={::this._handleHeaderClick}>Edit</a>
+          <a className="close" href="#" onClick={::this._closeModal}>
+            <i className="fa fa-close"/>
+          </a>
         </header>
       );
     }
