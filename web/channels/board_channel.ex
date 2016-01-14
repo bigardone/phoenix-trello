@@ -154,14 +154,10 @@ defmodule PhoenixTrello.BoardChannel do
   defp get_current_board(socket, board_id) do
     current_user = socket.assigns.current_user
 
-    comments_query = from c in Comment, order_by: [desc: c.inserted_at], preload: :user
-    cards_query = from c in Card, order_by: c.position, preload: [comments: ^comments_query]
-    lists_query = from l in List, order_by: l.position, preload: [cards: ^cards_query]
-
     Board
-      |> Board.for_user(current_user.id)
-      |> Repo.get(board_id)
-      |> Repo.preload([:user, :invited_users, lists: lists_query])
+    |> Board.for_user(current_user.id)
+    |> Board.with_everything
+    |> Repo.get(board_id)
   end
 
   defp get_current_board(socket) do

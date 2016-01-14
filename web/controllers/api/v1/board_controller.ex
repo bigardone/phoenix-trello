@@ -11,13 +11,13 @@ defmodule PhoenixTrello.BoardController do
 
     owned_boards = current_user
       |> assoc(:owned_boards)
+      |> Board.with_everything
       |> Repo.all
-      |> Repo.preload([:user, :invited_users, lists: [cards: [comments: [:user]]]])
 
     invited_boards = current_user
       |> assoc(:invited_boards)
+      |> Board.with_everything
       |> Repo.all
-      |> Repo.preload([:user, :invited_users, lists: [cards: [comments: [:user]]]])
 
     render(conn, "index.json", owned_boards: owned_boards, invited_boards: invited_boards)
   end
