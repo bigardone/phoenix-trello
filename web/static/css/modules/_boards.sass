@@ -1,52 +1,55 @@
-.boards-wrapper
-  $margin: 1em
+.boards.index
+  overflow-y: scroll
 
-  +display(flex)
-  +flex-wrap(wrap)
-  +flex-flow(row wrap)
-  margin: $margin (-$margin)
+  .boards-wrapper
+    $margin: 1em
 
-  .board
-    +transition
-    +flex(0 0 25%)
-    cursor: pointer
+    +display(flex)
+    +flex-wrap(wrap)
+    +flex-flow(row wrap)
+    margin: $margin (-$margin)
 
-    .inner
-      background: $light-gray
-      border-radius: $base-border-radius
-      margin: $margin
-      line-height: 1.75em
-      overflow: hidden
-      padding: $base-spacing/2
-      min-height: 5em
-
-
-    &.form
-      input
-        +fill-parent
-        margin-bottom: .5em
-
-    &.add-new
-      .inner
-        +transition
-        background: rgba(#000, .1)
-        cursor: pointer
-        color: $gray
-
-        &:hover
-          background: rgba(#000, .2)
+    .board
+      +transition
+      +flex(0 0 25%)
+      cursor: pointer
 
       .inner
-        position: relative
+        background: $light-gray
+        border-radius: $base-border-radius
+        margin: $margin
+        line-height: 1.75em
+        overflow: hidden
+        padding: $base-spacing/2
+        min-height: 5em
 
-        a
+
+      &.form
+        input
+          +fill-parent
+          margin-bottom: .5em
+
+      &.add-new
+        .inner
           +transition
-          +transform(translate(-50%, -50%))
-          display: block
-          position: absolute
-          top: 50%
-          left: 50%
+          background: rgba(#000, .1)
+          cursor: pointer
           color: $gray
+
+          &:hover
+            background: rgba(#000, .2)
+
+        .inner
+          position: relative
+
+          a
+            +transition
+            +transform(translate(-50%, -50%))
+            display: block
+            position: absolute
+            top: 50%
+            left: 50%
+            color: $gray
 
 .boards.show
   .view-header
