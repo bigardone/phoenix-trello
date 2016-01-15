@@ -1,14 +1,15 @@
-import React, {PropTypes} from 'react';
-import { connect }        from 'react-redux';
-import { Link }           from 'react-router';
-import Actions            from '../../actions/sessions';
+import React, {PropTypes}   from 'react';
+import { connect }          from 'react-redux';
+import { Link }             from 'react-router';
 
-const mapStateToProps = (state) => ({
-  currentUser: state.session.currentUser,
-  error: state.session.error,
-});
+import { setDocumentTitle } from '../../utils';
+import Actions              from '../../actions/sessions';
 
 class SessionsNew extends React.Component {
+  componentDidMount() {
+    setDocumentTitle('Sign in');
+  }
+
   _handleSubmit(e) {
     e.preventDefault();
 
@@ -63,5 +64,10 @@ class SessionsNew extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  currentUser: state.session.currentUser,
+  error: state.session.error,
+});
 
 export default connect(mapStateToProps)(SessionsNew);

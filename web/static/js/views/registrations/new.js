@@ -1,15 +1,15 @@
-import React, {PropTypes} from 'react';
-import { connect }        from 'react-redux';
-import { Link }           from 'react-router';
+import React, {PropTypes}   from 'react';
+import { connect }          from 'react-redux';
+import { Link }             from 'react-router';
 
-import Actions            from '../../actions/registrations';
-
-const mapStateToProps = (state) => ({
-  currentUser: state.session.currentUser,
-  errors: state.registration.errors,
-});
+import { setDocumentTitle } from '../../utils';
+import Actions              from '../../actions/registrations';
 
 class RegistrationsNew extends React.Component {
+  componentDidMount() {
+    setDocumentTitle('Sign up');
+  }
+
   _handleSubmit(e) {
     e.preventDefault();
 
@@ -25,7 +25,7 @@ class RegistrationsNew extends React.Component {
   }
 
   _renderErrorsFor(ref) {
-    const {errors} = this.props;
+    const { errors } = this.props;
 
     if (!errors) return false;
 
@@ -76,5 +76,10 @@ class RegistrationsNew extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  currentUser: state.session.currentUser,
+  errors: state.registration.errors,
+});
 
 export default connect(mapStateToProps)(RegistrationsNew);

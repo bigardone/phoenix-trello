@@ -1,9 +1,10 @@
-import React        from 'react';
-import { connect }  from 'react-redux';
-import Actions      from '../../actions/boards';
+import React                from 'react';
+import { connect }          from 'react-redux';
 
-import BoardCard  from '../../components/boards/card';
-import BoardForm  from '../../components/boards/form';
+import { setDocumentTitle } from '../../utils';
+import Actions              from '../../actions/boards';
+import BoardCard            from '../../components/boards/card';
+import BoardForm            from '../../components/boards/form';
 
 const mapStateToProps = (state) => (
   state.boards
@@ -11,6 +12,8 @@ const mapStateToProps = (state) => (
 
 class HomeIndexView extends React.Component {
   componentDidMount() {
+    setDocumentTitle('Boards');
+
     this.props.dispatch(Actions.fetchBoards());
   }
 
@@ -41,7 +44,7 @@ class HomeIndexView extends React.Component {
   }
 
   _renderOtherBoards() {
-    const {invitedBoards} = this.props;
+    const { invitedBoards } = this.props;
 
     if (invitedBoards.length === 0) return false;
 
@@ -68,7 +71,7 @@ class HomeIndexView extends React.Component {
   }
 
   _handleAddNewClick() {
-    let {showForm, dispatch, boardsFetched} = this.props;
+    let { showForm, dispatch, boardsFetched } = this.props;
 
     if (showForm && boardsFetched) return false;
 

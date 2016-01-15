@@ -1,15 +1,15 @@
-import React, {PropTypes}       from 'react';
-import { connect }              from 'react-redux';
-import {DragDropContext}        from 'react-dnd';
-import HTML5Backend             from 'react-dnd-html5-backend';
+import React, {PropTypes}                 from 'react';
+import { connect }                        from 'react-redux';
+import {DragDropContext}                  from 'react-dnd';
+import HTML5Backend                       from 'react-dnd-html5-backend';
 
-import Actions                  from '../../actions/current_board';
-import Constants                from '../../constants';
-import { getParentKey }         from '../../utils';
-import ListForm                 from '../../components/lists/form';
-import ListCard                 from '../../components/lists/card';
-import CardModal                from '../../components/cards/modal';
-import BoardUsers               from '../../components/boards/users';
+import Actions                            from '../../actions/current_board';
+import Constants                          from '../../constants';
+import { getParentKey, setDocumentTitle } from '../../utils';
+import ListForm                           from '../../components/lists/form';
+import ListCard                           from '../../components/lists/card';
+import CardModal                          from '../../components/cards/modal';
+import BoardUsers                         from '../../components/boards/users';
 
 @DragDropContext(HTML5Backend)
 
@@ -25,7 +25,9 @@ class BoardsShowView extends React.Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    const { socket } = this.props;
+    const { socket, currentBoard } = this.props;
+
+    setDocumentTitle(currentBoard.name);
 
     if (socket) {
       return false;
