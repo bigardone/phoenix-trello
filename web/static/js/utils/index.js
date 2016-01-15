@@ -75,3 +75,7 @@ export function httpDelete(url) {
   .then(checkStatus)
   .then(parseJSON);
 }
+
+export function setDocumentTitle(title) {
+  document.title = `${title} | Phoenix Trello`;
+}
