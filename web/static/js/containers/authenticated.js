@@ -5,10 +5,6 @@ import { pushPath } from 'redux-simple-router';
 
 import Header       from '../layouts/header';
 
-const mapStateToProps = (state) => ({
-  currentUser: state.session.currentUser,
-});
-
 class AuthenticatedContainer extends React.Component {
   componentDidMount() {
     const { dispatch, currentUser } = this.props;
@@ -38,5 +34,9 @@ class AuthenticatedContainer extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  currentUser: state.session.currentUser,
+});
 
 export default connect(mapStateToProps)(AuthenticatedContainer);
