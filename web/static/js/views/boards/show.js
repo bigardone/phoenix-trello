@@ -28,7 +28,7 @@ class BoardsShowView extends React.Component {
     const { socket } = this.props;
     const { currentBoard } = nextProps;
 
-    setDocumentTitle(currentBoard.name);
+    if (currentBoard.name !== undefined) setDocumentTitle(currentBoard.name);
 
     if (socket) {
       return false;
