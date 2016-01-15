@@ -143,7 +143,7 @@ defmodule PhoenixTrello.BoardChannel do
   end
 
   def terminate(_reason, socket) do
-    board_id = to_string(socket.assigns.board.id)
+    board_id = Board.slug_id(socket.assigns.board)
     user_id = socket.assigns.current_user.id
 
     broadcast! socket, "user:left", %{users: Monitor.user_left(board_id, user_id)[board_id]}
