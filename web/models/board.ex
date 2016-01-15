@@ -2,12 +2,13 @@ defmodule PhoenixTrello.Board do
   use PhoenixTrello.Web, :model
 
   alias __MODULE__
-  alias PhoenixTrello.{List, Comment, Card}
+  alias PhoenixTrello.{Permalink, List, Comment, Card}
 
-  @derive {Poison.Encoder, only: [:id, :name, :lists, :user, :invited_users]}
+  @primary_key {:id, Permalink, autogenerate: true}
 
   schema "boards" do
     field :name, :string
+    field :slug, :string
 
     belongs_to :user, PhoenixTrello.User
     has_many :lists, PhoenixTrello.List
@@ -19,7 +20,7 @@ defmodule PhoenixTrello.Board do
   end
 
   @required_fields ~w(name)
-  @optional_fields ~w()
+  @optional_fields ~w(slug)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -30,6 +31,7 @@ defmodule PhoenixTrello.Board do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> slugify_name()
   end
 
   def for_user(query \\ %Board{}, user_id) do
@@ -45,5 +47,34 @@ defmodule PhoenixTrello.Board do
     lists_query = from l in List, order_by: l.position, preload: [cards: ^cards_query]
 
     from b in query, preload: [:user, :invited_users, lists: ^lists_query]
+  end
+
+  defp slugify_name(current_changeset) do
+    if name = get_change(current_changeset, :name) do
+      put_change(current_changeset, :slug, slugify(name))
+    else
+      current_changeset
+    end
+  end
+
+  defp slugify(value) do
+    value
+    |> String.downcase()
+    |> String.replace(~r/[^\w-]+/, "-")
+  end
+end
+
+defimpl Phoenix.Param, for: PhoenixTrello.Board do
+  def to_param(%{slug: slug, id: id}) do
+    "#{id}-#{slug}"
+  end
+end
+
+defimpl Poison.Encoder, for: PhoenixTrello.Board do
+  def encode(model, options) do
+    model
+    |> Map.take([:name, :lists, :user, :invited_users])
+    |> Map.put(:id, "#{model.id}-#{model.slug}")
+    |> Poison.Encoder.encode(options)
   end
 end
