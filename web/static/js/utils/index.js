@@ -1,12 +1,6 @@
-import fetch from 'isomorphic-fetch';
-import {polyfill}   from 'es6-promise';
-
-polyfill();
-
-export function getParentKey(key) {
-  const parsedKey = key.match(/(.*)\..+/);
-  return parsedKey ? parsedKey[1] : null;
-}
+import React        from 'react';
+import fetch        from 'isomorphic-fetch';
+import { polyfill } from 'es6-promise';
 
 export function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
@@ -78,4 +72,18 @@ export function httpDelete(url) {
 
 export function setDocumentTitle(title) {
   document.title = `${title} | Phoenix Trello`;
+}
+
+export function renderErrorsFor(errors, ref) {
+  if (!errors) return false;
+
+  return errors.map((error, i) => {
+    if (error[ref]) {
+      return (
+        <div key={i} className="error">
+          {error[ref]}
+        </div>
+      );
+    }
+  });
 }
