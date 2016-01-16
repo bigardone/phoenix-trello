@@ -7,6 +7,8 @@ const Actions = {
     return dispatch => {
       const authToken = localStorage.phoenixAuthToken;
 
+      dispatch({ type: Constants.BOARDS_FETCHING });
+
       httpGet(`/api/v1/boards?jwt=${authToken}`)
       .then((data) => {
         dispatch({
@@ -29,7 +31,7 @@ const Actions = {
 
   create: (data) => {
     return dispatch => {
-      httpPost('/api/v1/boards', {board: data})
+      httpPost('/api/v1/boards', { board: data })
       .then((data) => {
         dispatch(pushPath(`/boards/${data.id}`));
       })
