@@ -80,7 +80,7 @@ class BoardsShowView extends React.Component {
   }
 
   _renderAddNewList() {
-    let { dispatch, formErrors, boardsFetched, currentBoard } = this.props;
+    let { dispatch, formErrors, currentBoard } = this.props;
 
     if (!currentBoard.showForm) return this._renderAddButton();
 
@@ -104,9 +104,7 @@ class BoardsShowView extends React.Component {
   }
 
   _handleAddNewClick() {
-    let { showForm, dispatch, boardsFetched } = this.props;
-
-    if (showForm && boardsFetched) return false;
+    let { dispatch } = this.props;
 
     dispatch(Actions.showForm(true));
   }
@@ -210,9 +208,13 @@ class BoardsShowView extends React.Component {
   }
 
   render() {
-    const { id, name, currentKey, translations, leaf } = this.props.currentBoard;
+    const { fetching, name } = this.props.currentBoard;
 
-    if (!id) return false;
+    if (fetching) return (
+      <div className='view-container boards show'>
+        <i className="fa fa-spinner fa-spin"/>
+      </div>
+    );
 
     return (
       <div className='view-container boards show'>

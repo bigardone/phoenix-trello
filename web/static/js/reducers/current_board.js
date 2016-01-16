@@ -9,6 +9,7 @@ const initialState = {
   selectedCard: null,
   editSelectedCard: false,
   error: null,
+  fetching: true,
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -16,6 +17,9 @@ export default function reducer(state = initialState, action = {}) {
   let editSelectedCard;
 
   switch (action.type) {
+    case Constants.CURRENT_BOARD_FETHING:
+      return { ...state, fetching: true };
+
     case Constants.BOARDS_SET_CURRENT_BOARD:
       let selectedCard = state.selectedCard;
       editSelectedCard = state.editSelectedCard;
@@ -30,7 +34,7 @@ export default function reducer(state = initialState, action = {}) {
         editSelectedCard = false;
       }
 
-      return { ...state, editingListId: null, selectedCard: selectedCard, editSelectedCard: editSelectedCard, ...action.board };
+      return { ...state, editingListId: null, selectedCard: selectedCard, editSelectedCard: editSelectedCard, fetching: false, ...action.board };
 
     case Constants.CURRENT_BOARD_CONNECTED_USERS:
       return { ...state, connectedUsers: action.users };

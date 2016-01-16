@@ -15,6 +15,8 @@ const Actions = {
     return dispatch => {
       let channel = socket.channel(`boards:${boardId}`);
 
+      dispatch({ type: Constants.CURRENT_BOARD_FETHING });
+
       channel.join().receive('ok', (response) => {
         dispatch({
           type: Constants.BOARDS_SET_CURRENT_BOARD,
