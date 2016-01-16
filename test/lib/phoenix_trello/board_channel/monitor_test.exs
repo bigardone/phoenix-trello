@@ -1,14 +1,15 @@
 defmodule PhoenixTrello.BoardChannel.MonitorTest do
   use ExUnit.Case, async: true
 
+  import PhoenixTrello.Factory
+
   alias PhoenixTrello.BoardChannel.Monitor
-  alias PhoenixTrello.User
 
   setup_all do
     users = %{
-      first_user: %User{id: 1, first_name: "Ricardo"},
-      second_user: %User{id: 2, first_name: "Javier"},
-      third_user: %User{id: 3, first_name: "Victor"}
+      first_user: create(:user),
+      second_user: create(:user),
+      third_user: create(:user)
     }
 
     {:ok, users}

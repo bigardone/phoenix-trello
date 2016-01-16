@@ -18,8 +18,16 @@ defmodule PhoenixTrello.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {PhoenixTrello, []},
-     applications: [:phoenix, :phoenix_html, :cowboy, :logger,
-                    :phoenix_ecto, :postgrex, :comeonin]]
+     applications: [
+      :phoenix,
+      :phoenix_html,
+      :cowboy,
+      :logger,
+      :phoenix_ecto,
+      :postgrex,
+      :comeonin,
+      :ex_machina
+    ]]
   end
 
   # Specifies which paths to compile per environment.
@@ -39,7 +47,8 @@ defmodule PhoenixTrello.Mixfile do
       {:cowboy, "~> 1.0"},
       {:comeonin, "~> 2.0"},
       {:guardian, "~> 0.9.0"},
-      {:credo, "~> 0.2", only: [:dev, :test]}
+      {:credo, "~> 0.2", only: [:dev, :test]},
+      {:ex_machina, "~> 0.6.1"}
      ]
   end
 
