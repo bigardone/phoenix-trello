@@ -1,7 +1,7 @@
 defmodule PhoenixTrello.Factory do
   use ExMachina.Ecto, repo: PhoenixTrello.Repo
 
-  alias PhoenixTrello.{User, Board, List}
+  alias PhoenixTrello.{User, Board, List, Card}
 
   def factory(:user) do
     %User{
@@ -28,8 +28,22 @@ defmodule PhoenixTrello.Factory do
   end
 
   def factory(:list) do
-    list = %List{
+    %List{
       name: sequence(:name, &"Name #{&1}")
+    }
+  end
+
+  def factory(:card) do
+    %Card{
+      name: sequence(:name, &"Name #{&1}")
+    }
+  end
+
+  def factory(:list_with_cards) do
+    %List{
+      name: sequence(:name, &"Name #{&1}"),
+      board: build(:board),
+      cards: build_list(5, :card)
     }
   end
 end

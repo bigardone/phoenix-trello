@@ -1,5 +1,5 @@
 defmodule PhoenixTrello.ListTest do
-  use PhoenixTrello.ModelCase
+  use PhoenixTrello.ModelCase, async: true
 
   import PhoenixTrello.Factory
 

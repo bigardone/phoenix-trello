@@ -4,7 +4,6 @@ defmodule PhoenixTrello.BoardChannel.MonitorTest do
   import PhoenixTrello.Factory
 
   alias PhoenixTrello.BoardChannel.Monitor
-  alias PhoenixTrello.User
 
   setup_all do
     users = %{
