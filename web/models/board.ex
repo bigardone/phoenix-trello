@@ -19,7 +19,7 @@ defmodule PhoenixTrello.Board do
     timestamps
   end
 
-  @required_fields ~w(name)
+  @required_fields ~w(name user_id)
   @optional_fields ~w(slug)
 
   @doc """
