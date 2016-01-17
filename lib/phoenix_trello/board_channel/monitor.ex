@@ -30,9 +30,9 @@ defmodule PhoenixTrello.BoardChannel.Monitor do
   def handle_call({:user_joined, channel, user}, _from, state) do
     new_state = case Map.get(state, channel) do
       nil ->
-        Map.put(state, channel, [user])
+        state |> Map.put(channel, [user])
       users ->
-        Map.put(state, channel, Enum.uniq([user | users]))
+        state |> Map.put(channel, Enum.uniq([user | users]))
     end
 
     {:reply, new_state, new_state}
