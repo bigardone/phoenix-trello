@@ -21,7 +21,7 @@ defmodule PhoenixTrello.SessionController do
 
   def delete(conn, _) do
     jwt = Guardian.Plug.current_token(conn)
-    claims = Guardian.Plug.claims(conn)
+    {:ok, claims} = Guardian.Plug.claims(conn)
 
     Guardian.revoke!(jwt, claims)
 
