@@ -12,7 +12,7 @@ defmodule PhoenixTrello.CommentTest do
     list = create(:list_with_cards)
       |> Repo.preload([:board, :cards])
 
-    {:ok, %{list: list, card: List.first(list.cards)}}
+    {:ok, list: list, card: List.first(list.cards)}
   end
 
   test "changeset with valid attributes", %{list: list, card: card} do
