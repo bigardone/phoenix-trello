@@ -45,7 +45,7 @@ defmodule PhoenixTrello.BoardChannel.Monitor do
   def handle_call({:user_left, channel, user_id}, _from, state) do
     new_users = state
       |> Map.get(channel)
-      |> Enum.reject(fn(user) -> user.id == user_id end)
+      |> Enum.reject(&(&1.id == user_id))
 
     new_state = state
       |> Map.update!(channel, fn(_) -> new_users end)
