@@ -13,7 +13,7 @@ defmodule PhoenixTrello.CardTest do
     board = create(:board, %{user_id: user.id})
     list = create(:list, %{board_id: board.id})
 
-    {:ok, %{list: list}}
+    {:ok, list: list}
   end
 
   test "changeset with valid attributes", %{list: list} do

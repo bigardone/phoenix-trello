@@ -1,4 +1,4 @@
-import { pushPath }  from 'redux-simple-router';
+import { routeActions }  from 'redux-simple-router';
 import Constants     from '../constants';
 import { httpPost }  from '../utils';
 
@@ -6,7 +6,7 @@ const Actions = {};
 
 Actions.signUp = (data) => {
   return dispatch => {
-    httpPost('/api/v1/registrations', {user: data})
+    httpPost('/api/v1/registrations', { user: data })
     .then((data) => {
       localStorage.phoenixAuthToken = data.jwt;
 
@@ -15,7 +15,7 @@ Actions.signUp = (data) => {
         currentUser: data.user,
       });
 
-      dispatch(pushPath('/'));
+      dispatch(routeActions.push('/'));
     })
     .catch((error) => {
       error.response.json()

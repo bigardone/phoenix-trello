@@ -1,5 +1,5 @@
 import Constants              from '../constants';
-import { pushPath }           from 'redux-simple-router';
+import { routeActions }           from 'redux-simple-router';
 import { httpGet, httpPost }  from '../utils';
 
 const Actions = {
@@ -33,7 +33,7 @@ const Actions = {
     return dispatch => {
       httpPost('/api/v1/boards', { board: data })
       .then((data) => {
-        dispatch(pushPath(`/boards/${data.id}`));
+        dispatch(routeActions.push(`/boards/${data.id}`));
       })
       .catch((error) => {
         error.response.json()

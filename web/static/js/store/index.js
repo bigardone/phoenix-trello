@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import createLogger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
+import { syncHistory } from 'redux-simple-router';
 import reducers from '../reducers';
 
 const loggerMiddleware = createLogger({
@@ -8,8 +9,9 @@ const loggerMiddleware = createLogger({
   collapsed: true,
 });
 
-const createStoreWithMiddleware = applyMiddleware(thunkMiddleware, loggerMiddleware)(createStore);
+export default function configureStore(browserHistory) {
+  const reduxRouterMiddleware = syncHistory(browserHistory);
+  const createStoreWithMiddleware = applyMiddleware(reduxRouterMiddleware, thunkMiddleware, loggerMiddleware)(createStore);
 
-export default function configureStore() {
   return createStoreWithMiddleware(reducers);
 }

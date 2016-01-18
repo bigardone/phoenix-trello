@@ -9,7 +9,7 @@ defmodule PhoenixTrello.ListTest do
   @invalid_attrs %{}
 
   setup do
-    {:ok, %{board: create(:board)}}
+    {:ok, board: create(:board)}
   end
 
   test "changeset with valid attributes", %{board: board} do

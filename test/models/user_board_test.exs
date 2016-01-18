@@ -12,7 +12,7 @@ defmodule PhoenixTrello.UserBoardTest do
     user = create(:user)
     board = create(:board)
 
-    {:ok, %{user: user, board: board}}
+    {:ok, user: user, board: board}
   end
 
   test "changeset with valid attributes", %{user: user, board: board} do
