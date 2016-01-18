@@ -31,24 +31,17 @@ export function httpGet(url) {
 }
 
 export function httpPost(url, data) {
-  const authToken = localStorage.phoenixAuthToken;
-  let body;
-  let headers;
+  const headers = {
+    Authorization: localStorage.phoenixAuthToken,
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  };
 
-  if (data instanceof FormData) {
-    body = data;
-    headers = {};
-  } else {
-    body = JSON.stringify(data);
-    headers = {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    };
-  }
+  const body = JSON.stringify(data);
 
   return fetch(url, {
     method: 'post',
-    headers: { ...headers, Authorization: authToken },
+    headers: headers,
     body: body,
   })
   .then(checkStatus)
