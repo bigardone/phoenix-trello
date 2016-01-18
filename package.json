@@ -25,7 +25,7 @@
     "babel-preset-stage-0": "^6.3.13",
     "babel-preset-stage-2": "^6.3.13",
     "css-loader": "^0.23.1",
-    "extract-text-webpack-plugin": "^0.9.1",
+    "extract-text-webpack-plugin": "^1.0.1",
     "node-libs-browser": "^0.5.3",
     "node-sass": "^3.4.2",
     "sass-loader": "^3.1.2",
@@ -39,7 +39,7 @@
     "es6-promise": "^3.0.2",
     "history": "^1.17.0",
     "invariant": "^2.2.0",
-    "isomorphic-fetch": "^2.2.0",
+    "isomorphic-fetch": "^2.2.1",
     "moment": "^2.11.1",
     "react": "^0.14.5",
     "react-addons-css-transition-group": "^0.14.5",
@@ -50,10 +50,10 @@
     "react-page-click": "^2.0.0",
     "react-redux": "^4.0.4",
     "react-router": "^1.0.3",
-    "recursive-iterator": "^2.0.0",
     "redux": "^3.0.5",
-    "redux-logger": "^2.3.1",
-    "redux-simple-router": "^1.0.2",
-    "redux-thunk": "^1.0.2"
+    "redux-logger": "^2.3.2",
+    "redux-simple-router": "^2.0.3",
+    "redux-thunk": "^1.0.2",
+    "webpack": "^1.12.11"
   }
 }
