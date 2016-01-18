@@ -14,8 +14,25 @@ To start your Phoenix Trello app:
   1. Install dependencies with `mix deps.get`
   2. Ensure webpack is installed. ie: `npm install -g webpack`
   3. Install npm packages with `npm install`
-  4. Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  5. Run seeds to create demo user with `mix run priv/repo/seeds.exs`
-  6. Start Phoenix endpoint with `mix phoenix.server`
+  4. Create a ```config/dev.secret.exs``` file with the content described below.
+  5. Create and migrate your database with `mix ecto.create && mix ecto.migrate`
+  6. Run seeds to create demo user with `mix run priv/repo/seeds.exs`
+  7. Start Phoenix endpoint with `mix phoenix.server`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+
+### dev.secret.exs
+This file contains any sensible data for your development environment:
+
+```elixir
+use Mix.Config
+
+config :guardian, Guardian,
+  secret_key: "YOUR_SECRET_KEY"
+```
+
+To generete the secret key just run the following:
+
+```mix phoenix.gen.secret````
+
+
