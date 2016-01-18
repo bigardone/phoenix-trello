@@ -30,7 +30,7 @@ class RegistrationsNew extends React.Component {
     const { errors } = this.props;
 
     return (
-      <div className='view-container registrations new'>
+      <div className="view-container registrations new">
         <main>
           <header>
             <div className="logo" />
