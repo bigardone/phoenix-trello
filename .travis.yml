@@ -4,7 +4,6 @@ otp_release:
 addons:
   postgresql: '9.4.5'
 before_script:
-  before_script:
   - touch config/dev.secret.exs
   - cp config/travis.exs config/test.exs
   - mix do ecto.create, ecto.migrate
