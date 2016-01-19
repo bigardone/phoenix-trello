@@ -101,7 +101,7 @@ defmodule PhoenixTrello.BoardChannel do
         board = get_current_board(socket)
 
         card = Card
-        |> Card.with_everything()
+        |> Card.with_comments
         |> Repo.get(card.id)
 
         broadcast! socket, "card:updated", %{board: board, card: card}
@@ -141,7 +141,7 @@ defmodule PhoenixTrello.BoardChannel do
     case Repo.insert(changeset) do
       {:ok, _comment} ->
         card = Card
-        |> Card.with_everything()
+        |> Card.with_comments
         |> Repo.get(card_id)
 
         broadcast! socket, "comment:created", %{board: get_current_board(socket), card: card}

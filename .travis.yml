@@ -1,9 +1,12 @@
 language: elixir
+elixir:
+  - 1.2.1
 otp_release:
-  - 18.0
+  - 18.1
 addons:
-  postgresql: '9.4.5'
+  postgresql: '9.4'
+services:
+  - postgresql
 before_script:
-  before_script:
   - cp config/travis.exs config/test.exs
   - mix do ecto.create, ecto.migrate

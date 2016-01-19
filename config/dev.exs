@@ -43,4 +43,6 @@ config :phoenix_trello, PhoenixTrello.Repo,
   hostname: "localhost",
   pool_size: 10
 
-import_config "dev.secret.exs"
+# Guardian configuration
+config :guardian, Guardian,
+  secret_key: "W9cDv9fjPtsYv2gItOcFb5PzmRzqGkrOsJGmby0KpBOlHJIlhxMKFmIlcCG9PVFQ"
