@@ -6,7 +6,7 @@ defmodule PhoenixTrello.SessionController do
   def create(conn, %{"session" => session_params}) do
     case PhoenixTrello.Session.authenticate(session_params) do
       {:ok, user} ->
-        {:ok, jwt, _full_claims} = Guardian.encode_and_sign(user, :token)
+        {:ok, jwt, _full_claims} = user |> Guardian.encode_and_sign(:token)
 
         conn
         |> put_status(:created)
@@ -20,10 +20,11 @@ defmodule PhoenixTrello.SessionController do
   end
 
   def delete(conn, _) do
-    jwt = Guardian.Plug.current_token(conn)
     {:ok, claims} = Guardian.Plug.claims(conn)
 
-    Guardian.revoke!(jwt, claims)
+    conn
+    |> Guardian.Plug.current_token
+    |> Guardian.revoke!(claims)
 
     conn
     |> render("delete.json")
@@ -32,6 +33,6 @@ defmodule PhoenixTrello.SessionController do
   def unauthenticated(conn, _params) do
     conn
     |> put_status(:unprocessable_entity)
-    |> render(PhoenixTrello.SessionView, "error.json", error: "Not Authenticated")
+    |> render("error.json", error: "Not Authenticated")
   end
 end
