@@ -4,6 +4,7 @@ import session              from './session';
 import registration         from './registration';
 import boards               from './boards';
 import currentBoard         from './current_board';
+import currentCard         from './current_card';
 
 export default combineReducers({
   routing: routeReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   registration: registration,
   boards: boards,
   currentBoard: currentBoard,
+  currentCard: currentCard,
 });

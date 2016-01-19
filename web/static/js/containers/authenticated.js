@@ -9,7 +9,7 @@ class AuthenticatedContainer extends React.Component {
   componentDidMount() {
     const { dispatch, currentUser } = this.props;
 
-    if (localStorage.phoenixAuthToken) {
+    if (localStorage.getItem('phoenixAuthToken')) {
       dispatch(Actions.currentUser());
     } else {
       dispatch(routeActions.push('/sign_in'));

@@ -6,7 +6,7 @@ import { httpGet, httpPost, httpDelete }  from '../utils';
 const Actions = {};
 
 Actions.fetchCurrenUser = () => {
-  const authToken = localStorage.phoenixAuthToken;
+  const authToken = localStorage.getItem('phoenixAuthToken');
 
   return httpGet(`/api/v1/current_user?jwt=${authToken}`);
 };
@@ -18,7 +18,7 @@ Actions.setCurrentUser = (dispatch, user) => {
   });
 
   let socket = new Socket('/socket', {
-    params: { token: localStorage.phoenixAuthToken },
+    params: { token: localStorage.getItem('phoenixAuthToken') },
     logger: (kind, msg, data) => { console.log(`${kind}: ${msg}`, data); },
   });
 
@@ -42,7 +42,7 @@ Actions.signIn = (email, password) => {
 
     httpPost('/api/v1/sessions', data)
     .then((data) => {
-      localStorage.phoenixAuthToken = data.jwt;
+      localStorage.setItem('phoenixAuthToken', data.jwt);
       Actions.setCurrentUser(dispatch, data.user);
       dispatch(routeActions.push('/'));
     })

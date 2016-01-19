@@ -2,7 +2,10 @@ import React, {PropTypes} from 'react';
 import ReactGravatar      from 'react-gravatar';
 import PageClick          from 'react-page-click';
 import moment             from 'moment';
-import Actions            from '../../actions/current_board';
+import { routeActions }   from 'redux-simple-router';
+
+import Actions            from '../../actions/current_card';
+import BoardActions       from '../../actions/current_board';
 
 export default class CardModal extends React.Component {
   componentDidUpdate() {
@@ -14,9 +17,9 @@ export default class CardModal extends React.Component {
   _closeModal(e) {
     e.preventDefault();
 
-    const { dispatch } = this.props;
+    const { dispatch, boardId } = this.props;
 
-    dispatch(Actions.resetEditCard());
+    dispatch(routeActions.push(`/boards/${boardId}`));
   }
 
   _renderCommentForm() {
@@ -92,6 +95,8 @@ export default class CardModal extends React.Component {
   }
 
   _handleHeaderClick(e) {
+    e.preventDefault();
+
     const { dispatch } = this.props;
     dispatch(Actions.editCard(true));
   }
@@ -114,7 +119,7 @@ export default class CardModal extends React.Component {
 
     const { channel, dispatch } = this.props;
 
-    dispatch(Actions.updateCard(channel, card));
+    dispatch(BoardActions.updateCard(channel, card));
   }
 
   _renderHeader() {

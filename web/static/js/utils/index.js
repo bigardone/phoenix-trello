@@ -17,7 +17,7 @@ export function parseJSON(response) {
 }
 
 export function httpGet(url) {
-  const authToken = localStorage.phoenixAuthToken;
+  const authToken = localStorage.getItem('phoenixAuthToken');
 
   return fetch(url, {
     headers: {
@@ -32,7 +32,7 @@ export function httpGet(url) {
 
 export function httpPost(url, data) {
   const headers = {
-    Authorization: localStorage.phoenixAuthToken,
+    Authorization: localStorage.getItem('phoenixAuthToken'),
     Accept: 'application/json',
     'Content-Type': 'application/json',
   };
@@ -49,7 +49,7 @@ export function httpPost(url, data) {
 }
 
 export function httpDelete(url) {
-  const authToken = localStorage.phoenixAuthToken;
+  const authToken = localStorage.getItem('phoenixAuthToken');
 
   return fetch(url, {
     method: 'delete',

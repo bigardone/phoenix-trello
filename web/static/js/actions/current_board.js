@@ -64,6 +64,11 @@ const Actions = {
           type: Constants.BOARDS_SET_CURRENT_BOARD,
           board: msg.board,
         });
+
+        dispatch({
+          type: Constants.CURRENT_CARD_SET,
+          card: msg.card,
+        });
       });
 
       channel.on('list:updated', (msg) => {
@@ -77,6 +82,11 @@ const Actions = {
         dispatch({
           type: Constants.BOARDS_SET_CURRENT_BOARD,
           board: msg.board,
+        });
+
+        dispatch({
+          type: Constants.CURRENT_CARD_SET,
+          card: msg.card,
         });
       });
 
@@ -136,42 +146,6 @@ const Actions = {
         type: Constants.CURRENT_BOARD_EDIT_LIST,
         listId: listId,
       });
-    };
-  },
-
-  showCard: (boardId, cardId) => {
-    return dispatch => {
-      httpGet(`/api/v1/boards/${boardId}/cards/${cardId}`)
-      .then((data) => {
-        dispatch({
-          type: Constants.CURRENT_BOARD_SHOW_CARD,
-          card: data,
-        });
-      });
-    };
-  },
-
-  editCard: (edit) => {
-    return dispatch => {
-      dispatch({
-        type: Constants.CURRENT_BOARD_EDIT_CARD,
-        edit: edit,
-      });
-    };
-  },
-
-  resetEditCard: () => {
-    return dispatch => {
-      dispatch({
-        type: Constants.CURRENT_BOARD_SHOW_CARD,
-        card: null,
-      });
-    };
-  },
-
-  createCardComment: (channel, comment) => {
-    return dispatch => {
-      channel.push('card:add_comment', comment);
     };
   },
 };
