@@ -7,7 +7,7 @@
     +display(flex)
     +flex-wrap(wrap)
     +flex-flow(row wrap)
-    margin: $margin (-$margin)
+    margin: 0 (-$margin/2) $margin (-$margin/2)
 
     .board
       +transition
@@ -17,7 +17,7 @@
       .inner
         background: $light-gray
         border-radius: $base-border-radius
-        margin: $margin
+        margin: 0 $margin/2 $margin $margin/2
         line-height: 1.75em
         overflow: hidden
         padding: $base-spacing/2
@@ -56,7 +56,6 @@
     color: #fff
   .view-header
     position: relative
-    margin-bottom: 1em
 
     h3
       margin: 0
