@@ -5,7 +5,7 @@ import { httpGet, httpPost }  from '../utils';
 const Actions = {
   fetchBoards: () => {
     return dispatch => {
-      const authToken = localStorage.phoenixAuthToken;
+      const authToken = localStorage.getItem('phoenixAuthToken');
 
       dispatch({ type: Constants.BOARDS_FETCHING });
 

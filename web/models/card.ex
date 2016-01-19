@@ -50,4 +50,10 @@ defmodule PhoenixTrello.Card do
       position -> put_change(current_changeset, :position, position + 1024)
     end
   end
+
+  def with_everything(query) do
+    comments_query = from c in Comment, order_by: [desc: c.inserted_at], preload: :user
+
+    from c in query, preload: [comments: ^comments_query]
+  end
 end

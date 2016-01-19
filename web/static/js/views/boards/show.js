@@ -8,7 +8,6 @@ import Constants            from '../../constants';
 import { setDocumentTitle } from '../../utils';
 import ListForm             from '../../components/lists/form';
 import ListCard             from '../../components/lists/card';
-import CardModal            from '../../components/cards/modal';
 import BoardUsers           from '../../components/boards/users';
 
 @DragDropContext(HTML5Backend)
@@ -60,12 +59,13 @@ class BoardsShowView extends React.Component {
   }
 
   _renderLists() {
-    const { lists, channel, editingListId } = this.props.currentBoard;
+    const { lists, channel, editingListId, id } = this.props.currentBoard;
 
     return lists.map((list) => {
       return (
         <ListCard
           key={list.id}
+          boardId={id}
           dispatch={this.props.dispatch}
           channel={channel}
           isEditing={editingListId === list.id}
@@ -190,23 +190,6 @@ class BoardsShowView extends React.Component {
     this.props.dispatch(Actions.editList(null));
   }
 
-  _renderCardModal() {
-    const { dispatch, currentUser } = this.props;
-    const { selectedCard, channel, editSelectedCard } = this.props.currentBoard;
-
-    if (!selectedCard) return false;
-
-    return (
-      <CardModal
-        channel={channel}
-        currentUser={currentUser}
-        dispatch={dispatch}
-        show={true}
-        card={selectedCard}
-        edit={editSelectedCard} />
-    );
-  }
-
   render() {
     const { fetching, name } = this.props.currentBoard;
 
@@ -230,7 +213,7 @@ class BoardsShowView extends React.Component {
             </div>
           </div>
         </div>
-        {::this._renderCardModal()}
+        {this.props.children}
       </div>
     );
   }

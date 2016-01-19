@@ -1,5 +1,6 @@
 import React, {PropTypes}       from 'react';
 import {DragSource, DropTarget} from 'react-dnd';
+import { routeActions }         from 'redux-simple-router';
 
 import ItemTypes                from '../../constants/item_types';
 import Actions                  from '../../actions/current_board';
@@ -49,7 +50,7 @@ export default class Card extends React.Component {
   _handleClick(e) {
     const { dispatch, id, boardId } = this.props;
 
-    dispatch(Actions.showCard(boardId, id));
+    this.props.dispatch(routeActions.push(`/boards/${boardId}/cards/${id}`));
   }
 
   _renderFooter() {
