@@ -4,6 +4,7 @@
 [![bitHound Dependencies](https://www.bithound.io/github/bigardone/phoenix-trello/badges/dependencies.svg)](https://www.bithound.io/github/bigardone/phoenix-trello/master/dependencies/npm)
 [![bitHound Dev Dependencies](https://www.bithound.io/github/bigardone/phoenix-trello/badges/devDependencies.svg)](https://www.bithound.io/github/bigardone/phoenix-trello/master/dependencies/npm)
 [![bitHound Code](https://www.bithound.io/github/bigardone/phoenix-trello/badges/code.svg)](https://www.bithound.io/github/bigardone/phoenix-trello)
+[![Build Status](https://travis-ci.org/bigardone/phoenix-trello.svg?branch=master)](https://travis-ci.org/bigardone/phoenix-trello)
 
 [Trello](http://trello.com) tribute done with **Elixir**, **Phoenix Framework**, **Webpack**, **React** and **Redux**.
 
