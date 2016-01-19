@@ -45,8 +45,8 @@ class HomeIndexView extends React.Component {
 
     return (
       <section>
-        <header>
-          <h2><i className={iconClasses} /> My boards</h2>
+        <header className="view-header">
+          <h3><i className={iconClasses} /> My boards</h3>
         </header>
         {content}
       </section>
@@ -82,8 +82,8 @@ class HomeIndexView extends React.Component {
 
     return (
       <section>
-        <header>
-          <h2><i className="fa fa-users" /> Other boards</h2>
+        <header className="view-header">
+          <h3><i className="fa fa-users" /> Other boards</h3>
         </header>
         <div className="boards-wrapper">
           {::this._renderBoards(invitedBoards)}
