@@ -51,7 +51,7 @@ defmodule PhoenixTrello.Card do
     end
   end
 
-  def with_everything(query) do
+  def with_comments(query \\ %Card{}) do
     comments_query = from c in Comment, order_by: [desc: c.inserted_at], preload: :user
 
     from c in query, preload: [comments: ^comments_query]
