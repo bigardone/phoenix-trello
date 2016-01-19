@@ -13,6 +13,6 @@ defmodule PhoenixTrello.SessionView do
   end
 
   def render("delete.json", _) do
-    %{}
+    %{ok: true}
   end
 end

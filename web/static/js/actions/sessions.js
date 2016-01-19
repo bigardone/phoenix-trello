@@ -5,12 +5,6 @@ import { httpGet, httpPost, httpDelete }  from '../utils';
 
 const Actions = {};
 
-Actions.fetchCurrenUser = () => {
-  const authToken = localStorage.getItem('phoenixAuthToken');
-
-  return httpGet(`/api/v1/current_user?jwt=${authToken}`);
-};
-
 Actions.setCurrentUser = (dispatch, user) => {
   dispatch({
     type: Constants.CURRENT_USER,
@@ -60,7 +54,9 @@ Actions.signIn = (email, password) => {
 
 Actions.currentUser = () => {
   return dispatch => {
-    Actions.fetchCurrenUser()
+    const authToken = localStorage.getItem('phoenixAuthToken');
+
+    httpGet('/api/v1/current_user')
     .then(function(data) {
       Actions.setCurrentUser(dispatch, data);
     })

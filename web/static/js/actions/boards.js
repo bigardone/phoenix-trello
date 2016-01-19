@@ -5,11 +5,9 @@ import { httpGet, httpPost }  from '../utils';
 const Actions = {
   fetchBoards: () => {
     return dispatch => {
-      const authToken = localStorage.getItem('phoenixAuthToken');
-
       dispatch({ type: Constants.BOARDS_FETCHING });
 
-      httpGet(`/api/v1/boards?jwt=${authToken}`)
+      httpGet('/api/v1/boards')
       .then((data) => {
         dispatch({
           type: Constants.BOARDS_RECEIVED,
