@@ -97,9 +97,14 @@ defmodule PhoenixTrello.BoardChannel do
     changeset = Card.update_changeset(card, card_params)
 
     case Repo.update(changeset) do
-      {:ok, _card} ->
+      {:ok, card} ->
         board = get_current_board(socket)
-        broadcast! socket, "card:updated", %{board: board}
+
+        card = Card
+        |> Card.with_everything()
+        |> Repo.get(card.id)
+
+        broadcast! socket, "card:updated", %{board: board, card: card}
         {:noreply, socket}
       {:error, _changeset} ->
         {:reply, {:error, %{error: "Error updating card"}}, socket}
@@ -135,7 +140,11 @@ defmodule PhoenixTrello.BoardChannel do
 
     case Repo.insert(changeset) do
       {:ok, _comment} ->
-        broadcast! socket, "comment:created", %{board: get_current_board(socket)}
+        card = Card
+        |> Card.with_everything()
+        |> Repo.get(card_id)
+
+        broadcast! socket, "comment:created", %{board: get_current_board(socket), card: card}
         {:noreply, socket}
       {:error, _changeset} ->
         {:reply, {:error, %{error: "Error creating comment"}}, socket}
