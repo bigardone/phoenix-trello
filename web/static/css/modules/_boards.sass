@@ -83,7 +83,7 @@
 
         .react-gravatar, .add-new
           +transition
-          border-radius: 50%
+          border-radius: $base-border-radius
           width: 30px
           height: 30px
           opacity: .2
@@ -241,10 +241,20 @@
         animation-name: fadeIn
         white-space: normal
 
+        .react-gravatar
+          border-radius: $base-border-radius
+          width: 30px
+          height: 30px
+          float: right
+          margin-left: 5px
+          animation-duration: .3s
+          animation-name: fadeIn
+
         &:hover
           background: rgba($gray, .4)
 
         footer
+          +clearfix
           small
             color: $gray
 

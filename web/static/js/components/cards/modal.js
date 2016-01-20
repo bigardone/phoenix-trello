@@ -6,6 +6,7 @@ import { routeActions }   from 'redux-simple-router';
 
 import Actions            from '../../actions/current_card';
 import BoardActions       from '../../actions/current_board';
+import MembersSelector    from './members_selector';
 
 export default class CardModal extends React.Component {
   componentDidUpdate() {
@@ -149,28 +150,87 @@ export default class CardModal extends React.Component {
       return (
         <header>
           <h3>{card.name}</h3>
+          {::this._renderMembers()}
           <h5>Description</h5>
           <p>{card.description}</p>
           <a href="#" onClick={::this._handleHeaderClick}>Edit</a>
-          <a className="close" href="#" onClick={::this._closeModal}>
-            <i className="fa fa-close"/>
-          </a>
         </header>
       );
     }
   }
 
+  _renderMembers() {
+    const { members } = this.props.card;
+
+    if (members.length == 0) return false;
+
+    const memberNodes = members.map((member) => {
+      return <ReactGravatar key={member.id} email={member.email} https />;
+    });
+
+    return (
+      <div className="card-members">
+      <h5>Members</h5>
+        {memberNodes}
+      </div>
+    );
+  }
+
+  _handleShowMembersClick(e) {
+    e.preventDefault();
+
+    const { dispatch } = this.props;
+
+    dispatch(Actions.showMembersSelector(true));
+  }
+
+  _renderMembersSelector() {
+    const { card, boardMembers, showMembersSelector, dispatch, channel } = this.props;
+    const { members } = card;
+
+    if (!showMembersSelector) return false;
+
+    return (
+      <MembersSelector
+        channel={channel}
+        cardId={card.id}
+        dispatch={dispatch}
+        boardMembers={boardMembers}
+        selectedMembers={members}
+        close={::this._onMembersSelectorClose} />
+    );
+  }
+
+  _onMembersSelectorClose() {
+    const { dispatch } = this.props;
+
+    dispatch(Actions.showMembersSelector(false));
+  }
+
   render() {
-    const { card } = this.props;
+    const { card, boardMembers, showMembersSelector } = this.props;
+    const { members } = card;
 
     return (
       <div className="md-overlay">
         <div className="md-modal">
           <PageClick onClick={::this._closeModal}>
             <div className="md-content card-modal">
-              {::this._renderHeader()}
-              {::this._renderCommentForm()}
-              {::this._renderComments(card)}
+              <a className="close" href="#" onClick={::this._closeModal}>
+                <i className="fa fa-close"/>
+              </a>
+              <div className="info">
+                {::this._renderHeader()}
+                {::this._renderCommentForm()}
+                {::this._renderComments(card)}
+              </div>
+              <div className="options">
+                <h4>Add</h4>
+                <a className="button" href="#" onClick={::this._handleShowMembersClick}>
+                  <i className="fa fa-user"/> Members
+                </a>
+                {::this._renderMembersSelector()}
+              </div>
             </div>
           </PageClick>
         </div>

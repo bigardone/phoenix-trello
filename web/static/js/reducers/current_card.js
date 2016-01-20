@@ -5,6 +5,7 @@ const initialState = {
   edit: false,
   error: null,
   fetching: true,
+  showMembersSelector: false,
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -29,6 +30,9 @@ export default function reducer(state = initialState, action = {}) {
 
     case Constants.CURRENT_CARD_EDIT:
       return { ...state, edit: action.edit };
+
+    case Constants.CURRENT_CARD_SHOW_MEMBERS_SELECTOR:
+      return { ...state, showMembersSelector: action.show };
 
     default:
       return state;

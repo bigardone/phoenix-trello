@@ -1,6 +1,7 @@
 import React, {PropTypes}       from 'react';
 import {DragSource, DropTarget} from 'react-dnd';
 import { routeActions }         from 'redux-simple-router';
+import ReactGravatar            from 'react-gravatar';
 
 import ItemTypes                from '../../constants/item_types';
 import Actions                  from '../../actions/current_board';
@@ -55,7 +56,7 @@ export default class Card extends React.Component {
 
   _renderFooter() {
     let commentIcon = null;
-    const { comments } = this.props;
+    const { comments, members } = this.props;
 
     if (comments.length > 0) {
       commentIcon = <small>
@@ -63,9 +64,14 @@ export default class Card extends React.Component {
       </small>;
     }
 
+    const memberNodes = members.map((member) => {
+      return <ReactGravatar key={member.id} email={member.email} https />;
+    });
+
     return (
       <footer>
         {commentIcon}
+        {memberNodes}
       </footer>
     );
   }
