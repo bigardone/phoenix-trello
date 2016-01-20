@@ -175,7 +175,7 @@ defmodule PhoenixTrello.BoardChannel do
           |> Card.with_members
           |> Repo.get(card_id)
 
-          broadcast! socket, "card:member_added", %{board: get_current_board(socket), card: card}
+          broadcast! socket, "card:updated", %{board: get_current_board(socket), card: card}
           {:noreply, socket}
         {:error, _} ->
           {:reply, {:error, %{error: "Error adding new member"}}, socket}
@@ -203,7 +203,7 @@ defmodule PhoenixTrello.BoardChannel do
         |> Card.with_members
         |> Repo.get(card_id)
 
-        broadcast! socket, "card:member_added", %{board: get_current_board(socket), card: card}
+        broadcast! socket, "card:updated", %{board: get_current_board(socket), card: card}
         {:noreply, socket}
       {:error, _changeset} ->
         {:reply, {:error, %{error: "Error creating comment"}}, socket}
