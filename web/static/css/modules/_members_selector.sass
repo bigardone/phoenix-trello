@@ -1,0 +1,51 @@
+.members-selector
+  background: #fff
+  border: 1px solid $gray
+  border-radius: $base-border-radius
+  position: absolute
+  padding: $base-spacing/2
+  width: 18em
+  animation-duration: .3s
+  animation-name: fadeIn
+
+  header
+    border-bottom: 1px solid $light-gray
+    margin-bottom: $base-spacing/2
+    text-align: center
+    position: relative
+
+    > .close
+      position: absolute
+      right: 0
+      top: 0
+      line-height: 1em
+      color: tint($dark-gray, 30)
+
+  ul
+    list-style: none
+    padding: 0
+    margin: 0
+
+    li
+      margin-bottom: 3px
+
+      a
+        background: $blue
+        color: #fff
+        border-radius: $base-border-radius
+        padding: 3px
+        display: block
+        position: relative
+
+        .fa
+          +transform(translateY(-50%))
+          position: absolute
+          right: $base-spacing/2
+          top: 50%
+
+    .react-gravatar
+      border-radius: $base-border-radius
+      width: 30px
+      height: 30px
+      vertical-align: middle
+      margin-right: .5em
