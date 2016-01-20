@@ -48,11 +48,9 @@ defmodule PhoenixTrello.Board do
     changeset
   end
 
-  def for_user(query \\ %Board{}, user_id) do
-    from board in query,
-    left_join: user_boards in assoc(board, :user_boards),
-    where: board.user_id == ^user_id or user_boards.user_id == ^user_id,
-    limit: 1
+  def not_owned_by(query \\ %Board{}, user_id) do
+    from b in query,
+    where: b.user_id != ^user_id
   end
 
   def with_everything(query) do
