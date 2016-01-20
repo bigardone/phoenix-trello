@@ -14,7 +14,7 @@ defmodule PhoenixTrello.RegistrationController  do
 
         conn
         |> put_status(:created)
-        |> render(jwt: jwt, user: user)
+        |> render(PhoenixTrello.SessionView, "show.json", jwt: jwt, user: user)
 
       {:error, changeset} ->
         conn
