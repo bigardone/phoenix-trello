@@ -3,13 +3,13 @@ defmodule PhoenixTrello.CardController do
 
   plug Guardian.Plug.EnsureAuthenticated, handler: PhoenixTrello.SessionController
 
-  alias PhoenixTrello.{Repo, Board, Card}
+  alias PhoenixTrello.{Repo, Card}
 
   def show(conn, %{"board_id" => board_id, "id" => id}) do
     current_user = Guardian.Plug.current_resource(conn)
 
-    card = Board
-      |> Board.for_user(current_user.id)
+    card = current_user
+      |> assoc(:boards)
       |> Repo.get(board_id)
       |> assoc(:cards)
       |> Card.with_comments
