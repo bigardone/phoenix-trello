@@ -102,6 +102,7 @@ defmodule PhoenixTrello.BoardChannel do
 
         card = Card
         |> Card.with_comments
+        |> Card.with_members
         |> Repo.get(card.id)
 
         broadcast! socket, "card:updated", %{board: board, card: card}
@@ -142,6 +143,7 @@ defmodule PhoenixTrello.BoardChannel do
       {:ok, _comment} ->
         card = Card
         |> Card.with_comments
+        |> Card.with_members
         |> Repo.get(card_id)
 
         broadcast! socket, "comment:created", %{board: get_current_board(socket), card: card}

@@ -43,7 +43,7 @@ defmodule PhoenixTrello.Board do
 
   def with_everything(query) do
     comments_query = from c in Comment, order_by: [desc: c.inserted_at], preload: :user
-    cards_query = from c in Card, order_by: c.position, preload: [comments: ^comments_query]
+    cards_query = from c in Card, order_by: c.position, preload: [[comments: ^comments_query], :members]
     lists_query = from l in List, order_by: l.position, preload: [cards: ^cards_query]
 
     from b in query, preload: [:user, :invited_users, lists: ^lists_query]
