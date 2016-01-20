@@ -226,7 +226,9 @@ export default class CardModal extends React.Component {
               </div>
               <div className="options">
                 <h4>Add</h4>
-                <a href="#" onClick={::this._handleShowMembersClick}>Members</a>
+                <a className="button" href="#" onClick={::this._handleShowMembersClick}>
+                  <i className="fa fa-user"/> Members
+                </a>
                 {::this._renderMembersSelector()}
               </div>
             </div>

@@ -13,6 +13,7 @@
     margin-bottom: $base-spacing/2
     text-align: center
     position: relative
+    padding-bottom: .5em
 
     > .close
       position: absolute
@@ -30,18 +31,22 @@
       margin-bottom: 3px
 
       a
-        background: $blue
-        color: #fff
+        +transition
         border-radius: $base-border-radius
         padding: 3px
         display: block
         position: relative
+        color: $base-font-color
 
         .fa
           +transform(translateY(-50%))
           position: absolute
-          right: $base-spacing/2
+          right: $base-spacing/3
           top: 50%
+
+        &:hover
+          background: $blue
+          color: #fff
 
     .react-gravatar
       border-radius: $base-border-radius

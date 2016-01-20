@@ -66,6 +66,28 @@
       position: relative
       overflow: visible
 
+      .button
+        +fill-parent
+        +transition
+        background: #fff
+        padding: .3em .5em
+        border-radius: $base-border-radius
+        border-bottom: 1px solid $gray
+        display: block
+        color: $base-font-color
+        font-weight: bold
+
+        .fa
+          color: $gray
+          margin-right: .5em
+
+        &:hover
+          background: $blue
+          color: #fff
+
+          .fa
+            color: #fff
+
     header
       h3
         color: $base-font-color
