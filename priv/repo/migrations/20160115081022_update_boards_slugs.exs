@@ -4,6 +4,7 @@ defmodule PhoenixTrello.Repo.Migrations.UpdateBoardsSlugs do
   alias PhoenixTrello.{Repo, Board}
 
   def change do
+    
     # try do
     #   Repo.all(Board)
     #   |> Enum.each(fn board ->
