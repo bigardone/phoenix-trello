@@ -23,16 +23,18 @@ class CardsShowView extends React.Component {
 
     if (!currentCard.card) return false;
 
-    const { card, edit } = currentCard;
+    const { card, edit, showMembersSelector } = currentCard;
 
     return (
       <CardModal
         boardId={currentBoard.id}
+        boardMembers={currentBoard.invited_users}
         channel={channel}
         currentUser={currentUser}
         dispatch={dispatch}
         card={card}
-        edit={edit} />
+        edit={edit}
+        showMembersSelector={showMembersSelector} />
     );
   }
 }
