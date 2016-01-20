@@ -56,8 +56,9 @@ defmodule PhoenixTrello.BoardChannel do
       {:ok, card} ->
         card = socket.assigns.board
           |> assoc(:cards)
+          |> Card.with_comments
+          |> Card.with_members
           |> Repo.get!(card.id)
-          |> Repo.preload(comments: [:user])
 
         broadcast! socket, "card:created", %{card: card}
         {:noreply, socket}
