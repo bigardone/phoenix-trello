@@ -1,8 +1,9 @@
 defmodule PhoenixTrello.Board do
   use PhoenixTrello.Web, :model
+  use Ecto.Model.Callbacks
 
   alias __MODULE__
-  alias PhoenixTrello.{Permalink, List, Comment, Card}
+  alias PhoenixTrello.{Repo, Permalink, List, Comment, Card, UserBoard, User}
 
   @primary_key {:id, Permalink, autogenerate: true}
 
@@ -10,10 +11,10 @@ defmodule PhoenixTrello.Board do
     field :name, :string
     field :slug, :string
 
-    belongs_to :user, PhoenixTrello.User
-    has_many :lists, PhoenixTrello.List
+    belongs_to :user, User
+    has_many :lists, List
     has_many :cards, through: [:lists, :cards]
-    has_many :user_boards, PhoenixTrello.UserBoard
+    has_many :user_boards, UserBoard
     has_many :invited_users, through: [:user_boards, :user]
 
     timestamps
@@ -21,6 +22,8 @@ defmodule PhoenixTrello.Board do
 
   @required_fields ~w(name user_id)
   @optional_fields ~w(slug)
+
+  after_insert Board, :insert_user_board
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -34,6 +37,17 @@ defmodule PhoenixTrello.Board do
     |> slugify_name()
   end
 
+  def insert_user_board(changeset) do
+    board_id = changeset.model.id
+    user_id = changeset.model.user_id
+
+    user_board_changeset = UserBoard.changeset(%UserBoard{}, %{"board_id": board_id, "user_id": user_id})
+
+    Repo.insert!(user_board_changeset)
+
+    changeset
+  end
+
   def for_user(query \\ %Board{}, user_id) do
     from board in query,
     left_join: user_boards in assoc(board, :user_boards),
@@ -43,7 +57,7 @@ defmodule PhoenixTrello.Board do
 
   def with_everything(query) do
     comments_query = from c in Comment, order_by: [desc: c.inserted_at], preload: :user
-    cards_query = from c in Card, order_by: c.position, preload: [comments: ^comments_query]
+    cards_query = from c in Card, order_by: c.position, preload: [[comments: ^comments_query], :members]
     lists_query = from l in List, order_by: l.position, preload: [cards: ^cards_query]
 
     from b in query, preload: [:user, :invited_users, lists: ^lists_query]
@@ -68,7 +82,7 @@ defmodule PhoenixTrello.Board do
   end
 end
 
-defimpl Phoenix.Param, for: PhoenixTrello.Board do
+defimpl Phoenix.Param, for: Board do
   def to_param(%{slug: slug, id: id}) do
     "#{id}-#{slug}"
   end

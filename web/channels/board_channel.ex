@@ -5,7 +5,7 @@ defmodule PhoenixTrello.BoardChannel do
 
   use PhoenixTrello.Web, :channel
 
-  alias PhoenixTrello.{User, Board, UserBoard, List, Card, Comment}
+  alias PhoenixTrello.{User, Board, UserBoard, List, Card, Comment, CardMember}
   alias PhoenixTrello.BoardChannel.Monitor
 
   def join("boards:" <> board_id, _params, socket) do
@@ -56,8 +56,9 @@ defmodule PhoenixTrello.BoardChannel do
       {:ok, card} ->
         card = socket.assigns.board
           |> assoc(:cards)
+          |> Card.with_comments
+          |> Card.with_members
           |> Repo.get!(card.id)
-          |> Repo.preload(comments: [:user])
 
         broadcast! socket, "card:created", %{card: card}
         {:noreply, socket}
@@ -102,6 +103,7 @@ defmodule PhoenixTrello.BoardChannel do
 
         card = Card
         |> Card.with_comments
+        |> Card.with_members
         |> Repo.get(card.id)
 
         broadcast! socket, "card:updated", %{board: board, card: card}
@@ -142,9 +144,67 @@ defmodule PhoenixTrello.BoardChannel do
       {:ok, _comment} ->
         card = Card
         |> Card.with_comments
+        |> Card.with_members
         |> Repo.get(card_id)
 
         broadcast! socket, "comment:created", %{board: get_current_board(socket), card: card}
+        {:noreply, socket}
+      {:error, _changeset} ->
+        {:reply, {:error, %{error: "Error creating comment"}}, socket}
+    end
+  end
+
+  def handle_in("card:add_member", %{"card_id" => card_id, "user_id" => user_id}, socket) do
+    try do
+      current_board = socket.assigns.board
+
+      card_member = current_board
+        |> assoc(:cards)
+        |> Repo.get!(card_id)
+        |> build_assoc(:card_members)
+
+      user_board = UserBoard
+        |> UserBoard.find_by_user_and_board(user_id, current_board.id)
+        |> Repo.one!()
+
+      changeset = CardMember.changeset(card_member, %{user_board_id: user_board.id})
+
+      case Repo.insert(changeset) do
+        {:ok, _} ->
+          card = Card
+          |> Card.with_comments
+          |> Card.with_members
+          |> Repo.get(card_id)
+
+          broadcast! socket, "card:updated", %{board: get_current_board(socket), card: card}
+          {:noreply, socket}
+        {:error, _} ->
+          {:reply, {:error, %{error: "Error adding new member"}}, socket}
+      end
+    catch
+      _, _-> {:reply, {:error, %{error: "Member does not exist"}}, socket}
+    end
+  end
+
+  def handle_in("card:remove_member", %{"card_id" => card_id, "user_id" => user_id}, socket) do
+    current_board = socket.assigns.board
+
+    user_board = UserBoard
+      |> UserBoard.find_by_user_and_board(user_id, current_board.id)
+      |> Repo.one!
+
+    card_member = CardMember
+      |> CardMember.get_by_card_and_user_board(card_id, user_board.id)
+      |> Repo.one!
+
+    case Repo.delete(card_member) do
+      {:ok, _} ->
+        card = Card
+        |> Card.with_comments
+        |> Card.with_members
+        |> Repo.get(card_id)
+
+        broadcast! socket, "card:updated", %{board: get_current_board(socket), card: card}
         {:noreply, socket}
       {:error, _changeset} ->
         {:reply, {:error, %{error: "Error creating comment"}}, socket}

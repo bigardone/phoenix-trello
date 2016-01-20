@@ -22,7 +22,7 @@
     overflow-y: scroll
 
     .md-content
-      $width: 600px
+      $width: 700px
       +pad($base-spacing)
       border-radius: $base-border-radius
       background: $light-gray
@@ -32,7 +32,6 @@
       top: $base-spacing*2
       left: 50%
       margin-left: -$width/2
-      overflow: hidden
       animation-duration: .3s
       animation-name: fadeIn
 
@@ -41,21 +40,58 @@
 
 
   .card-modal
-    header
+    +clearfix
+    position: relative
+
+    .react-gravatar
+      border-radius: $base-border-radius
+      width: 30px
+      height: 30px
+
+    > .close
+      position: absolute
+      right: $base-spacing/2
+      top: $base-spacing/2
+      line-height: 1em
+      color: tint($dark-gray, 30)
+
+      &:hover
+        color: $dark-gray
+
+    .info
+      +span-columns(9)
+
+    .options
+      +span-columns(3)
       position: relative
+      overflow: visible
+
+      .button
+        +fill-parent
+        +transition
+        background: #fff
+        padding: .3em .5em
+        border-radius: $base-border-radius
+        border-bottom: 1px solid $gray
+        display: block
+        color: $base-font-color
+        font-weight: bold
+
+        .fa
+          color: $gray
+          margin-right: .5em
+
+        &:hover
+          background: $blue
+          color: #fff
+
+          .fa
+            color: #fff
+
+    header
       h3
         color: $base-font-color
 
-      .close
-        position: absolute
-        right: 0
-        top: 0
-        font-size: 1.5em
-        line-height: 1em
-        color: tint($dark-gray, 30)
-
-        &:hover
-          color: $dark-gray
 
     input, textarea
       +fill-parent
@@ -86,10 +122,7 @@
 
       .gravatar-wrapper
         +span-columns(1)
-        .react-gravatar
-          border-radius: $base-border-radius
-          width: 30px
-          height: 30px
+
 
       .info-wrapper
         +span-columns(11)
@@ -101,3 +134,12 @@
           padding: .5em
           border: 0px none
           border-bottom: 1px solid $gray
+
+    .card-members
+      margin-bottom: $base-spacing
+      animation-duration: .3s
+      animation-name: fadeIn
+      .react-gravatar
+        margin-right: 5px
+        animation-duration: .3s
+        animation-name: fadeIn
