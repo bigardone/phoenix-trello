@@ -15,7 +15,7 @@
       cursor: pointer
 
       .inner
-        background: $light-gray
+        background: rgba($light-gray, .9)
         border-radius: $base-border-radius
         margin: 0 $margin/2 $margin $margin/2
         line-height: 1.75em
@@ -181,7 +181,7 @@
       animation-name: fadeIn
 
       > .inner
-        background: $light-gray
+        background: rgba($light-gray, .9)
         border-radius: $base-border-radius
         padding: $base-spacing/2
         cursor: -webkit-grab
@@ -224,11 +224,11 @@
           margin: -($base-spacing/2)
           margin-top: $base-spacing/2
           padding: .5em $base-spacing/2
-          color: $gray
+          color: tint($dark-gray, 25)
           border-radius: 0 0 $base-border-radius $base-border-radius
 
           &:hover
-            background: $gray
+            background: rgba($gray, .9)
             color: $dark-gray
 
       .card:not(.form)
@@ -258,7 +258,7 @@
         footer
           +clearfix
           small
-            color: $gray
+            color: tint($dark-gray, 35)
 
       .card.form
         textarea
