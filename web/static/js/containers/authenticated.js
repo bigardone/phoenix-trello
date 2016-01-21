@@ -10,7 +10,7 @@ class AuthenticatedContainer extends React.Component {
     const { dispatch, currentUser } = this.props;
 
     if (localStorage.getItem('phoenixAuthToken')) {
-      dispatch(Actions.currentUser());
+      if (!currentUser) dispatch(Actions.currentUser());
     } else {
       dispatch(routeActions.push('/sign_in'));
     }
@@ -37,6 +37,8 @@ class AuthenticatedContainer extends React.Component {
 
 const mapStateToProps = (state) => ({
   currentUser: state.session.currentUser,
+  socket: state.session.socket,
+  channel: state.session.channel,
 });
 
 export default connect(mapStateToProps)(AuthenticatedContainer);
