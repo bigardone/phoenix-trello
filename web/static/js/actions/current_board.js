@@ -13,7 +13,7 @@ const Actions = {
 
   connectToChannel: (socket, boardId) => {
     return dispatch => {
-      let channel = socket.channel(`boards:${boardId}`);
+      const channel = socket.channel(`boards:${boardId}`);
 
       dispatch({ type: Constants.CURRENT_BOARD_FETHING });
 
