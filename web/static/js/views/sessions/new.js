@@ -13,10 +13,10 @@ class SessionsNew extends React.Component {
   _handleSubmit(e) {
     e.preventDefault();
 
-    let email = this.refs.email;
-    let password = this.refs.password;
+    const { email, password } = this.refs;
+    const { dispatch } = this.props;
 
-    this.props.dispatch(Actions.signIn(email.value, password.value));
+    dispatch(Actions.signIn(email.value, password.value));
   }
 
   _renderError() {
@@ -65,9 +65,8 @@ class SessionsNew extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  currentUser: state.session.currentUser,
-  error: state.session.error,
-});
+const mapStateToProps = (state) => (
+  state.session
+);
 
 export default connect(mapStateToProps)(SessionsNew);

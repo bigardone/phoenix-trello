@@ -1,88 +1,101 @@
-import { routeActions }                       from 'redux-simple-router';
+import { routeActions }                   from 'redux-simple-router';
 import Constants                          from '../constants';
 import { Socket }                         from '../phoenix';
 import { httpGet, httpPost, httpDelete }  from '../utils';
 
-const Actions = {};
-
-Actions.setCurrentUser = (dispatch, user) => {
+function setCurrentUser(dispatch, user) {
   dispatch({
     type: Constants.CURRENT_USER,
     currentUser: user,
   });
 
-  let socket = new Socket('/socket', {
+  const socket = new Socket('/socket', {
     params: { token: localStorage.getItem('phoenixAuthToken') },
     logger: (kind, msg, data) => { console.log(`${kind}: ${msg}`, data); },
   });
 
   socket.connect();
 
-  dispatch({
-    type: Constants.SOCKET_CONNECTED,
-    socket: socket,
-  });
+  socket.onOpen(() => {
+    const channel = socket.channel(`users:${user.id}`);
 
+    channel.join().receive('ok', () => {
+      dispatch({
+        type: Constants.SOCKET_CONNECTED,
+        socket: socket,
+        channel: channel,
+      });
+    });
+
+    channel.on('projects:add', (msg) => {
+      dispatch({
+        type: Constants.BOARDS_ADDED,
+        board: msg.board,
+      });
+    });
+  });
 };
 
-Actions.signIn = (email, password) => {
-  return dispatch => {
-    const data = {
-      session: {
-        email: email,
-        password: password,
-      },
-    };
+const Actions = {
+  signIn: (email, password) => {
+    return dispatch => {
+      const data = {
+        session: {
+          email: email,
+          password: password,
+        },
+      };
 
-    httpPost('/api/v1/sessions', data)
-    .then((data) => {
-      localStorage.setItem('phoenixAuthToken', data.jwt);
-      Actions.setCurrentUser(dispatch, data.user);
-      dispatch(routeActions.push('/'));
-    })
-    .catch((error) => {
-      error.response.json()
-      .then((errorJSON) => {
-        dispatch({
-          type: Constants.SESSIONS_ERROR,
-          error: errorJSON.error,
+      httpPost('/api/v1/sessions', data)
+      .then((data) => {
+        localStorage.setItem('phoenixAuthToken', data.jwt);
+        setCurrentUser(dispatch, data.user);
+        dispatch(routeActions.push('/'));
+      })
+      .catch((error) => {
+        error.response.json()
+        .then((errorJSON) => {
+          dispatch({
+            type: Constants.SESSIONS_ERROR,
+            error: errorJSON.error,
+          });
         });
       });
-    });
-  };
-};
+    };
+  },
 
-Actions.currentUser = () => {
-  return dispatch => {
-    const authToken = localStorage.getItem('phoenixAuthToken');
+  currentUser: () => {
+    return dispatch => {
+      const authToken = localStorage.getItem('phoenixAuthToken');
 
-    httpGet('/api/v1/current_user')
-    .then(function(data) {
-      Actions.setCurrentUser(dispatch, data);
-    })
-    .catch(function(error) {
-      console.log(error);
-      dispatch(routeActions.push('/sign_in'));
-    });
-  };
-};
-
-Actions.signOut = () => {
-  return dispatch => {
-    httpDelete('/api/v1/sessions')
-    .then((data) => {
-      localStorage.removeItem('phoenixAuthToken');
-
-      dispatch({
-        type: Constants.USER_SIGNED_OUT,
+      httpGet('/api/v1/current_user')
+      .then(function(data) {
+        setCurrentUser(dispatch, data);
+      })
+      .catch(function(error) {
+        console.log(error);
+        dispatch(routeActions.push('/sign_in'));
       });
+    };
+  },
 
-      dispatch(routeActions.push('/sign_in'));
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
-  };
+  signOut: () => {
+    return dispatch => {
+      httpDelete('/api/v1/sessions')
+      .then((data) => {
+        localStorage.removeItem('phoenixAuthToken');
+
+        dispatch({
+          type: Constants.USER_SIGNED_OUT,
+        });
+
+        dispatch(routeActions.push('/sign_in'));
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+    };
+  },
 };
 
 export default Actions;

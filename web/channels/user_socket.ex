@@ -5,6 +5,7 @@ defmodule PhoenixTrello.UserSocket do
 
   # Channels
   channel "boards:*", PhoenixTrello.BoardChannel
+  channel "users:*", PhoenixTrello.UserChannel
 
   # Transports
   transport :websocket, Phoenix.Transports.WebSocket
