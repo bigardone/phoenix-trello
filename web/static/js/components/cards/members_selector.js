@@ -46,7 +46,7 @@ export default class MembersSelector extends React.Component {
       return (
         <li key={member.id}>
           <a onClick={handleOnClick} href="#">
-            <ReactGravatar email={member.email} https />
+            <ReactGravatar className="react-gravatar" email={member.email} https />
             {`${member.first_name} ${member.last_name}`} {icon}
           </a>
         </li>

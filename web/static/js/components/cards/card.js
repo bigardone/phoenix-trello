@@ -65,7 +65,7 @@ export default class Card extends React.Component {
     }
 
     const memberNodes = members.map((member) => {
-      return <ReactGravatar key={member.id} email={member.email} https />;
+      return <ReactGravatar className="react-gravatar" key={member.id} email={member.email} https />;
     });
 
     return (
