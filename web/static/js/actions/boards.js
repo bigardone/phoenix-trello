@@ -1,6 +1,7 @@
 import Constants              from '../constants';
-import { routeActions }           from 'redux-simple-router';
+import { routeActions }       from 'redux-simple-router';
 import { httpGet, httpPost }  from '../utils';
+import CurrentBoardActions    from './current_board';
 
 const Actions = {
   fetchBoards: () => {
@@ -50,6 +51,21 @@ const Actions = {
       dispatch({
         type: Constants.BOARDS_RESET,
       });
+    };
+  },
+
+  resetCurrentAndReconnect: (socket, channel, boardId) => {
+    return dispatch => {
+      if (channel) {
+        channel.leave();
+
+        dispatch({
+          type: Constants.CURRENT_BOARD_RESET,
+        });
+      }
+
+      dispatch(CurrentBoardActions.connectToChannel(socket, boardId));
+      dispatch(routeActions.push(`/boards/${boardId}`));
     };
   },
 };

@@ -1,6 +1,7 @@
 import React          from 'react';
 import { Link }       from 'react-router';
 import Actions        from '../actions/sessions';
+import BoardsActions  from '../actions/boards';
 import ReactGravatar  from 'react-gravatar';
 
 export default class Header extends React.Component {
@@ -8,8 +9,46 @@ export default class Header extends React.Component {
     super();
   }
 
+  _renderBoards() {
+    const { ownedBoards, invitedBoards } = this.props.boards;
+    const { dispatch, currentBoard, socket } = this.props;
+
+    const ownedBoardsItems = ownedBoards.map((board) => {
+      return this._createBoardItem(dispatch, currentBoard, socket, board);
+    });
+
+    const invitedBoardsItems = invitedBoards.map((board) => {
+      return this._createBoardItem(dispatch, currentBoard, socket, board);
+    });
+
+    return (
+      <ul>
+        <li>Owned boards</li>
+        {ownedBoardsItems}
+        <li>Other boards</li>
+        {invitedBoardsItems}
+      </ul>
+    );
+  }
+
+  _createBoardItem(dispatch, currentBoard, socket, board) {
+    const onClick = (e) => {
+      e.preventDefault();
+
+      if (currentBoard.id != undefined && currentBoard.id == board.id) return false;
+
+      dispatch(BoardsActions.resetCurrentAndReconnect(socket, currentBoard.channel, board.id));
+    };
+
+    return (
+      <li key={board.id}>
+        <a href="#" onClick={onClick}>{board.name}</a>
+      </li>
+    );
+  }
+
   _renderCurrentUser() {
-    const {currentUser} = this.props;
+    const { currentUser } = this.props;
 
     if (!currentUser) {
       return false;
@@ -47,6 +86,7 @@ export default class Header extends React.Component {
           <ul>
             <li>
               <Link to="/"><i className="fa fa-columns"/> Boards</Link>
+              {::this._renderBoards()}
             </li>
           </ul>
         </nav>

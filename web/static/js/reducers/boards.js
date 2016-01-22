@@ -24,7 +24,7 @@ export default function reducer(state = initialState, action = {}) {
       return { ...state, formErrors: action.errors };
 
     case Constants.BOARDS_RESET:
-      return initialState;
+      return { ...state, showForm: false, formErrors: null, ownedFetched: false, fetching: false, };
 
     case Constants.BOARDS_ADDED:
       const { invitedBoards } = state;
