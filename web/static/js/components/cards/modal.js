@@ -33,7 +33,7 @@ export default class CardModal extends React.Component {
             <h4>Add comment</h4>
           </header>
           <div className="gravatar-wrapper">
-            <ReactGravatar email={currentUser.email} https />
+            <ReactGravatar className="react-gravatar" email={currentUser.email} https />
           </div>
           <div className="form-controls">
             <textarea
@@ -74,7 +74,7 @@ export default class CardModal extends React.Component {
       return (
         <div key={comment.id} className="comment">
           <div className="gravatar-wrapper">
-            <ReactGravatar email={user.email} https />
+            <ReactGravatar className="react-gravatar" email={user.email} https />
           </div>
           <div className="info-wrapper">
             <h5>{user.first_name}</h5>
@@ -165,7 +165,7 @@ export default class CardModal extends React.Component {
     if (members.length == 0) return false;
 
     const memberNodes = members.map((member) => {
-      return <ReactGravatar key={member.id} email={member.email} https />;
+      return <ReactGravatar className="react-gravatar" key={member.id} email={member.email} https />;
     });
 
     return (

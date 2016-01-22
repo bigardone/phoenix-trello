@@ -1,5 +1,5 @@
 import React, {PropTypes}       from 'react';
-import Gravatar                 from 'react-gravatar';
+import ReactGravatar                 from 'react-gravatar';
 import ReactCSSTransitionGroup  from 'react-addons-css-transition-group';
 import classnames               from 'classnames';
 import PageClick                from 'react-page-click';
@@ -16,7 +16,7 @@ export default class BoardUsers extends React.Component {
 
       return (
         <li className={classes} key={user.id}>
-          <Gravatar email={user.email} https/>
+          <ReactGravatar className="react-gravatar" email={user.email} https/>
         </li>
       );
     });
