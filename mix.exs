@@ -48,7 +48,8 @@ defmodule PhoenixTrello.Mixfile do
       {:comeonin, "~> 2.0"},
       {:guardian, "~> 0.9.0"},
       {:credo, "~> 0.2", only: [:dev, :test]},
-      {:ex_machina, "~> 0.6.1"}
+      {:ex_machina, "~> 0.6.1"},
+      {:exactor, "~> 2.2.0"}
      ]
   end
 
