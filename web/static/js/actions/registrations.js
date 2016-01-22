@@ -1,6 +1,7 @@
-import { routeActions }  from 'redux-simple-router';
-import Constants     from '../constants';
-import { httpPost }  from '../utils';
+import { routeActions }   from 'redux-simple-router';
+import Constants          from '../constants';
+import { httpPost }       from '../utils';
+import {setCurrentUser}   from './sessions';
 
 const Actions = {};
 
@@ -10,10 +11,7 @@ Actions.signUp = (data) => {
     .then((data) => {
       localStorage.setItem('phoenixAuthToken', data.jwt);
 
-      dispatch({
-        type: Constants.CURRENT_USER,
-        currentUser: data.user,
-      });
+      setCurrentUser(dispatch, data.user);
 
       dispatch(routeActions.push('/'));
     })
