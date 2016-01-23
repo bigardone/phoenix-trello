@@ -6,7 +6,7 @@
 [![bitHound Code](https://www.bithound.io/github/bigardone/phoenix-trello/badges/code.svg)](https://www.bithound.io/github/bigardone/phoenix-trello)
 [![Build Status](https://travis-ci.org/bigardone/phoenix-trello.svg?branch=master)](https://travis-ci.org/bigardone/phoenix-trello)
 
-[Trello](http://trello.com) tribute done with **Elixir**, **Phoenix Framework**, **Webpack**, **React** and **Redux**.
+[Trello](http://trello.com) tribute done with [Elixir](https://github.com/elixir-lang/elixir), [Phoenix Framework](https://github.com/phoenixframework/phoenix), [Webpack](https://github.com/webpack/webpack), [React](https://github.com/facebook/react) and [Redux](https://github.com/rackt/redux).
 
 ![`board`](http://codeloveandboards.com/images/blog/trello_tribute_pt_1/sign-in-a8fa19da.jpg)
 
