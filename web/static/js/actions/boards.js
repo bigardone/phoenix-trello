@@ -32,6 +32,11 @@ const Actions = {
     return dispatch => {
       httpPost('/api/v1/boards', { board: data })
       .then((data) => {
+        dispatch({
+          type: Constants.BOARDS_NEW_BOARD_CREATED,
+          board: data,
+        });
+
         dispatch(routeActions.push(`/boards/${data.id}`));
       })
       .catch((error) => {
@@ -51,21 +56,6 @@ const Actions = {
       dispatch({
         type: Constants.BOARDS_RESET,
       });
-    };
-  },
-
-  resetCurrentAndReconnect: (socket, channel, boardId) => {
-    return dispatch => {
-      if (channel) {
-        channel.leave();
-
-        dispatch({
-          type: Constants.CURRENT_BOARD_RESET,
-        });
-      }
-
-      dispatch(CurrentBoardActions.connectToChannel(socket, boardId));
-      dispatch(routeActions.push(`/boards/${boardId}`));
     };
   },
 };

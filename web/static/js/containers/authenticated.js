@@ -25,12 +25,7 @@ class AuthenticatedContainer extends React.Component {
 
     return (
       <div className="application-container">
-        <Header
-          socket={socket}
-          currentBoard={currentBoard}
-          currentUser={currentUser}
-          boards={boards}
-          dispatch={dispatch}/>
+        <Header/>
 
         <div className='main-container'>
           {this.props.children}
