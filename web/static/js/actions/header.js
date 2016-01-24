@@ -15,9 +15,10 @@ const Actions = {
 
   visitBoard: (socket, channel, boardId) => {
     return dispatch => {
-      if (channel) dispatch(CurrentBoardActions.leaveChannel(channel));
-
-      dispatch(CurrentBoardActions.connectToChannel(socket, boardId));
+      if (channel) {
+        dispatch(CurrentBoardActions.leaveChannel(channel));
+        dispatch(CurrentBoardActions.connectToChannel(socket, boardId));
+      }
 
       dispatch(routeActions.push(`/boards/${boardId}`));
 
