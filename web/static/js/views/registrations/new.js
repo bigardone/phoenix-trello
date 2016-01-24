@@ -69,4 +69,4 @@ const mapStateToProps = (state) => ({
   errors: state.registration.errors,
 });
 
-export default connect(mapStateToProps)(RegistrationsNew);
+export default connect(mapStateToProps)(RegistrationsNewView);
