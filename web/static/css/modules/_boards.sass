@@ -117,7 +117,7 @@
           top: 100%
           list-style: none
           padding: $base-spacing/2
-          background: $light-gray
+          background: rgba($light-gray, .9)
           border-radius: $base-border-radius
           min-width: 20em
           display: none
@@ -198,8 +198,12 @@
             padding: 0
 
       header
+        +fill-parent
         margin-bottom: $base-spacing/2
         cursor: pointer
+        text-overflow: ellipsis
+        white-space: nowrap
+        overflow: hidden
 
       &.form
         display: inline-block
@@ -207,6 +211,10 @@
           +fill-parent
           display: block
           margin-bottom: .5em
+
+      &:not(.add-new)
+        .inner .inner
+          background: transparent
 
       &.add-new
         .inner

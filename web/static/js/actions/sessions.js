@@ -85,11 +85,11 @@ const Actions = {
       .then((data) => {
         localStorage.removeItem('phoenixAuthToken');
 
-        dispatch({
-          type: Constants.USER_SIGNED_OUT,
-        });
+        dispatch({ type: Constants.USER_SIGNED_OUT, });
 
         dispatch(routeActions.push('/sign_in'));
+
+        dispatch({ type: Constants.BOARDS_RESET });
       })
       .catch(function(error) {
         console.log(error);

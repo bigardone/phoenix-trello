@@ -1,7 +1,9 @@
+$header-height: $base-line-height * 1.8em
+
 .main-header
   +clearfix
   background: $dark-purple
-  line-height: $base-line-height * 1.8
+  line-height: $header-height
   padding: 0 $base-spacing
   color: #fff
   position: relative
@@ -66,3 +68,62 @@
 
           &:hover
             color: #fff
+
+    &#boards_nav
+      > ul > li
+        position: relative
+
+        a
+          display: block
+
+        .dropdown
+          position: absolute
+          display: block
+          z-index: 99
+          background: #fff
+          border-radius: $base-border-radius
+          left: 0
+          margin-top: .5em
+          color: $base-font-color
+          width: 15em
+          padding: .3em
+          box-shadow: 0 3px 6px rgba(0,0,0,.4)
+          animation-duration: .3s
+          animation-name: fadeIn
+
+          header
+            padding: 0 .5em
+            color: $gray
+
+          ul
+            display: block
+            position: relative
+            max-height: 30em
+            overflow-y: auto
+
+            li
+              display: block
+              margin-bottom: .3em
+
+              a
+                +transition
+                color: $base-font-color
+                font-weight: bold
+                display: block
+                padding: .7em .5em
+                background: rgba($purple, .2)
+
+                &:hover
+                  background: rgba($purple, .5)
+
+            &.options
+              margin-top: 1em
+              li
+                a
+                  background: #fff
+                  text-decoration: underline
+                  font-weight: normal
+                  color: $dark-gray
+
+                  &:hover
+                    background: $light-gray
