@@ -87,26 +87,43 @@ $header-height: $base-line-height * 1.8em
           color: $base-font-color
           width: 15em
           padding: .3em
+          box-shadow: 0 3px 6px rgba(0,0,0,.4)
           animation-duration: .3s
           animation-name: fadeIn
 
-          li
+          header
+            padding: 0 .5em
+            color: $gray
+
+          ul
             display: block
+            position: relative
+            max-height: 30em
+            overflow-y: auto
 
-            &.title
-              padding: 0 .5em
-              color: $gray
-
-            &:not(.title)
+            li
+              display: block
               margin-bottom: .3em
 
-            a
-              +transition
-              color: $base-font-color
-              font-weight: bold
-              display: block
-              padding: .7em .5em
-              background: rgba($purple, .2)
+              a
+                +transition
+                color: $base-font-color
+                font-weight: bold
+                display: block
+                padding: .7em .5em
+                background: rgba($purple, .2)
 
-              &:hover
-                background: rgba($purple, .5)
+                &:hover
+                  background: rgba($purple, .5)
+
+            &.options
+              margin-top: 1em
+              li
+                a
+                  background: #fff
+                  text-decoration: underline
+                  font-weight: normal
+                  color: $dark-gray
+
+                  &:hover
+                    background: $light-gray

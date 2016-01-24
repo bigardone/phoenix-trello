@@ -29,24 +29,35 @@ class Header extends React.Component {
 
     const { ownedBoards, invitedBoards } = this.props.boards;
 
-    let ownedBoardsItems = ownedBoards.map((board) => {
+    const ownedBoardsItems = ownedBoards.map((board) => {
       return this._createBoardItem(dispatch, currentBoard, socket, board);
     });
 
-    if (ownedBoardsItems.length > 0) ownedBoardsItems.splice(0, 0, <li key="owned" className="title">Owned boards</li>);
+    const ownedBoardsItemsHeader = ownedBoardsItems.length > 0 ? <header className="title"><i className="fa fa-user"/> Owned boards</header> : null;
 
-    let invitedBoardsItems = invitedBoards.map((board) => {
+    const invitedBoardsItems = invitedBoards.map((board) => {
       return this._createBoardItem(dispatch, currentBoard, socket, board);
     });
 
-    if (invitedBoardsItems.length > 0) invitedBoardsItems.splice(0, 0, <li key="invited" className="title">Invited boards</li>);
+    const invitedBoardsItemsHeaders = invitedBoardsItems.length > 0 ? <header className="title"><i className="fa fa-users"/> Other boards</header> : null;
 
     return (
       <PageClick onClick={::this._hideBoards}>
-        <ul className="dropdown">
-          {ownedBoardsItems}
-          {invitedBoardsItems}
-        </ul>
+        <div className="dropdown">
+          {ownedBoardsItemsHeader}
+          <ul>
+            {ownedBoardsItems}
+          </ul>
+          {invitedBoardsItemsHeaders}
+          <ul>
+            {invitedBoardsItems}
+          </ul>
+          <ul className="options">
+            <li>
+              <Link to="/" onClick={::this._hideBoards}>View all boards</Link>
+            </li>
+          </ul>
+        </div>
       </PageClick>
     );
   }
