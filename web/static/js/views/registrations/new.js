@@ -5,7 +5,7 @@ import { Link }             from 'react-router';
 import { setDocumentTitle, renderErrorsFor } from '../../utils';
 import Actions              from '../../actions/registrations';
 
-class RegistrationsNew extends React.Component {
+class RegistrationsNewView extends React.Component {
   componentDidMount() {
     setDocumentTitle('Sign up');
   }

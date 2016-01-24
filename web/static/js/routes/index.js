@@ -10,7 +10,7 @@ import CardsShowView               from '../views/cards/show';
 
 export default (
   <Route component={MainLayout}>
-    <Route path="/sign_up" component={RegistrationsNew} />
+    <Route path="/sign_up" component={RegistrationsNewView} />
     <Route path="/sign_in" component={SessionsNew} />
 
     <Route path="/" component={AuthenticatedContainer}>
