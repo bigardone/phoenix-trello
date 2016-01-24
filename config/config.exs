@@ -34,3 +34,6 @@ config :guardian, Guardian,
   ttl: { 3, :days },
   verify_issuer: true,
   serializer: PhoenixTrello.GuardianSerializer
+
+# Start Hound for PhantomJs
+config :hound, driver: "phantomjs"
