@@ -7,15 +7,9 @@ import Actions              from '../../actions/boards';
 import BoardCard            from '../../components/boards/card';
 import BoardForm            from '../../components/boards/form';
 
-const mapStateToProps = (state) => (
-  state.boards
-);
-
 class HomeIndexView extends React.Component {
   componentDidMount() {
     setDocumentTitle('Boards');
-
-    this.props.dispatch(Actions.fetchBoards());
   }
 
   componentWillUnmount() {
@@ -121,5 +115,9 @@ class HomeIndexView extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => (
+  state.boards
+);
 
 export default connect(mapStateToProps)(HomeIndexView);

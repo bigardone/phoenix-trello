@@ -1,6 +1,7 @@
 import Constants              from '../constants';
-import { routeActions }           from 'redux-simple-router';
+import { routeActions }       from 'redux-simple-router';
 import { httpGet, httpPost }  from '../utils';
+import CurrentBoardActions    from './current_board';
 
 const Actions = {
   fetchBoards: () => {
@@ -31,6 +32,11 @@ const Actions = {
     return dispatch => {
       httpPost('/api/v1/boards', { board: data })
       .then((data) => {
+        dispatch({
+          type: Constants.BOARDS_NEW_BOARD_CREATED,
+          board: data,
+        });
+
         dispatch(routeActions.push(`/boards/${data.id}`));
       })
       .catch((error) => {

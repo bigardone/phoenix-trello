@@ -24,12 +24,17 @@ export default function reducer(state = initialState, action = {}) {
       return { ...state, formErrors: action.errors };
 
     case Constants.BOARDS_RESET:
-      return initialState;
+      return { ...state, showForm: false, formErrors: null, ownedFetched: false, fetching: false, };
 
     case Constants.BOARDS_ADDED:
       const { invitedBoards } = state;
 
       return { ...state, invitedBoards: [action.board].concat(invitedBoards) };
+
+    case Constants.BOARDS_NEW_BOARD_CREATED:
+      const { ownedBoards } = state;
+
+      return { ...state, ownedBoards: [action.board].concat(ownedBoards) };
 
     default:
       return state;
