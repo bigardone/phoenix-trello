@@ -3,10 +3,10 @@ import React                        from 'react';
 import MainLayout                   from '../layouts/main';
 import AuthenticatedContainer       from '../containers/authenticated';
 import HomeIndexView                from '../views/home';
-import RegistrationsNew             from '../views/registrations/new';
-import SessionsNew                  from '../views/sessions/new';
+import RegistrationsNewView         from '../views/registrations/new';
+import SessionsNewView              from '../views/sessions/new';
 import BoardsShowView               from '../views/boards/show';
-import CardsShowView               from '../views/cards/show';
+import CardsShowView                from '../views/cards/show';
 
 export default (
   <Route component={MainLayout}>
