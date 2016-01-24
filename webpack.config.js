@@ -27,7 +27,7 @@ var config = module.exports = {
   },
 
   resolve: {
-    extesions: ['', '.js', '.sass'],
+    extensions: ['', '.js', '.sass'],
     modulesDirectories: ['node_modules'],
   },
 
