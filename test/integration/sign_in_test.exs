@@ -3,6 +3,7 @@ defmodule PhoenixTrello.SignInTest do
 
   alias PhoenixTrello.User
 
+  @tag :integration
   test "GET /" do
     navigate_to "/"
 
@@ -10,6 +11,7 @@ defmodule PhoenixTrello.SignInTest do
     assert element_displayed?({:id, "sign_in_form"})
   end
 
+  @tag :integration
   test "Sign in with wrong email/password" do
     set_window_size current_window_handle, 1280, 1024
 
@@ -32,6 +34,7 @@ defmodule PhoenixTrello.SignInTest do
     assert page_source =~ "Invalid email or password"
   end
 
+  @tag :integration
   test "Sign in with existing email/password" do
     set_window_size current_window_handle, 1280, 1024
 

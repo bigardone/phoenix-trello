@@ -1,6 +1,7 @@
 defmodule PhoenixTrello.SignUpTest do
   use PhoenixTrello.IntegrationCase
 
+  @tag :integration
   test "GET /sign_up" do
     navigate_to "/sign_up"
 
@@ -8,6 +9,7 @@ defmodule PhoenixTrello.SignUpTest do
     assert element_displayed?({:id, "sign_up_form"})
   end
 
+  @tag :integration
   test "Siginig up with correct data" do
     set_window_size current_window_handle, 1280, 1024
 
