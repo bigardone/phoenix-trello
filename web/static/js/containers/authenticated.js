@@ -24,7 +24,7 @@ class AuthenticatedContainer extends React.Component {
     if (!currentUser) return false;
 
     return (
-      <div className="application-container">
+      <div id="authentication_container" className="application-container">
         <Header/>
 
         <div className='main-container'>

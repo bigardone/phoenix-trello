@@ -10,3 +10,5 @@ services:
 before_script:
   - cp config/travis.exs config/test.exs
   - mix do ecto.create, ecto.migrate
+script:
+  - mix test --exclude integration

@@ -49,7 +49,9 @@ defmodule PhoenixTrello.Mixfile do
       {:guardian, "~> 0.9.0"},
       {:credo, "~> 0.2", only: [:dev, :test]},
       {:ex_machina, "~> 0.6.1"},
-      {:exactor, "~> 2.2.0"}
+      {:exactor, "~> 2.2.0"},
+      {:hound, "~> 0.8"},
+      {:mix_test_watch, "~> 0.2", only: :dev}
      ]
   end
 
