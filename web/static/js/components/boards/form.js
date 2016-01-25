@@ -32,7 +32,7 @@ export default class BoardForm extends React.Component {
     });
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.refs.name.focus();
   }
 
@@ -48,8 +48,8 @@ export default class BoardForm extends React.Component {
         <div className="board form">
           <div className="inner">
             <h4>New board</h4>
-            <form onSubmit={::this._handleSubmit}>
-              <input ref="name" type="text" placeholder="Board name" required="true"/>
+            <form id="new_board_form" onSubmit={::this._handleSubmit}>
+              <input ref="name" id="board_name" type="text" placeholder="Board name" required="true"/>
               {::this._renderErrors('name')}
               <button type="submit">Create board</button> or <a href="#" onClick={::this._handleCancelClick}>cancel</a>
             </form>
