@@ -1,10 +1,6 @@
 # Phoenix Trello
-
-[![bitHound Overall Score](https://www.bithound.io/github/bigardone/phoenix-trello/badges/score.svg)](https://www.bithound.io/github/bigardone/phoenix-trello)
-[![bitHound Dependencies](https://www.bithound.io/github/bigardone/phoenix-trello/badges/dependencies.svg)](https://www.bithound.io/github/bigardone/phoenix-trello/master/dependencies/npm)
-[![bitHound Dev Dependencies](https://www.bithound.io/github/bigardone/phoenix-trello/badges/devDependencies.svg)](https://www.bithound.io/github/bigardone/phoenix-trello/master/dependencies/npm)
-[![bitHound Code](https://www.bithound.io/github/bigardone/phoenix-trello/badges/code.svg)](https://www.bithound.io/github/bigardone/phoenix-trello)
 [![Build Status](https://travis-ci.org/bigardone/phoenix-trello.svg?branch=master)](https://travis-ci.org/bigardone/phoenix-trello)
+
 
 [Trello](http://trello.com) tribute done with [Elixir](https://github.com/elixir-lang/elixir), [Phoenix Framework](https://github.com/phoenixframework/phoenix), [Webpack](https://github.com/webpack/webpack), [React](https://github.com/facebook/react) and [Redux](https://github.com/rackt/redux).
 
