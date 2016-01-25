@@ -16,25 +16,23 @@ export function setCurrentUser(dispatch, user) {
 
   socket.connect();
 
-  socket.onOpen(() => {
-    const channel = socket.channel(`users:${user.id}`);
+  const channel = socket.channel(`users:${user.id}`);
 
-    if (channel.state != 'joined') {
-      channel.join().receive('ok', () => {
-        dispatch({
+  if (channel.state != 'joined') {
+    channel.join().receive('ok', () => {
+      dispatch({
           type: Constants.SOCKET_CONNECTED,
           socket: socket,
           channel: channel,
         });
-      });
-    }
+    });
+  }
 
-    channel.on('projects:add', (msg) => {
-      dispatch({
+  channel.on('projects:add', (msg) => {
+    dispatch({
         type: Constants.BOARDS_ADDED,
         board: msg.board,
       });
-    });
   });
 };
 
