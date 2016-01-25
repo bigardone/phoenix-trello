@@ -8,6 +8,8 @@ defmodule PhoenixTrello.IntegrationCase do
       import Ecto.Model
       import Ecto.Query, only: [from: 2]
       import PhoenixTrello.Router.Helpers
+      import PhoenixTrello.Factory
+      import PhoenixTrello.Retryer
 
       alias PhoenixTrello.Repo
 
