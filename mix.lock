@@ -20,6 +20,7 @@
   "idna": {:hex, :idna, "1.0.3"},
   "jose": {:hex, :jose, "1.6.0"},
   "mimerl": {:hex, :mimerl, "1.0.2"},
+  "mix_test_watch": {:hex, :mix_test_watch, "0.2.5"},
   "phoenix": {:hex, :phoenix, "1.1.3"},
   "phoenix_ecto": {:hex, :phoenix_ecto, "2.0.1"},
   "phoenix_html": {:hex, :phoenix_html, "2.4.0"},
