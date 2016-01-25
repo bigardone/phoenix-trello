@@ -10,6 +10,7 @@
 
 ![`board`](http://codeloveandboards.com/images/blog/trello_tribute_pt_1/sign-in-a8fa19da.jpg)
 
+## Installation instructions
 To start your Phoenix Trello app:
 
   1. Install dependencies with `mix deps.get`
@@ -22,3 +23,7 @@ To start your Phoenix Trello app:
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Enjoy!
+
+## License
+
+See [LICENSE](LICENSE).
