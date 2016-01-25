@@ -20,6 +20,15 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Enjoy!
 
+## Testing
+Integration tests with [Hound](https://github.com/HashNuke/hound) and [Selenium ChromeDriver](https://github.com/SeleniumHQ/selenium/wiki/ChromeDriver). Instructions:
+
+  1. Install **ChromeDriver** with `npm install -g chromedriver`
+  2. Run **ChromeDriver** in a new terminal window with `chromedriver`
+  3. Run tests with `mix test`
+
+If you don't want to run integration tests just run `mix test --exclude integration`.
+
 ## License
 
 See [LICENSE](LICENSE).
