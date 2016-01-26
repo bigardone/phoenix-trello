@@ -62,4 +62,16 @@ defmodule PhoenixTrello.Card do
   def with_members(query \\ %Card{}) do
     from c in query, preload: [:members]
   end
+  
+  def get_by_user_and_board(query, card_id, user_id, board_id) do
+    from c in query,
+          left_join: co in assoc(c, :comments),
+          left_join: cu in assoc(co, :user),
+          left_join: me in assoc(c, :members),
+          join: l in assoc(c, :list),
+          join: b in assoc(l, :board),
+          join: ub in assoc(b, :user_boards),
+          where: ub.user_id == ^user_id and b.id == ^board_id and c.id == ^card_id,
+          preload: [comments: {co, user: cu }, members: me]
+  end
 end
