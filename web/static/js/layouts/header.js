@@ -1,12 +1,12 @@
-import React          from 'react';
-import { connect }    from 'react-redux';
-import { Link }       from 'react-router';
-import ReactGravatar  from 'react-gravatar';
-import PageClick      from 'react-page-click';
-import { routeActions }       from 'redux-simple-router';
+import React            from 'react';
+import { connect }      from 'react-redux';
+import { Link }         from 'react-router';
+import ReactGravatar    from 'react-gravatar';
+import PageClick        from 'react-page-click';
+import { routeActions } from 'react-router-redux';
 
-import SessionActions from '../actions/sessions';
-import HeaderActions  from '../actions/header';
+import SessionActions   from '../actions/sessions';
+import HeaderActions    from '../actions/header';
 
 class Header extends React.Component {
   _handleBoardsClick(e) {

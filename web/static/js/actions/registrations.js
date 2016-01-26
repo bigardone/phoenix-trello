@@ -1,4 +1,4 @@
-import { routeActions }   from 'redux-simple-router';
+import { routeActions }   from 'react-router-redux';
 import Constants          from '../constants';
 import { httpPost }       from '../utils';
 import {setCurrentUser}   from './sessions';

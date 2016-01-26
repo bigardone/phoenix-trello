@@ -200,7 +200,7 @@ class BoardsShowView extends React.Component {
     );
 
     return (
-      <div className='view-container boards show'>
+      <div className="view-container boards show">
         <header className="view-header">
           <h3>{name}</h3>
           {::this._renderUsers()}
