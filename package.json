@@ -30,7 +30,7 @@
     "node-sass": "^3.4.2",
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",
-    "webpack": "^1.12.9"
+    "webpack": "^1.12.11"
   },
   "dependencies": {
     "bourbon": "^4.2.6",
@@ -52,8 +52,7 @@
     "react-router": "^1.0.3",
     "redux": "^3.0.5",
     "redux-logger": "^2.3.2",
-    "redux-simple-router": "^2.0.3",
-    "redux-thunk": "^1.0.2",
-    "webpack": "^1.12.11"
+    "react-router-redux": "^2.0.3",
+    "redux-thunk": "^1.0.2"
   }
 }

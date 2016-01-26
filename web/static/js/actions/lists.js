@@ -1,5 +1,5 @@
 import Constants              from '../constants';
-import { routeActions }           from 'redux-simple-router';
+import { routeActions }       from 'react-router-redux';
 import { httpGet, httpPost }  from '../utils';
 
 const Actions = {
