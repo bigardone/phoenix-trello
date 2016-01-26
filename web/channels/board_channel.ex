@@ -25,8 +25,7 @@ defmodule PhoenixTrello.BoardChannel do
   def handle_in("lists:create", %{"list" => list_params}, socket) do
     board = socket.assigns.board
 
-    changeset =
-      board
+    changeset = board
       |> build_assoc(:lists)
       |> List.changeset(list_params)
 
