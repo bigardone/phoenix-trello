@@ -42,23 +42,7 @@ defmodule PhoenixTrello.SignInTest do
     |> User.changeset(%{password: "12345678"})
     |> Repo.insert!
 
-    navigate_to "/"
-
-    element_visible? {:id, "sign_in_form"}
-
-    sign_in_form = find_element(:id, "sign_in_form")
-
-    sign_in_form
-    |> find_within_element(:id, "user_email")
-    |> fill_field(user.email)
-
-    sign_in_form
-    |> find_within_element(:id, "user_password")
-    |> fill_field(user.password)
-
-    sign_in_form
-    |> find_within_element(:css, "button")
-    |> click
+    user_sign_in(%{user: user})
 
     element_visible? {:id, "authentication_container"}
 

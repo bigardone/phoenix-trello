@@ -1,5 +1,6 @@
 defmodule PhoenixTrello.IntegrationCase do
   use ExUnit.CaseTemplate
+  use Hound.Helpers
 
   using do
     quote do
@@ -11,6 +12,7 @@ defmodule PhoenixTrello.IntegrationCase do
       import PhoenixTrello.Router.Helpers
       import PhoenixTrello.Factory
       import PhoenixTrello.Retryer
+      import PhoenixTrello.IntegrationCase
 
       alias PhoenixTrello.Repo
 
@@ -27,5 +29,23 @@ defmodule PhoenixTrello.IntegrationCase do
     end
 
     :ok
+  end
+
+  def user_sign_in(%{user: user}) do
+    navigate_to "/"
+
+    sign_in_form = find_element(:id, "sign_in_form")
+
+    sign_in_form
+    |> find_within_element(:id, "user_email")
+    |> fill_field(user.email)
+
+    sign_in_form
+    |> find_within_element(:id, "user_password")
+    |> fill_field(user.password)
+
+    sign_in_form
+    |> find_within_element(:css, "button")
+    |> click
   end
 end
