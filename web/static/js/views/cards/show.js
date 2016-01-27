@@ -23,7 +23,7 @@ class CardsShowView extends React.Component {
 
     if (!currentCard.card) return false;
 
-    const { card, edit, showMembersSelector } = currentCard;
+    const { card, edit, showMembersSelector, showTagsSelector } = currentCard;
 
     return (
       <CardModal
@@ -34,7 +34,8 @@ class CardsShowView extends React.Component {
         dispatch={dispatch}
         card={card}
         edit={edit}
-        showMembersSelector={showMembersSelector} />
+        showMembersSelector={showMembersSelector}
+        showTagsSelector={showTagsSelector} />
     );
   }
 }
