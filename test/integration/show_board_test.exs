@@ -21,7 +21,7 @@ defmodule PhoenixTrello.ShowBoardTest do
   test "Clicking on previously created board", %{user: user, board: board} do
     user_sign_in(%{user: user, board: board})
 
-    element_visible? {:id, "authentication_container"}
+    assert element_visible?({:id, "authentication_container"})
 
     assert page_source =~ board.name
 
@@ -30,7 +30,7 @@ defmodule PhoenixTrello.ShowBoardTest do
 
     click({:id, board_id})
 
-    element_visible? {:css, ".view-container.boards.show"}
+    assert element_visible?({:css, ".view-container.boards.show"})
 
     assert page_title =~ board.name
     assert page_source =~ board.name

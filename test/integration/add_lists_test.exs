@@ -21,16 +21,16 @@ defmodule PhoenixTrello.AddListsTest do
   test "Clicking on previously created board", %{user: user, board: board} do
     user_sign_in(%{user: user, board: board})
 
-    element_visible? {:id, "authentication_container"}
+    assert element_visible?({:id, "authentication_container"})
 
     navigate_to "/boards/#{Board.slug_id(board)}"
 
-    element_visible? {:css, ".view-container.boards.show"}
+    assert element_visible?({:css, ".view-container.boards.show"})
     assert page_source =~ "Add new list..."
 
     click {:css, ".list.add-new"}
 
-    element_visible? {:css, ".list.form"}
+    assert element_visible?({:css, ".list.form"})
 
     new_list_form = find_element(:id, "new_list_form")
 
@@ -44,7 +44,7 @@ defmodule PhoenixTrello.AddListsTest do
 
     list = user |> last_list
 
-    assert element_visible? {:id, "list_#{list.id}"}
+    assert element_visible?({:id, "list_#{list.id}"})
   end
 
   defp last_list(user) do

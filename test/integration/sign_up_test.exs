@@ -11,11 +11,9 @@ defmodule PhoenixTrello.SignUpTest do
 
   @tag :integration
   test "Siginig up with correct data" do
-    set_window_size current_window_handle, 1280, 1024
-
     navigate_to "/sign_up"
 
-    element_visible? {:id, "sign_up_form"}
+    assert element_visible?({:id, "sign_up_form"})
 
     sign_up_form = find_element(:id, "sign_up_form")
 
@@ -43,7 +41,7 @@ defmodule PhoenixTrello.SignUpTest do
     |> find_within_element(:css, "button")
     |> click
 
-    element_visible? {:id, "authentication_container"}
+    assert element_visible?({:id, "authentication_container"})
 
     assert page_source =~ "John Doe"
     assert page_source =~ "My boards"
