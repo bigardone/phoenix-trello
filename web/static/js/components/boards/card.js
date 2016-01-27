@@ -8,7 +8,7 @@ export default class BoardCard extends React.Component {
 
   render() {
     return (
-      <div className="board" onClick={::this._handleClick}>
+      <div id={this.props.id} className="board" onClick={::this._handleClick}>
         <div className="inner">
           <h4>{this.props.name}</h4>
         </div>

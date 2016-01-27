@@ -168,7 +168,7 @@ export default class ListCard extends React.Component {
   }
 
   render() {
-    const { connectDragSource, connectDropTarget, connectCardDropTarget, isDragging } = this.props;
+    const { id, connectDragSource, connectDropTarget, connectCardDropTarget, isDragging } = this.props;
 
     const styles = {
       display: isDragging ? 'none' : 'block',
@@ -177,7 +177,7 @@ export default class ListCard extends React.Component {
     return connectDragSource(
       connectDropTarget(
         connectCardDropTarget(
-          <div className="list" style={styles}>
+          <div id={`list_${id}`} className="list" style={styles}>
             <div className="inner">
               {::this._renderHeader()}
               <div className="cards-wrapper">
