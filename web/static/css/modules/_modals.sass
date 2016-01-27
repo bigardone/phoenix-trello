@@ -76,6 +76,7 @@
         display: block
         color: $base-font-color
         font-weight: bold
+        margin-bottom: $base-spacing/3
 
         .fa
           color: $gray
@@ -135,11 +136,30 @@
           border: 0px none
           border-bottom: 1px solid $gray
 
+    .items-wrapper
+      +clearfix
+
     .card-members
+      +span-columns(6)
       margin-bottom: $base-spacing
       animation-duration: .3s
       animation-name: fadeIn
       .react-gravatar
         margin-right: 5px
+        animation-duration: .3s
+        animation-name: fadeIn
+
+    .card-tags
+      +span-columns(6)
+      margin-bottom: $base-spacing
+      animation-duration: .3s
+      animation-name: fadeIn
+      .tag
+        width: 30px
+        height: 30px
+        margin-right: 5px
+        box-shadow: 0 0 0
+        display: inline-block
+        border-radius: $base-border-radius
         animation-duration: .3s
         animation-name: fadeIn

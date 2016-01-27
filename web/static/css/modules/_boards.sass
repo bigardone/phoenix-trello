@@ -251,6 +251,18 @@
         animation-name: fadeIn
         white-space: normal
 
+        .tags-wrapper
+          +clearfix
+
+          .tag
+            +span-columns(2)
+            animation-duration: .3s
+            animation-name: fadeIn
+            height: .5em
+            border-radius: $base-border-radius
+            &:hover
+              box-shadow: 0 0 0
+
         .react-gravatar
           border-radius: $base-border-radius
           width: 30px

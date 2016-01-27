@@ -7,6 +7,7 @@ import { routeActions }   from 'react-router-redux';
 import Actions            from '../../actions/current_card';
 import BoardActions       from '../../actions/current_board';
 import MembersSelector    from './members_selector';
+import TagsSelector       from './tags_selector';
 
 export default class CardModal extends React.Component {
   componentDidUpdate() {
@@ -150,7 +151,10 @@ export default class CardModal extends React.Component {
       return (
         <header>
           <h3>{card.name}</h3>
-          {::this._renderMembers()}
+          <div className="items-wrapper">
+            {::this._renderMembers()}
+            {::this._renderTags()}
+          </div>
           <h5>Description</h5>
           <p>{card.description}</p>
           <a href="#" onClick={::this._handleHeaderClick}>Edit</a>
@@ -176,12 +180,37 @@ export default class CardModal extends React.Component {
     );
   }
 
+  _renderTags() {
+    const { tags } = this.props.card;
+
+    if (tags.length == 0) return false;
+
+    const tagsNodes = tags.map((tag) => {
+      return <div key={tag} className={`tag ${tag}`}></div>;
+    });
+
+    return (
+      <div className="card-tags">
+      <h5>Tags</h5>
+        {tagsNodes}
+      </div>
+    );
+  }
+
   _handleShowMembersClick(e) {
     e.preventDefault();
 
     const { dispatch } = this.props;
 
     dispatch(Actions.showMembersSelector(true));
+  }
+
+  _handleShowTagsClick(e) {
+    e.preventDefault();
+
+    const { dispatch } = this.props;
+
+    dispatch(Actions.showTagsSelector(true));
   }
 
   _renderMembersSelector() {
@@ -207,6 +236,28 @@ export default class CardModal extends React.Component {
     dispatch(Actions.showMembersSelector(false));
   }
 
+  _renderTagsSelector() {
+    const { card, showTagsSelector, dispatch, channel } = this.props;
+    const { tags } = card;
+
+    if (!showTagsSelector) return false;
+
+    return (
+      <TagsSelector
+        channel={channel}
+        cardId={card.id}
+        dispatch={dispatch}
+        selectedTags={tags}
+        close={::this._onTagsSelectorClose} />
+    );
+  }
+
+  _onTagsSelectorClose() {
+    const { dispatch } = this.props;
+
+    dispatch(Actions.showTagsSelector(false));
+  }
+
   render() {
     const { card, boardMembers, showMembersSelector } = this.props;
     const { members } = card;
@@ -230,6 +281,10 @@ export default class CardModal extends React.Component {
                   <i className="fa fa-user"/> Members
                 </a>
                 {::this._renderMembersSelector()}
+                <a className="button" href="#" onClick={::this._handleShowTagsClick}>
+                  <i className="fa fa-tag"/> Tags
+                </a>
+                {::this._renderTagsSelector()}
               </div>
             </div>
           </PageClick>

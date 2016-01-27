@@ -4,3 +4,11 @@
 
 body
   background: $purple
+
+
+
+@each $key, $color in $tags-colors
+  .tag.#{$key}
+    background: $color
+    &:hover, &.selected
+      box-shadow: -8px 0 shade($color, 20)

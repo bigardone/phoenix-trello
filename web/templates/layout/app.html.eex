@@ -20,6 +20,7 @@
       ga('send', 'pageview');
 
     </script>
+    <script src="//load.sumome.com/" data-sumo-site-id="944bb79eef0e14649846c498741bf60d7789c621d1133206c10614393be5a3e8" async="async"></script>
     <link id="favicon" rel="icon" type="image/png" sizes="64x64" href="<%= static_path(@conn, "/images/favicon.png") %>"/>
   </head>
 

@@ -46,6 +46,15 @@ const Actions = {
     };
   },
 
+  showTagsSelector: (show) => {
+    return dispatch => {
+      dispatch({
+        type: Constants.CURRENT_CARD_SHOW_TAGS_SELECTOR,
+        show: show,
+      });
+    };
+  },
+
   addMember: (channel, cardId, userId) => {
     return dispatch => {
       channel.push('card:add_member', { card_id: cardId, user_id: userId });
@@ -55,6 +64,12 @@ const Actions = {
   removeMember: (channel, cardId, userId) => {
     return dispatch => {
       channel.push('card:remove_member', { card_id: cardId, user_id: userId });
+    };
+  },
+
+  updateTags: (channel, cardId, tags) => {
+    return dispatch => {
+      channel.push('card:update', { card: { id: cardId, tags: tags } });
     };
   },
 };

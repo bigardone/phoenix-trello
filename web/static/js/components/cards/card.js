@@ -76,6 +76,22 @@ export default class Card extends React.Component {
     );
   }
 
+  _renderTags() {
+    const { tags } = this.props;
+
+    const tagsNodes = tags.map((tag) => {
+      return (
+        <span key={tag} className={`tag ${tag}`}></span>
+      );
+    });
+
+    return (
+      <div className="tags-wrapper">
+        {tagsNodes}
+      </div>
+    );
+  }
+
   render() {
     const { connectDragSource, connectDropTarget, isDragging, name } = this.props;
 
@@ -86,6 +102,7 @@ export default class Card extends React.Component {
     return connectDragSource(
       connectDropTarget(
         <div className="card" style={styles} onClick={::this._handleClick}>
+          {::this._renderTags()}
           {name}
           {::this._renderFooter()}
         </div>

@@ -1,4 +1,4 @@
-.members-selector
+.members-selector, .tags-selector
   background: #fff
   border: 1px solid $gray
   border-radius: $base-border-radius
@@ -38,13 +38,24 @@
         position: relative
         color: $base-font-color
 
+        &.tag
+          height: 2em
+
+          .fa
+            color: #fff
+
+        @each $key, $color in $tags-colors
+          &.tag.#{$key}
+            &:hover, &.selected
+              box-shadow: -8px 0 shade($color, 20)
+
         .fa
           +transform(translateY(-50%))
           position: absolute
           right: $base-spacing/3
           top: 50%
 
-        &:hover
+        &:not(.tag):hover
           background: $blue
           color: #fff
 
