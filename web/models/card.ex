@@ -3,12 +3,13 @@ defmodule PhoenixTrello.Card do
 
   alias PhoenixTrello.{Repo, List, Card, Comment, CardMember}
 
-  @derive {Poison.Encoder, only: [:id, :list_id, :name, :description, :position, :comments, :members]}
+  @derive {Poison.Encoder, only: [:id, :list_id, :name, :description, :position, :comments, :tags, :members]}
 
   schema "cards" do
     field :name, :string
     field :description, :string
     field :position, :integer
+    field :tags, {:array, :string}
 
     belongs_to :list, List
     has_many :comments, Comment
@@ -19,7 +20,7 @@ defmodule PhoenixTrello.Card do
   end
 
   @required_fields ~w(name list_id)
-  @optional_fields ~w(description position)
+  @optional_fields ~w(description position tags)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
