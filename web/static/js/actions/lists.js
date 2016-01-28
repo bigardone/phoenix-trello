@@ -22,7 +22,7 @@ const Actions = {
 
   createCard: (channel, data) => {
     return dispatch => {
-      channel.push('create_card', { card: data });
+      channel.push('cards:create', { card: data });
     };
   },
 };

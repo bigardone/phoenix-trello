@@ -34,7 +34,7 @@ export default class CardForm extends React.Component {
     });
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.refs.name.focus();
   }
 
@@ -48,8 +48,8 @@ export default class CardForm extends React.Component {
     return (
       <PageClick onClick={::this._handleCancelClick}>
         <div className="card form">
-          <form onSubmit={::this._handleSubmit}>
-            <textarea ref="name" type="text" required="true" rows={5}/>
+          <form id="new_card_form" onSubmit={::this._handleSubmit}>
+            <textarea ref="name" id="card_name" type="text" required="true" rows={5}/>
             {::this._renderErrors('name')}
             <button type="submit">Add</button> or <a href="#" onClick={::this._handleCancelClick}>cancel</a>
           </form>

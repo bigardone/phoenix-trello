@@ -93,7 +93,7 @@ export default class Card extends React.Component {
   }
 
   render() {
-    const { connectDragSource, connectDropTarget, isDragging, name } = this.props;
+    const { id, connectDragSource, connectDropTarget, isDragging, name } = this.props;
 
     const styles = {
       display: isDragging ? 'none' : 'block',
@@ -101,7 +101,7 @@ export default class Card extends React.Component {
 
     return connectDragSource(
       connectDropTarget(
-        <div className="card" style={styles} onClick={::this._handleClick}>
+        <div id={`card_${id}`} className="card" style={styles} onClick={::this._handleClick}>
           {::this._renderTags()}
           {name}
           {::this._renderFooter()}
