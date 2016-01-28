@@ -38,11 +38,6 @@ defmodule PhoenixTrello.User do
     |> generate_encrypted_password
   end
 
-  def by_email(query \\ %User{}, email) do
-    from user in query,
-    where: user.email == ^email
-  end
-
   defp generate_encrypted_password(current_changeset) do
     case current_changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: password}} ->

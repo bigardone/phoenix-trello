@@ -12,9 +12,9 @@ defmodule PhoenixTrello.AddListsTest do
     |> build_assoc(:owned_boards)
     |> Board.changeset(%{name: "My new board"})
     |> Repo.insert!
+    |> Repo.preload([:user, :invited_users, lists: :cards])
 
-
-    {:ok, %{user: user, board: board |> Repo.preload([:user, :invited_users, lists: :cards])}}
+    {:ok, %{user: user, board: board }}
   end
 
   @tag :integration
@@ -48,13 +48,11 @@ defmodule PhoenixTrello.AddListsTest do
   end
 
   defp last_list(user) do
-    user = user
-      |> Repo.preload([boards: [:lists]])
-
-    board = user.boards
-      |> List.last
-
-    board.lists
-      |> List.last
+    user
+    |> Repo.preload([boards: [:lists]])
+    |> Map.get(:boards)
+    |> List.last
+    |> Map.get(:lists)
+    |> List.last
   end
 end

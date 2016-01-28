@@ -4,6 +4,7 @@ defmodule PhoenixTrello.BoardChannel do
   """
 
   use PhoenixTrello.Web, :channel
+  require Logger
 
   alias PhoenixTrello.{User, Board, UserBoard, List, Card, Comment, CardMember}
   alias PhoenixTrello.BoardChannel.Monitor
@@ -40,7 +41,7 @@ defmodule PhoenixTrello.BoardChannel do
     end
   end
 
-  def handle_in("create_card", %{"card" => card_params}, socket) do
+  def handle_in("cards:create", %{"card" => card_params}, socket) do
     board = socket.assigns.board
     list = board
       |> assoc(:lists)
@@ -69,8 +70,7 @@ defmodule PhoenixTrello.BoardChannel do
     try do
       board = socket.assigns.board
       user = User
-        |> User.by_email(email)
-        |> Repo.one
+        |> Repo.get_by(email: email)
 
       changeset = user
       |> build_assoc(:user_boards)
