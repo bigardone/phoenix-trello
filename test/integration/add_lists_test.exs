@@ -20,9 +20,7 @@ defmodule PhoenixTrello.AddListsTest do
   @tag :integration
   test "Clicking on previously created board", %{user: user, board: board} do
     user_sign_in(%{user: user, board: board})
-
-    assert element_visible?({:id, "authentication_container"})
-
+    
     navigate_to "/boards/#{Board.slug_id(board)}"
 
     assert element_visible?({:css, ".view-container.boards.show"})

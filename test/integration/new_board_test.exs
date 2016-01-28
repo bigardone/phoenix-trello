@@ -14,9 +14,7 @@ defmodule PhoenixTrello.NewBoardTest do
   @tag :integration
   test "GET / with existing user", %{user: user} do
     user_sign_in(%{user: user})
-
-    assert element_visible?({:id, "authentication_container"})
-
+    
     click({:id, "add_new_board"})
 
     assert element_visible?({:id, "new_board_form"})

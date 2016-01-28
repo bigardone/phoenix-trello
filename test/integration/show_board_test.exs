@@ -20,9 +20,7 @@ defmodule PhoenixTrello.ShowBoardTest do
   @tag :integration
   test "Clicking on previously created board", %{user: user, board: board} do
     user_sign_in(%{user: user, board: board})
-
-    assert element_visible?({:id, "authentication_container"})
-
+    
     assert page_source =~ board.name
 
     board_id = board

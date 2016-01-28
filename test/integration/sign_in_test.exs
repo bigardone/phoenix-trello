@@ -40,8 +40,6 @@ defmodule PhoenixTrello.SignInTest do
 
     user_sign_in(%{user: user})
 
-    assert element_visible?({:id, "authentication_container"})
-
     assert page_source =~ "#{user.first_name} #{user.last_name}"
     assert page_source =~ "My boards"
   end
