@@ -19,8 +19,9 @@ defmodule PhoenixTrello.BoardChannel.Monitor do
   end
 
   defcall users_in_channel(channel), state: state do
-     Map.get(state, channel)
-     |> reply
+    state
+    |> Map.get(channel)
+    |> reply
   end
 
   defcall user_left(channel, user_id), state: state do
