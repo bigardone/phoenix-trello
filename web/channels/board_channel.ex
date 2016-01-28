@@ -55,8 +55,7 @@ defmodule PhoenixTrello.BoardChannel do
       {:ok, card} ->
         card = socket.assigns.board
           |> assoc(:cards)
-          |> Card.with_comments
-          |> Card.with_members
+          |> Card.preload_all
           |> Repo.get!(card.id)
 
         broadcast! socket, "card:created", %{card: card}
@@ -104,8 +103,7 @@ defmodule PhoenixTrello.BoardChannel do
         board = get_current_board(socket)
 
         card = Card
-        |> Card.with_comments
-        |> Card.with_members
+        |> Card.preload_all
         |> Repo.get(card.id)
 
         broadcast! socket, "card:updated", %{board: board, card: card}
@@ -145,8 +143,7 @@ defmodule PhoenixTrello.BoardChannel do
     case Repo.insert(changeset) do
       {:ok, _comment} ->
         card = Card
-        |> Card.with_comments
-        |> Card.with_members
+        |> Card.preload_all
         |> Repo.get(card_id)
 
         broadcast! socket, "comment:created", %{board: get_current_board(socket), card: card}
@@ -174,8 +171,7 @@ defmodule PhoenixTrello.BoardChannel do
       case Repo.insert(changeset) do
         {:ok, _} ->
           card = Card
-          |> Card.with_comments
-          |> Card.with_members
+          |> Card.preload_all
           |> Repo.get(card_id)
 
           broadcast! socket, "card:updated", %{board: get_current_board(socket), card: card}
@@ -202,8 +198,7 @@ defmodule PhoenixTrello.BoardChannel do
     case Repo.delete(card_member) do
       {:ok, _} ->
         card = Card
-        |> Card.with_comments
-        |> Card.with_members
+        |> Card.preload_all
         |> Repo.get(card_id)
 
         broadcast! socket, "card:updated", %{board: get_current_board(socket), card: card}
@@ -227,13 +222,9 @@ defmodule PhoenixTrello.BoardChannel do
 
     current_user
     |> assoc(:boards)
-    |> Board.with_everything
+    |> Board.preload_all
     |> Repo.get(board_id)
   end
 
-  defp get_current_board(socket) do
-    board_id = socket.assigns.board.id
-
-    get_current_board(socket, board_id)
-  end
+  defp get_current_board(socket), do: get_current_board(socket, socket.assigns.board.id)
 end
