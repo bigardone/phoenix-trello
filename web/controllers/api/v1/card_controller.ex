@@ -6,13 +6,14 @@ defmodule PhoenixTrello.CardController do
   alias PhoenixTrello.{Repo, Card}
 
   def show(conn, %{"board_id" => board_id, "id" => card_id}) do
-    current_user = Guardian.Plug.current_resource(conn)
-
-    user_id = current_user.id
     card = Card
-     |> Card.get_by_user_and_board(card_id, user_id, board_id)
+     |> Card.get_by_user_and_board(card_id, current_user(conn).id, board_id)
      |> Repo.one!
 
     render(conn, "show.json", card: card)
+  end
+
+  defp current_user(conn)  do
+    Guardian.Plug.current_resource(conn)
   end
 end

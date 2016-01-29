@@ -24,7 +24,7 @@ defmodule PhoenixTrello.AddCardsTest do
   end
 
   @tag :integration
-  test "Clicking on previously created board", %{user: user, board: board, list: list} do
+  test "Clicking on a previously created list", %{user: user, board: board, list: list} do
     user_sign_in(%{user: user, board: board})
 
     navigate_to "/boards/#{Board.slug_id(board)}"
