@@ -37,7 +37,6 @@ var config = module.exports = {
   // we use regexes to tell Webpack what files require special treatment, and
   // what patterns to exclude.
   module: {
-    noParse: /vendor\/phoenix/,
     loaders: [
       {
         test: /\.js$/,

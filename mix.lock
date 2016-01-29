@@ -23,7 +23,7 @@
   "mix_test_watch": {:hex, :mix_test_watch, "0.2.5"},
   "phoenix": {:hex, :phoenix, "1.1.4"},
   "phoenix_ecto": {:hex, :phoenix_ecto, "2.0.1"},
-  "phoenix_html": {:hex, :phoenix_html, "2.4.0"},
+  "phoenix_html": {:hex, :phoenix_html, "2.5.0"},
   "phoenix_live_reload": {:hex, :phoenix_live_reload, "1.0.3"},
   "plug": {:hex, :plug, "1.1.0"},
   "poison": {:hex, :poison, "1.5.2"},

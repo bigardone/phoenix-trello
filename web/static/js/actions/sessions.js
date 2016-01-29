@@ -1,6 +1,6 @@
 import { routeActions }                   from 'react-router-redux';
 import Constants                          from '../constants';
-import { Socket }                         from '../phoenix';
+import { Socket }                         from 'phoenix';
 import { httpGet, httpPost, httpDelete }  from '../utils';
 
 export function setCurrentUser(dispatch, user) {

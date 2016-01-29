@@ -53,6 +53,8 @@
     "redux": "^3.0.5",
     "redux-logger": "^2.3.2",
     "react-router-redux": "^2.0.3",
-    "redux-thunk": "^1.0.2"
+    "redux-thunk": "^1.0.2",
+    "phoenix": "file:deps/phoenix",
+    "phoenix_html": "file:deps/phoenix_html"
   }
 }

@@ -39,7 +39,7 @@ defmodule PhoenixTrello.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.1"},
+      {:phoenix, "~> 1.1.2"},
       {:phoenix_ecto, "~> 2.0"},
       {:postgrex, ">= 0.0.0", override: true},
       {:phoenix_html, "~> 2.3"},
