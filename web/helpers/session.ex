@@ -12,7 +12,7 @@ defmodule PhoenixTrello.Session do
 
   defp check_password(user, password) do
     case user do
-      nil -> false
+      nil -> Comeonin.Bcrypt.dummy_checkpw()
       _ -> Comeonin.Bcrypt.checkpw(password, user.encrypted_password)
     end
   end
