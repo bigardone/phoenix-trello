@@ -20,7 +20,7 @@ defmodule PhoenixTrello.AddListsTest do
   @tag :integration
   test "Clicking on previously created board", %{user: user, board: board} do
     user_sign_in(%{user: user, board: board})
-    
+
     navigate_to "/boards/#{Board.slug_id(board)}"
 
     assert element_visible?({:css, ".view-container.boards.show"})
@@ -40,7 +40,8 @@ defmodule PhoenixTrello.AddListsTest do
     |> find_within_element(:css, "button")
     |> click
 
-    list = user |> last_list
+    list = user
+      |> last_list
 
     assert element_visible?({:id, "list_#{list.id}"})
   end
@@ -50,6 +51,7 @@ defmodule PhoenixTrello.AddListsTest do
     |> Repo.preload([boards: [:lists]])
     |> Map.get(:boards)
     |> List.last
+    |> Repo.preload(:lists)
     |> Map.get(:lists)
     |> List.last
   end

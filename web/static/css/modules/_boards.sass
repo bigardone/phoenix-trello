@@ -171,12 +171,12 @@
   .lists-wrapper
     $margin: 1em
     +clearfix
-    margin: 0 (-$margin/2)
+    margin: 0
     +display(flex)
 
     .list
       +flex(0 0 17em)
-      margin: 0 $margin/2
+      margin: 0 $margin/1.5 0 0
       animation-duration: .3s
       animation-name: fadeIn
 
@@ -199,7 +199,6 @@
 
       header
         +fill-parent
-        margin-bottom: $base-spacing/2
         cursor: pointer
         text-overflow: ellipsis
         white-space: nowrap
