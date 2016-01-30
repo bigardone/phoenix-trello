@@ -1,12 +1,8 @@
 defmodule PhoenixTrello.NewBoardTest do
   use PhoenixTrello.IntegrationCase
 
-  alias PhoenixTrello.{User}
-
   setup do
-    user = build(:user)
-    |> User.changeset(%{password: "12345678"})
-    |> Repo.insert!
+    user = create_user
 
     {:ok, %{user: user}}
   end
@@ -31,14 +27,17 @@ defmodule PhoenixTrello.NewBoardTest do
 
     assert element_displayed?({:css, ".view-container.boards.show"})
 
-    user = user
-      |> Repo.preload(:boards)
-
-    board = user.boards
-      |> Enum.at(0)
+    board = last_board(user)
 
     assert page_title =~ board.name
     assert page_source =~ "New board"
     assert page_source =~ "Add new list..."
+  end
+
+  def last_board(user) do
+    user
+    |> Repo.preload(:boards)
+    |> Map.get(:boards)
+    |> Enum.at(0)
   end
 end

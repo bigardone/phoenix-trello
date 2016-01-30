@@ -1,8 +1,6 @@
 defmodule PhoenixTrello.SignInTest do
   use PhoenixTrello.IntegrationCase
 
-  alias PhoenixTrello.User
-
   @tag :integration
   test "GET /" do
     navigate_to "/"
@@ -40,11 +38,5 @@ defmodule PhoenixTrello.SignInTest do
 
     assert page_source =~ "#{user.first_name} #{user.last_name}"
     assert page_source =~ "My boards"
-  end
-
-  def create_user do
-    build(:user)
-    |> User.changeset(%{password: "12345678"})
-    |> Repo.insert!
   end
 end

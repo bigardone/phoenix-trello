@@ -1,12 +1,10 @@
 defmodule PhoenixTrello.ShowBoardTest do
   use PhoenixTrello.IntegrationCase
 
-  alias PhoenixTrello.{User, Board}
+  alias PhoenixTrello.{Board}
 
   setup do
-    user = build(:user)
-    |> User.changeset(%{password: "12345678"})
-    |> Repo.insert!
+    user = create_user
 
     board = user
     |> build_assoc(:owned_boards)
