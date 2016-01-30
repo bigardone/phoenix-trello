@@ -2,8 +2,6 @@ defmodule PhoenixTrello.IntegrationCase do
   use ExUnit.CaseTemplate
   use Hound.Helpers
 
-  import PhoenixTrello.Retryer
-
   using do
     quote do
       use Hound.Helpers
@@ -13,7 +11,6 @@ defmodule PhoenixTrello.IntegrationCase do
       import Ecto.Query, only: [from: 2]
       import PhoenixTrello.Router.Helpers
       import PhoenixTrello.Factory
-      import PhoenixTrello.Retryer
       import PhoenixTrello.IntegrationCase
 
       alias PhoenixTrello.Repo
@@ -50,6 +47,6 @@ defmodule PhoenixTrello.IntegrationCase do
     |> find_within_element(:css, "button")
     |> click
 
-    assert element_visible?({:id, "authentication_container"})
+    assert element_displayed?({:id, "authentication_container"})
   end
 end

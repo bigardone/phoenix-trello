@@ -23,12 +23,12 @@ defmodule PhoenixTrello.AddListsTest do
 
     navigate_to "/boards/#{Board.slug_id(board)}"
 
-    assert element_visible?({:css, ".view-container.boards.show"})
+    assert element_displayed?({:css, ".view-container.boards.show"})
     assert page_source =~ "Add new list..."
 
     click {:css, ".list.add-new"}
 
-    assert element_visible?({:css, ".list.form"})
+    assert element_displayed?({:css, ".list.form"})
 
     new_list_form = find_element(:id, "new_list_form")
 
@@ -43,7 +43,7 @@ defmodule PhoenixTrello.AddListsTest do
     list = user
       |> last_list
 
-    assert element_visible?({:id, "list_#{list.id}"})
+    assert element_displayed?({:id, "list_#{list.id}"})
   end
 
   defp last_list(user) do

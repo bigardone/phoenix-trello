@@ -14,10 +14,10 @@ defmodule PhoenixTrello.NewBoardTest do
   @tag :integration
   test "GET / with existing user", %{user: user} do
     user_sign_in(%{user: user})
-    
+
     click({:id, "add_new_board"})
 
-    assert element_visible?({:id, "new_board_form"})
+    assert element_displayed?({:id, "new_board_form"})
 
     new_board_form = find_element(:id, "new_board_form")
 
@@ -29,7 +29,7 @@ defmodule PhoenixTrello.NewBoardTest do
     |> find_within_element(:css, "button")
     |> click
 
-    assert element_visible?({:css, ".view-container.boards.show"})
+    assert element_displayed?({:css, ".view-container.boards.show"})
 
     user = user
       |> Repo.preload(:boards)

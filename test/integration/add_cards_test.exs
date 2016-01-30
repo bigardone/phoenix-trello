@@ -29,15 +29,15 @@ defmodule PhoenixTrello.AddCardsTest do
 
     navigate_to "/boards/#{Board.slug_id(board)}"
 
-    assert element_visible?({:css, ".view-container.boards.show"})
+    assert element_displayed?({:css, ".view-container.boards.show"})
 
-    assert element_visible?({:id, "list_#{list.id}"})
+    assert element_displayed?({:id, "list_#{list.id}"})
 
     find_element(:id, "list_#{list.id}")
     |> find_within_element(:css, ".add-new")
     |> click
 
-    assert element_visible?({:id, "new_card_form"})
+    assert element_displayed?({:id, "new_card_form"})
 
     new_card_form = find_element(:id, "new_card_form")
 
@@ -52,7 +52,7 @@ defmodule PhoenixTrello.AddCardsTest do
     card = board
       |> last_card
 
-    assert element_visible?({:id, "card_#{card.id}"})
+    assert element_displayed?({:id, "card_#{card.id}"})
     assert page_source =~ card.name
   end
 
