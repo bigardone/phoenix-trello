@@ -108,7 +108,7 @@ class HomeIndexView extends React.Component {
 
   render() {
     return (
-      <div className='view-container boards index'>
+      <div className="view-container boards index">
         {::this._renderOwnedBoards()}
         {::this._renderOtherBoards()}
       </div>
