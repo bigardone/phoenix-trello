@@ -23,14 +23,4 @@ defmodule PhoenixTrello.BoardView do
       errors: errors
     }
   end
-
-  def render("file_error.json", _params) do
-    %{
-      errors: [
-        %{
-          file: "Invalid file"
-        }
-      ]
-    }
-  end
 end
