@@ -25,7 +25,7 @@ defmodule PhoenixTrello.BoardController do
 
   def create(conn, %{"board" => board_params}) do
     current_user = Guardian.Plug.current_resource(conn)
-    
+
     changeset = current_user
       |> build_assoc(:owned_boards)
       |> Board.changeset(board_params)
@@ -34,7 +34,7 @@ defmodule PhoenixTrello.BoardController do
       {:ok, board} ->
         conn
         |> put_status(:created)
-        |> render("show.json", board: board |> Repo.preload([:user, :invited_users, lists: :cards]))
+        |> render("show.json", board: board )
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
