@@ -1,39 +1,24 @@
 import React, { PropTypes } from 'react';
 import Actions              from '../../actions/boards';
 import PageClick            from 'react-page-click';
+import {renderErrorsFor}    from '../../utils';
 
 export default class BoardForm extends React.Component {
+  componentDidMount() {
+    this.refs.name.focus();
+  }
+
   _handleSubmit(e) {
     e.preventDefault();
 
-    let { dispatch }                    = this.props;
-    let { name, defaultLanguage, file } = this.refs;
+    const { dispatch } = this.props;
+    const { name } = this.refs;
 
-    let data = {
+    const data = {
       name: name.value,
     };
 
     dispatch(Actions.create(data));
-  }
-
-  _renderErrors(field) {
-    const { errors } = this.props;
-
-    if (!errors) return false;
-
-    return errors.map((error, i) => {
-      if (error[field]) {
-        return (
-          <div key={i} className="error">
-            {error[field]}
-          </div>
-        );
-      }
-    });
-  }
-
-  componentDidMount() {
-    this.refs.name.focus();
   }
 
   _handleCancelClick(e) {
@@ -43,6 +28,8 @@ export default class BoardForm extends React.Component {
   }
 
   render() {
+    const { errors } = this.props;
+
     return (
       <PageClick onClick={::this._handleCancelClick}>
         <div className="board form">
@@ -50,7 +37,7 @@ export default class BoardForm extends React.Component {
             <h4>New board</h4>
             <form id="new_board_form" onSubmit={::this._handleSubmit}>
               <input ref="name" id="board_name" type="text" placeholder="Board name" required="true"/>
-              {::this._renderErrors('name')}
+              {renderErrorsFor(errors, 'name')}
               <button type="submit">Create board</button> or <a href="#" onClick={::this._handleCancelClick}>cancel</a>
             </form>
           </div>
@@ -59,6 +46,3 @@ export default class BoardForm extends React.Component {
     );
   }
 }
-
-BoardForm.propTypes = {
-};
