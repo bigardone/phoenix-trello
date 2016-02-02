@@ -6,6 +6,9 @@
 
 ![`board`](http://codeloveandboards.com/images/blog/trello_tribute_pt_1/sign-in-a8fa19da.jpg)
 
+## Requirements 
+You need to have **Elxir v1.2** and **PostgreSQL** installed.
+
 ## Installation instructions
 To start your Phoenix Trello app:
 
