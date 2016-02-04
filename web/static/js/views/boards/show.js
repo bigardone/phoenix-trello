@@ -194,7 +194,7 @@ class BoardsShowView extends React.Component {
     const { fetching, name } = this.props.currentBoard;
 
     if (fetching) return (
-      <div className='view-container boards show'>
+      <div className="view-container boards show">
         <i className="fa fa-spinner fa-spin"/>
       </div>
     );
