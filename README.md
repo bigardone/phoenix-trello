@@ -17,6 +17,9 @@
   8. [Listing and creating new boards](http://codeloveandboards.com/blog/2016/01/28/trello-tribute-with-phoenix-and-react-pt-8/)
   9. Coming soon
 
+## Live demo
+https://phoenix-trello.herokuapp.com
+
 ## Requirements 
 You need to have **Elxir v1.2** and **PostgreSQL** installed.
 
