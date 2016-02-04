@@ -15,7 +15,7 @@ defmodule PhoenixTrello.Board do
     has_many :lists, List
     has_many :cards, through: [:lists, :cards]
     has_many :user_boards, UserBoard
-    has_many :invited_users, through: [:user_boards, :user]
+    has_many :members, through: [:user_boards, :user]
 
     timestamps
   end
@@ -58,7 +58,7 @@ defmodule PhoenixTrello.Board do
     cards_query = from c in Card, order_by: c.position, preload: [[comments: ^comments_query], :members]
     lists_query = from l in List, order_by: l.position, preload: [cards: ^cards_query]
 
-    from b in query, preload: [:user, :invited_users, lists: ^lists_query]
+    from b in query, preload: [:user, :members, lists: ^lists_query]
   end
 
   def slug_id(board) do
@@ -89,7 +89,7 @@ end
 defimpl Poison.Encoder, for: PhoenixTrello.Board do
   def encode(model, options) do
     model
-    |> Map.take([:name, :lists, :user, :invited_users])
+    |> Map.take([:name, :lists, :user, :members])
     |> Map.put(:id, PhoenixTrello.Board.slug_id(model))
     |> Poison.Encoder.encode(options)
   end

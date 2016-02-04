@@ -12,7 +12,7 @@ defmodule PhoenixTrello.ShowBoardTest do
     |> Repo.insert!
 
 
-    {:ok, %{user: user, board: board |> Repo.preload([:user, :invited_users, lists: :cards])}}
+    {:ok, %{user: user, board: board |> Repo.preload([:user, :members, lists: :cards])}}
   end
 
   @tag :integration

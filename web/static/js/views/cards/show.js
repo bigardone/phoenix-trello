@@ -28,7 +28,7 @@ class CardsShowView extends React.Component {
     return (
       <CardModal
         boardId={currentBoard.id}
-        boardMembers={currentBoard.invited_users}
+        boardMembers={currentBoard.members}
         channel={channel}
         currentUser={currentUser}
         dispatch={dispatch}

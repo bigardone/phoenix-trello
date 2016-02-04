@@ -10,7 +10,7 @@ defmodule PhoenixTrello.AddListsTest do
     |> build_assoc(:owned_boards)
     |> Board.changeset(%{name: "My new board"})
     |> Repo.insert!
-    |> Repo.preload([:user, :invited_users, lists: :cards])
+    |> Repo.preload([:user, :members, lists: :cards])
 
     {:ok, %{user: user, board: board }}
   end
