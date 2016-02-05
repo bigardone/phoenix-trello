@@ -25,8 +25,8 @@ defmodule PhoenixTrello.BoardChannel.Monitor do
    try_call board_id, {:user_joined, user}
   end
 
-  def users_in_board_id(board_id) do
-   try_call board_id, {:users_in_board_id}
+  def users_in_board(board_id) do
+   try_call board_id, {:users_in_board}
   end
 
   def user_left(board_id, user) do
@@ -43,7 +43,7 @@ defmodule PhoenixTrello.BoardChannel.Monitor do
     {:reply, users, users}
   end
 
-  def handle_call({:users_in_board_id}, _from, users) do
+  def handle_call({:users_in_board}, _from, users) do
     { :reply, users, users }
   end
 
