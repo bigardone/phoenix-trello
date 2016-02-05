@@ -5,7 +5,7 @@ import { Link }             from 'react-router';
 import { setDocumentTitle } from '../../utils';
 import Actions              from '../../actions/sessions';
 
-class SessionsNew extends React.Component {
+class SessionsNewView extends React.Component {
   componentDidMount() {
     setDocumentTitle('Sign in');
   }
@@ -71,4 +71,4 @@ const mapStateToProps = (state) => (
   state.session
 );
 
-export default connect(mapStateToProps)(SessionsNew);
+export default connect(mapStateToProps)(SessionsNewView);

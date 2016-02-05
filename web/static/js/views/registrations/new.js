@@ -5,7 +5,7 @@ import { Link }             from 'react-router';
 import { setDocumentTitle, renderErrorsFor } from '../../utils';
 import Actions              from '../../actions/registrations';
 
-class RegistrationsNew extends React.Component {
+class RegistrationsNewView extends React.Component {
   componentDidMount() {
     setDocumentTitle('Sign up');
   }
@@ -69,4 +69,4 @@ const mapStateToProps = (state) => ({
   errors: state.registration.errors,
 });
 
-export default connect(mapStateToProps)(RegistrationsNew);
+export default connect(mapStateToProps)(RegistrationsNewView);
