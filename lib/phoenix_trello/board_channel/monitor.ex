@@ -1,38 +1,67 @@
 defmodule PhoenixTrello.BoardChannel.Monitor do
   @moduledoc """
-  Board channel monitor that keeps track of connected users per board.
+  Board monitor that keeps track of connected users.
   """
-  use ExActor.GenServer, export: :board_channel_monitor
 
-  defstart start_link(n), do: initial_state(n)
+  use GenServer
 
-  defcall user_joined(channel, user), state: state do
-    state = case Map.get(state, channel) do
+  #####
+  # External API
+
+  def create(board_id) do
+    case GenServer.whereis(ref(board_id)) do
       nil ->
-        state |> Map.put(channel, [user])
-      users ->
-        state |> Map.put(channel, Enum.uniq([user | users]))
+        Supervisor.start_child(PhoenixTrello.BoardChannel.Supervisor, [board_id])
+      _board ->
+        {:error, :board_already_exists}
     end
-
-    state
-    |> set_and_reply(state)
   end
 
-  defcall users_in_channel(channel), state: state do
-    state
-    |> Map.get(channel)
-    |> reply
+  def start_link(board_id) do
+    GenServer.start_link(__MODULE__, [], name: ref(board_id))
   end
 
-  defcall user_left(channel, user_id), state: state do
-    new_users = state
-      |> Map.get(channel)
-      |> Enum.reject(&(&1.id == user_id))
+  def user_joined(board_id, user) do
+   try_call board_id, {:user_joined, user}
+  end
 
-    state = state
-    |> Map.update!(channel, fn(_) -> new_users end)
+  def users_in_board(board_id) do
+   try_call board_id, {:users_in_board}
+  end
 
-    state
-    |> set_and_reply(state)
+  def user_left(board_id, user) do
+    try_call board_id, {:user_left, user}
+  end
+
+  #####
+  # GenServer implementation
+
+  def handle_call({:user_joined, user}, _from, users) do
+    users = [user] ++ users
+      |> Enum.uniq
+
+    {:reply, users, users}
+  end
+
+  def handle_call({:users_in_board}, _from, users) do
+    { :reply, users, users }
+  end
+
+  def handle_call({:user_left, user}, _from, users) do
+    users = List.delete(users, user)
+    {:reply, users, users}
+  end
+
+  defp ref(board_id) do
+    {:global, {:board, board_id}}
+  end
+
+  defp try_call(board_id, call_function) do
+    case GenServer.whereis(ref(board_id)) do
+      nil ->
+        {:error, :invalid_board}
+      board ->
+        GenServer.call(board, call_function)
+    end
   end
 end
