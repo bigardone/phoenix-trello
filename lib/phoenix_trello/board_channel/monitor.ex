@@ -2,11 +2,32 @@ defmodule PhoenixTrello.BoardChannel.Monitor do
   @moduledoc """
   Board channel monitor that keeps track of connected users per board.
   """
-  use ExActor.GenServer, export: :board_channel_monitor
 
-  defstart start_link(n), do: initial_state(n)
+  use GenServer
 
-  defcall user_joined(channel, user), state: state do
+  #####
+  # External API
+
+  def start_link(initial_state) do
+   GenServer.start_link(__MODULE__, initial_state, name: __MODULE__)
+  end
+
+  def user_joined(channel, user) do
+   GenServer.call(__MODULE__, {:user_joined, channel, user})
+  end
+
+  def users_in_channel(channel) do
+   GenServer.call(__MODULE__, {:users_in_channel, channel})
+  end
+
+  def user_left(channel, user_id) do
+    GenServer.call(__MODULE__, {:user_left, channel, user_id})
+  end
+
+  #####
+  # GenServer implementation
+
+  def handle_call({:user_joined, channel, user}, _from, state) do
     state = case Map.get(state, channel) do
       nil ->
         state |> Map.put(channel, [user])
@@ -14,25 +35,21 @@ defmodule PhoenixTrello.BoardChannel.Monitor do
         state |> Map.put(channel, Enum.uniq([user | users]))
     end
 
-    state
-    |> set_and_reply(state)
+    {:reply, state, state}
   end
 
-  defcall users_in_channel(channel), state: state do
-    state
-    |> Map.get(channel)
-    |> reply
+  def handle_call({:users_in_channel, channel}, _from, state) do
+    { :reply,  Map.get(state, channel), state }
   end
 
-  defcall user_left(channel, user_id), state: state do
+  def handle_call({:user_left, channel, user_id}, _from, state) do
     new_users = state
       |> Map.get(channel)
       |> Enum.reject(&(&1.id == user_id))
 
     state = state
-    |> Map.update!(channel, fn(_) -> new_users end)
+      |> Map.update!(channel, fn(_) -> new_users end)
 
-    state
-    |> set_and_reply(state)
+    {:reply, state, state}
   end
 end
