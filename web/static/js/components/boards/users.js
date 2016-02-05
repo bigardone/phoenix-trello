@@ -9,7 +9,7 @@ export default class BoardUsers extends React.Component {
   _renderUsers() {
     return this.props.users.map((user) => {
       const index = this.props.connectedUsers.findIndex((cu) => {
-        return cu.id === user.id;
+        return cu === user.id;
       });
 
       const classes = classnames({ connected: index != -1 });
