@@ -1,6 +1,5 @@
 defmodule PhoenixTrello.Board do
   use PhoenixTrello.Web, :model
-  use Ecto.Model.Callbacks
 
   alias __MODULE__
   alias PhoenixTrello.{Repo, Permalink, List, Comment, Card, UserBoard, User}
@@ -23,8 +22,6 @@ defmodule PhoenixTrello.Board do
   @required_fields ~w(name user_id)
   @optional_fields ~w(slug)
 
-  after_insert Board, :insert_user_board
-
   @doc """
   Creates a changeset based on the `model` and `params`.
 
@@ -35,17 +32,6 @@ defmodule PhoenixTrello.Board do
     model
     |> cast(params, @required_fields, @optional_fields)
     |> slugify_name()
-  end
-
-  def insert_user_board(changeset) do
-    board_id = changeset.model.id
-    user_id = changeset.model.user_id
-
-    user_board_changeset = UserBoard.changeset(%UserBoard{}, %{"board_id": board_id, "user_id": user_id})
-
-    Repo.insert!(user_board_changeset)
-
-    changeset
   end
 
   def not_owned_by(query \\ %Board{}, user_id) do
