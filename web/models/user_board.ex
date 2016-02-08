@@ -23,6 +23,7 @@ defmodule PhoenixTrello.UserBoard do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> unique_constraint(:user_id, name: :user_boards_user_id_board_id_index)
   end
 
   def find_by_user_and_board(query \\ %UserBoard{}, user_id, board_id) do
