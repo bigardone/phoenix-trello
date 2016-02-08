@@ -21,7 +21,7 @@
 https://phoenix-trello.herokuapp.com
 
 ## Requirements 
-You need to have **Elxir v1.2** and **PostgreSQL** installed.
+You need to have **Elixir v1.2** and **PostgreSQL** installed.
 
 ## Installation instructions
 To start your Phoenix Trello app:
