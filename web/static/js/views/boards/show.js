@@ -8,7 +8,7 @@ import Constants            from '../../constants';
 import { setDocumentTitle } from '../../utils';
 import ListForm             from '../../components/lists/form';
 import ListCard             from '../../components/lists/card';
-import BoardUsers           from '../../components/boards/users';
+import BoardMembers           from '../../components/boards/members';
 
 @DragDropContext(HTML5Backend)
 
@@ -47,11 +47,11 @@ class BoardsShowView extends React.Component {
     const currentUserIsOwner = this.props.currentBoard.user.id === this.props.currentUser.id;
 
     return (
-      <BoardUsers
+      <BoardMembers
         dispatch={dispatch}
         channel={channel}
         currentUserIsOwner={currentUserIsOwner}
-        users={users}
+        members={users}
         connectedUsers={connectedUsers}
         error={error}
         show={showUsersForm} />
