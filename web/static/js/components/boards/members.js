@@ -1,5 +1,5 @@
 import React, {PropTypes}       from 'react';
-import ReactGravatar                 from 'react-gravatar';
+import ReactGravatar            from 'react-gravatar';
 import ReactCSSTransitionGroup  from 'react-addons-css-transition-group';
 import classnames               from 'classnames';
 import PageClick                from 'react-page-click';
@@ -67,13 +67,13 @@ export default class BoardMembers extends React.Component {
   _handleAddNewClick(e) {
     e.preventDefault();
 
-    this.props.dispatch(Actions.showUsersForm(true));
+    this.props.dispatch(Actions.showMembersForm(true));
   }
 
   _handleCancelClick(e) {
     e.preventDefault();
 
-    this.props.dispatch(Actions.showUsersForm(false));
+    this.props.dispatch(Actions.showMembersForm(false));
   }
 
   _handleSubmit(e) {

@@ -29,7 +29,7 @@ export default function reducer(state = initialState, action = {}) {
     case Constants.CURRENT_BOARD_SHOW_FORM:
       return { ...state, showForm: action.show };
 
-    case Constants.CURRENT_BOARD_SHOW_USERS_FORM:
+    case Constants.CURRENT_BOARD_SHOW_MEMBERS_FORM:
       return { ...state, showUsersForm: action.show, error: false };
 
     case Constants.CURRENT_BOARD_RESET:

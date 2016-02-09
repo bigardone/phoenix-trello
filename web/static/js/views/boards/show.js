@@ -40,10 +40,10 @@ class BoardsShowView extends React.Component {
     this.props.dispatch(Actions.leaveChannel(this.props.currentBoard.channel));
   }
 
-  _renderUsers() {
+  _renderMembers() {
     const { connectedUsers, showUsersForm, channel, error } = this.props.currentBoard;
     const { dispatch } = this.props;
-    const users = this.props.currentBoard.members;
+    const members = this.props.currentBoard.members;
     const currentUserIsOwner = this.props.currentBoard.user.id === this.props.currentUser.id;
 
     return (
@@ -51,7 +51,7 @@ class BoardsShowView extends React.Component {
         dispatch={dispatch}
         channel={channel}
         currentUserIsOwner={currentUserIsOwner}
-        members={users}
+        members={members}
         connectedUsers={connectedUsers}
         error={error}
         show={showUsersForm} />
@@ -203,7 +203,7 @@ class BoardsShowView extends React.Component {
       <div className="view-container boards show">
         <header className="view-header">
           <h3>{name}</h3>
-          {::this._renderUsers()}
+          {::this._renderMembers()}
         </header>
         <div className="canvas-wrapper">
           <div className="canvas">
