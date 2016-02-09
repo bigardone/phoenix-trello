@@ -28,7 +28,7 @@ export function setCurrentUser(dispatch, user) {
     });
   }
 
-  channel.on('projects:add', (msg) => {
+  channel.on('boards:add', (msg) => {
     dispatch({
         type: Constants.BOARDS_ADDED,
         board: msg.board,
