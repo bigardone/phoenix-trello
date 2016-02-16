@@ -16,7 +16,8 @@
   7. [Setting up sockets and channels](http://codeloveandboards.com/blog/2016/01/25/trello-tribute-with-phoenix-and-react-pt-7/)
   8. [Listing and creating new boards](http://codeloveandboards.com/blog/2016/01/28/trello-tribute-with-phoenix-and-react-pt-8/)
   9. [Adding board members](http://codeloveandboards.com/blog/2016/02/04/trello-tribute-with-phoenix-and-react-pt-9/)
-  10. Coming soon
+  10. [Tracking connected board members](http://codeloveandboards.com/blog/2016/02/15/trello-tribute-with-phoenix-and-react-pt-10/)
+  11. Coming soon
 
 ## Live demo
 https://phoenix-trello.herokuapp.com
