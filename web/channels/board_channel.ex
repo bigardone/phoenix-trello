@@ -44,18 +44,15 @@ defmodule PhoenixTrello.BoardChannel do
 
   def handle_in("cards:create", %{"card" => card_params}, socket) do
     board = socket.assigns.board
-    list = board
+    changeset = board
       |> assoc(:lists)
       |> Repo.get!(card_params["list_id"])
-
-    changeset =
-      list
       |> build_assoc(:cards)
       |> Card.changeset(card_params)
 
     case Repo.insert(changeset) do
       {:ok, card} ->
-        card = socket.assigns.board
+        card = board
           |> assoc(:cards)
           |> Card.preload_all
           |> Repo.get!(card.id)
