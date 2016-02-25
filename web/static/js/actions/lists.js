@@ -1,6 +1,4 @@
-import Constants              from '../constants';
-import { routeActions }       from 'react-router-redux';
-import { httpGet, httpPost }  from '../utils';
+import Constants from '../constants';
 
 const Actions = {
   showForm: (show) => {

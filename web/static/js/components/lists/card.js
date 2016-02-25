@@ -1,7 +1,7 @@
 import React, {PropTypes}       from 'react';
 import {DragSource, DropTarget} from 'react-dnd';
 import ItemTypes                from '../../constants/item_types';
-
+import Actions                  from '../../actions/current_board';
 import ListForm                 from './form';
 import CardForm                 from '../../components/cards/form';
 import Card                     from '../../components/cards/card';
@@ -67,14 +67,6 @@ const cardTarget = {
 }))
 
 export default class ListCard extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      showForm: false,
-    };
-  }
-
   _renderCards() {
     const { cards, dispatch, boardId } = this.props;
 
@@ -91,7 +83,8 @@ export default class ListCard extends React.Component {
   }
 
   _renderForm() {
-    if (!this.state.showForm) return false;
+    const { isAddingNewCard } = this.props;
+    if (!isAddingNewCard) return false;
 
     let { id, dispatch, formErrors, channel } = this.props;
 
@@ -101,13 +94,14 @@ export default class ListCard extends React.Component {
         dispatch={dispatch}
         errors={formErrors}
         channel={channel}
-        onCancelClick={::this._handleCancelClick}
-        onSubmit={::this._handleFormSubmit}/>
+        onCancelClick={::this._hideCardForm}
+        onSubmit={::this._hideCardForm}/>
     );
   }
 
   _renderAddNewCard() {
-    if (this.state.showForm) return false;
+    const { isAddingNewCard } = this.props;
+    if (isAddingNewCard) return false;
 
     return (
       <a className="add-new" href="#" onClick={::this._handleAddClick}>Add a new card...</a>
@@ -117,15 +111,15 @@ export default class ListCard extends React.Component {
   _handleAddClick(e) {
     e.preventDefault();
 
-    this.setState({ showForm: true });
+    const { dispatch, id } = this.props;
+
+    dispatch(Actions.showCardForm(id));
   }
 
-  _handleCancelClick() {
-    this.setState({ showForm: false });
-  }
+  _hideCardForm() {
+    const { dispatch } = this.props;
 
-  _handleFormSubmit() {
-    this.setState({ showForm: false });
+    dispatch(Actions.showCardForm(null));
   }
 
   _handleDropCard({ source, target }) {
@@ -160,11 +154,15 @@ export default class ListCard extends React.Component {
   _handleHeaderClick(e) {
     e.preventDefault();
 
-    this.props.onEnableEdit(this.props.id);
+    const { dispatch, id } = this.props;
+
+    dispatch(Actions.editList(id));
   }
 
   _handleCancelEditFormClick() {
-    this.props.stopEditing();
+    const { dispatch } = this.props;
+
+    dispatch(Actions.editList(null));
   }
 
   render() {

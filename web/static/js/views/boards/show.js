@@ -59,7 +59,7 @@ class BoardsShowView extends React.Component {
   }
 
   _renderLists() {
-    const { lists, channel, editingListId, id } = this.props.currentBoard;
+    const { lists, channel, editingListId, id, addingNewCardInListId } = this.props.currentBoard;
 
     return lists.map((list) => {
       return (
@@ -72,15 +72,14 @@ class BoardsShowView extends React.Component {
           onDropCard={::this._handleDropCard}
           onDropCardWhenEmpty={::this._handleDropCardWhenEmpty}
           onDrop={::this._handleDropList}
-          onEnableEdit={::this._handleEnableEdit}
-          stopEditing={::this._onStopEditing}
+          isAddingNewCard={addingNewCardInListId === list.id}
           {...list} />
       );
     });
   }
 
   _renderAddNewList() {
-    let { dispatch, formErrors, currentBoard } = this.props;
+    const { dispatch, formErrors, currentBoard } = this.props;
 
     if (!currentBoard.showForm) return this._renderAddButton();
 
@@ -104,7 +103,7 @@ class BoardsShowView extends React.Component {
   }
 
   _handleAddNewClick() {
-    let { dispatch } = this.props;
+    const { dispatch } = this.props;
 
     dispatch(Actions.showForm(true));
   }
@@ -180,14 +179,6 @@ class BoardsShowView extends React.Component {
     const { dispatch } = this.props;
 
     dispatch(Actions.updateCard(channel, card));
-  }
-
-  _handleEnableEdit(listId) {
-    this.props.dispatch(Actions.editList(listId));
-  }
-
-  _onStopEditing() {
-    this.props.dispatch(Actions.editList(null));
   }
 
   render() {

@@ -3,13 +3,17 @@ import Actions              from '../../actions/lists';
 import PageClick                from 'react-page-click';
 
 export default class ListForm extends React.Component {
+  componentDidMount() {
+    this.refs.name.focus();
+  }
+
   _handleSubmit(e) {
     e.preventDefault();
 
-    let { dispatch, channel, list } = this.props;
-    let { name } = this.refs;
+    const { dispatch, channel, list } = this.props;
+    const { name } = this.refs;
 
-    let data = {
+    const data = {
       id: list ? list.id : null,
       name: name.value,
     };
@@ -31,10 +35,6 @@ export default class ListForm extends React.Component {
         );
       }
     });
-  }
-
-  componentDidMount() {
-    this.refs.name.focus();
   }
 
   _handleCancelClick(e) {

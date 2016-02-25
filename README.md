@@ -21,7 +21,7 @@
 ## Live demo
 https://phoenix-trello.herokuapp.com
 
-## Requirements 
+## Requirements
 You need to have **Elixir v1.2** and **PostgreSQL** installed.
 
 ## Installation instructions
