@@ -1,7 +1,7 @@
 {
   "name": "phoenix_trello",
   "version": "1.0.0",
-  "description": "Trello tribute done in Elexir and Phoenix.",
+  "description": "Trello tribute done in Elixir and Phoenix.",
   "main": "index.js",
   "directories": {
     "test": "test"
