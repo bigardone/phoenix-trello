@@ -1,21 +1,12 @@
 import React            from 'react';
 import { connect }      from 'react-redux';
-import Actions          from '../actions/sessions';
 import BoardsActions    from '../actions/boards';
-import { routeActions } from 'react-router-redux';
-
 import Header           from '../layouts/header';
 
 class AuthenticatedContainer extends React.Component {
   componentDidMount() {
-    const { dispatch, currentUser } = this.props;
-
-    if (localStorage.getItem('phoenixAuthToken')) {
-      if (!currentUser) dispatch(Actions.currentUser());
-      dispatch(BoardsActions.fetchBoards());
-    } else if (!localStorage.getItem('phoenixAuthToken')) {
-      dispatch(routeActions.push('/sign_in'));
-    }
+    const { dispatch } = this.props;
+    dispatch(BoardsActions.fetchBoards());
   }
 
   render() {

@@ -4,11 +4,6 @@ import { Socket }                         from 'phoenix';
 import { httpGet, httpPost, httpDelete }  from '../utils';
 
 export function setCurrentUser(dispatch, user) {
-  dispatch({
-    type: Constants.CURRENT_USER,
-    currentUser: user,
-  });
-
   const socket = new Socket('/socket', {
     params: { token: localStorage.getItem('phoenixAuthToken') },
     logger: (kind, msg, data) => { console.log(`${kind}: ${msg}`, data); },
@@ -21,10 +16,11 @@ export function setCurrentUser(dispatch, user) {
   if (channel.state != 'joined') {
     channel.join().receive('ok', () => {
       dispatch({
-          type: Constants.SOCKET_CONNECTED,
-          socket: socket,
-          channel: channel,
-        });
+        type: Constants.CURRENT_USER,
+        currentUser: user,
+        socket: socket,
+        channel: channel,
+      });
     });
   }
 
@@ -69,10 +65,10 @@ const Actions = {
       const authToken = localStorage.getItem('phoenixAuthToken');
 
       httpGet('/api/v1/current_user')
-      .then(function(data) {
+      .then(function (data) {
         setCurrentUser(dispatch, data);
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
         dispatch(routeActions.push('/sign_in'));
       });
@@ -91,7 +87,7 @@ const Actions = {
 
         dispatch({ type: Constants.BOARDS_FULL_RESET });
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log(error);
       });
     };

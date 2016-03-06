@@ -2,26 +2,28 @@ import React              from 'react';
 import { Provider }       from 'react-redux';
 import { Router }         from 'react-router';
 import invariant          from 'invariant';
-import routes             from '../routes';
+import { RoutingContext } from 'react-router';
+import configRoutes       from '../routes';
 
 export default class Root extends React.Component {
-  _renderRouter() {
-    invariant(
-      this.props.routerHistory,
+  _renderRouter(store) {
+    invariant(this.props.routerHistory,
       '<Root /> needs either a routingContext or routerHistory to render.'
     );
 
     return (
       <Router history={this.props.routerHistory}>
-          {routes}
+        {configRoutes(store)}
       </Router>
     );
   }
 
   render() {
+    const { store } = this.props;
+
     return (
-      <Provider store={this.props.store}>
-        {this._renderRouter()}
+      <Provider store={store}>
+        {this._renderRouter(store)}
       </Provider>
     );
   }
