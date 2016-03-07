@@ -17,7 +17,8 @@
   8. [Listing and creating new boards](http://codeloveandboards.com/blog/2016/01/28/trello-tribute-with-phoenix-and-react-pt-8/)
   9. [Adding board members](http://codeloveandboards.com/blog/2016/02/04/trello-tribute-with-phoenix-and-react-pt-9/)
   10. [Tracking connected board members](http://codeloveandboards.com/blog/2016/02/15/trello-tribute-with-phoenix-and-react-pt-10/)
-  11. Coming soon
+  11.  [Adding lists and cards](http://codeloveandboards.com/blog/2016/02/24/trello-tribute-with-phoenix-and-react-pt-11/)
+  12.  [Deploying our application on Heroku](http://codeloveandboards.com/blog/2016/03/04/trello-tribute-with-phoenix-and-react-pt-12/)
 
 ## Live demo
 https://phoenix-trello.herokuapp.com
