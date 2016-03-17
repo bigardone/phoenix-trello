@@ -1,5 +1,5 @@
 import Constants              from '../constants';
-import { push }       from 'react-router-redux';
+import { push }               from 'react-router-redux';
 import { httpGet, httpPost }  from '../utils';
 import CurrentBoardActions    from './current_board';
 

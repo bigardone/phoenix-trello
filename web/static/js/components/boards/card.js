@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import { push }   from 'react-router-redux';
+import { push }           from 'react-router-redux';
 
 export default class BoardCard extends React.Component {
   _handleClick() {

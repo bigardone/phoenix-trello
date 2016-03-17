@@ -1,6 +1,6 @@
 import React, {PropTypes}       from 'react';
 import {DragSource, DropTarget} from 'react-dnd';
-import { push }         from 'react-router-redux';
+import { push }                 from 'react-router-redux';
 import ReactGravatar            from 'react-gravatar';
 
 import ItemTypes                from '../../constants/item_types';
