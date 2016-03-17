@@ -3,7 +3,7 @@ import { connect }      from 'react-redux';
 import { Link }         from 'react-router';
 import ReactGravatar    from 'react-gravatar';
 import PageClick        from 'react-page-click';
-import { routeActions } from 'react-router-redux';
+import { push } from 'react-router-redux';
 
 import SessionActions   from '../actions/sessions';
 import HeaderActions    from '../actions/header';
@@ -18,7 +18,7 @@ class Header extends React.Component {
     if (ownedBoards.length != 0 || invitedBoards.length != 0) {
       dispatch(HeaderActions.showBoards(true));
     } else {
-      dispatch(routeActions.push('/'));
+      dispatch(push('/'));
     }
   }
 

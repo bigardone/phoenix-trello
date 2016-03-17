@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import ReactGravatar      from 'react-gravatar';
 import PageClick          from 'react-page-click';
 import moment             from 'moment';
-import { routeActions }   from 'react-router-redux';
+import { push }   from 'react-router-redux';
 
 import Actions            from '../../actions/current_card';
 import BoardActions       from '../../actions/current_board';
@@ -21,7 +21,7 @@ export default class CardModal extends React.Component {
 
     const { dispatch, boardId } = this.props;
 
-    dispatch(routeActions.push(`/boards/${boardId}`));
+    dispatch(push(`/boards/${boardId}`));
   }
 
   _renderCommentForm() {
