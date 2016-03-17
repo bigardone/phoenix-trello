@@ -51,7 +51,7 @@
     "react-redux": "^4.0.4",
     "react-router": "^2.0.1",
     "react-router-redux": "^4.0.0",
-    "redux": "^3.0.5",
+    "redux": "^3.3.1",
     "redux-logger": "^2.3.2",
     "redux-thunk": "^1.0.2",
     "phoenix": "file:deps/phoenix",
