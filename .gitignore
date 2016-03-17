@@ -18,3 +18,5 @@ erl_crash.dump
 /config/prod.secret.exs
 /priv/static/css/application.css
 /priv/static/js/application.js
+
+*.log
