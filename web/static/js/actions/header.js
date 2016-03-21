@@ -1,5 +1,5 @@
 import Constants              from '../constants';
-import { routeActions }       from 'react-router-redux';
+import { push }               from 'react-router-redux';
 import { httpGet, httpPost }  from '../utils';
 import CurrentBoardActions    from './current_board';
 
@@ -20,7 +20,7 @@ const Actions = {
         dispatch(CurrentBoardActions.connectToChannel(socket, boardId));
       }
 
-      dispatch(routeActions.push(`/boards/${boardId}`));
+      dispatch(push(`/boards/${boardId}`));
 
       dispatch({
         type: Constants.HEADER_SHOW_BOARDS,

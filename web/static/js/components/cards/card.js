@@ -1,6 +1,6 @@
 import React, {PropTypes}       from 'react';
 import {DragSource, DropTarget} from 'react-dnd';
-import { routeActions }         from 'react-router-redux';
+import { push }                 from 'react-router-redux';
 import ReactGravatar            from 'react-gravatar';
 
 import ItemTypes                from '../../constants/item_types';
@@ -51,7 +51,7 @@ export default class Card extends React.Component {
   _handleClick(e) {
     const { dispatch, id, boardId } = this.props;
 
-    this.props.dispatch(routeActions.push(`/boards/${boardId}/cards/${id}`));
+    this.props.dispatch(push(`/boards/${boardId}/cards/${id}`));
   }
 
   _renderFooter() {
