@@ -15,7 +15,7 @@ export default function reducer(state = initialState, action = {}) {
   let lists;
 
   switch (action.type) {
-    case Constants.CURRENT_BOARD_FETHING:
+    case Constants.CURRENT_BOARD_FETCHING:
       return { ...state, fetching: true };
 
     case Constants.BOARDS_SET_CURRENT_BOARD:
