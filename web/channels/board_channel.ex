@@ -206,6 +206,24 @@ defmodule PhoenixTrello.BoardChannel do
     end
   end
 
+  def handle_in("card:delete", %{"card" => card_params }, socket) do
+    card = socket.assigns.board
+      |> assoc(:cards)
+      |> Repo.get!(card_params["id"])
+
+    case Repo.delete(card) do
+      {:ok, _} ->
+        card = Card
+        |> Card.preload_all
+        |> Repo.get(card.id)
+
+        broadcast! socket, "list:updated", %{board: get_current_board(socket)}
+        {:noreply, socket}
+      {:error, _changeset} ->
+        {:reply, {:error, %{error: "Error deleting card"}}, socket}
+    end
+  end
+
   def terminate(_reason, socket) do
     board_id = Board.slug_id(socket.assigns.board)
     user_id = socket.assigns.current_user.id
