@@ -58,6 +58,21 @@
       &:hover
         color: $dark-gray
 
+    > .delete
+      position: absolute
+      margin-top: 1em
+      bottom: $base-spacing/2
+      line-height: 1em
+      color: tint($dark-gray, 30)
+
+      &:hover
+        color: $red
+        &:after
+          content: "Delete Card"
+          padding-left: .5em
+          animation-duration: .3s
+          animation-name: fadeIn
+
     .info
       +span-columns(9)
 
@@ -114,6 +129,7 @@
 
       .form-controls
         +span-columns(11)
+        margin-bottom: .5em
 
     .comment
       +clearfix
