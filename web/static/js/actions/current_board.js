@@ -14,7 +14,7 @@ const Actions = {
     return dispatch => {
       const channel = socket.channel(`boards:${boardId}`);
 
-      dispatch({ type: Constants.CURRENT_BOARD_FETHING });
+      dispatch({ type: Constants.CURRENT_BOARD_FETCHING });
 
       channel.join().receive('ok', (response) => {
         dispatch({
