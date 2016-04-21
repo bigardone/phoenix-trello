@@ -76,6 +76,7 @@ export default class ListCard extends React.Component {
           key={card.id}
           dispatch={dispatch}
           boardId={boardId}
+          card={card}
           {...card}
           onDrop={::this._handleDropCard} />
       );

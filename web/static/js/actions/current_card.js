@@ -2,14 +2,11 @@ import Constants  from '../constants';
 import {httpGet} from '../utils';
 
 const Actions = {
-  showCard: (boardId, cardId) => {
+  showCard: (card) => {
     return dispatch => {
-      httpGet(`/api/v1/boards/${boardId}/cards/${cardId}`)
-      .then((data) => {
-        dispatch({
-          type: Constants.CURRENT_CARD_SET,
-          card: data,
-        });
+      dispatch({
+        type: Constants.CURRENT_CARD_SET,
+        card: card
       });
     };
   },

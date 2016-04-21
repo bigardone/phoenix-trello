@@ -5,6 +5,7 @@ import ReactGravatar            from 'react-gravatar';
 
 import ItemTypes                from '../../constants/item_types';
 import Actions                  from '../../actions/current_board';
+import CardActions              from '../../actions/current_card';
 
 const cardSource = {
   beginDrag(props) {
@@ -49,9 +50,9 @@ const cardTarget = {
 
 export default class Card extends React.Component {
   _handleClick(e) {
-    const { dispatch, id, boardId } = this.props;
+    const { dispatch, id, boardId, card } = this.props;
 
-    this.props.dispatch(push(`/boards/${boardId}/cards/${id}`));
+    dispatch(push(`/boards/${boardId}/cards/${id}`));
   }
 
   _renderFooter() {
