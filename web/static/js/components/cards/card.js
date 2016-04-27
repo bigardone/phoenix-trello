@@ -50,7 +50,7 @@ const cardTarget = {
 
 export default class Card extends React.Component {
   _handleClick(e) {
-    const { dispatch, id, boardId, card } = this.props;
+    const { dispatch, id, boardId } = this.props;
 
     dispatch(push(`/boards/${boardId}/cards/${id}`));
   }
