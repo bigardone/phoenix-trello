@@ -3,13 +3,13 @@ import { connect }        from 'react-redux';
 import CardModal          from '../../components/cards/modal';
 import Actions            from '../../actions/current_card';
 
+
 class CardsShowView extends React.Component {
   componentDidMount() {
     const { dispatch, params } = this.props;
 
-    console.log(params);
 
-    dispatch(Actions.showCard(params.id[0], params.id[1]));
+    dispatch(Actions.showCard(this.getCard(params.id[1])));
   }
 
   componentWillUnmount() {
@@ -17,6 +17,14 @@ class CardsShowView extends React.Component {
 
     dispatch(Actions.reset());
   }
+
+  getCard(id) {
+    let cards = [];
+    this.props.currentBoard.lists.forEach((list) => { cards = cards.concat(list.cards) });
+
+    return cards.find( (c) => { return c.id === +id  });
+  }
+
 
   render() {
     const { channel, currentUser, dispatch, currentCard, currentBoard } = this.props;
