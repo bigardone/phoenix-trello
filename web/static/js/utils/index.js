@@ -49,7 +49,6 @@ export function httpPost(url, data) {
 }
 
 export function httpDelete(url) {
-  const authToken = localStorage.getItem('phoenixAuthToken');
 
   return fetch(url, {
     method: 'delete',
