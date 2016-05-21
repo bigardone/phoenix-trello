@@ -11,6 +11,9 @@ function join(dest) { return path.resolve(__dirname, dest); }
 function web(dest) { return join('web/static/' + dest); }
 
 var config = module.exports = {
+
+  devtool: 'source-map',
+
   // our application's entry points - for this example we'll use a single each for
   // css and js
   entry: {
