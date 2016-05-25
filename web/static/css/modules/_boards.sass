@@ -240,15 +240,33 @@
 
       .card:not(.form)
         +transition
-        background: #fff
         margin-bottom: $base-spacing/3
-        padding: $base-spacing/3
-        border-radius: $base-border-radius
-        border-bottom: 1px solid $gray
         cursor: pointer
         animation-duration: .3s
         animation-name: fadeIn
         white-space: normal
+
+        &.isOver
+          padding-top: 50px
+          position: relative
+
+          :before
+            background: rgba($dark-gray, .1)
+            border-radius: $base-border-radius
+            content: ""
+            display: block
+            height: 40px
+            width: 100%
+            position: absolute
+            top: 0
+            left: 0
+            margin-bottom: $base-spacing/3
+
+        .card-content
+          background: #fff
+          padding: $base-spacing/3
+          border-radius: $base-border-radius
+          border-bottom: 1px solid $gray
 
         .tags-wrapper
           +clearfix

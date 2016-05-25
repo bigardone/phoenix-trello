@@ -2,6 +2,7 @@ import React, {PropTypes}       from 'react';
 import {DragSource, DropTarget} from 'react-dnd';
 import { push }                 from 'react-router-redux';
 import ReactGravatar            from 'react-gravatar';
+import classnames               from 'classnames';
 
 import ItemTypes                from '../../constants/item_types';
 import Actions                  from '../../actions/current_board';
@@ -44,8 +45,9 @@ const cardTarget = {
   isDragging: monitor.isDragging()
 }))
 
-@DropTarget(ItemTypes.CARD, cardTarget, (connect) => ({
-  connectDropTarget: connect.dropTarget()
+@DropTarget(ItemTypes.CARD, cardTarget, (connect, monitor) => ({
+  connectDropTarget: connect.dropTarget(),
+  isOver: monitor.isOver()
 }))
 
 export default class Card extends React.Component {
@@ -94,18 +96,25 @@ export default class Card extends React.Component {
   }
 
   render() {
-    const { id, connectDragSource, connectDropTarget, isDragging, name } = this.props;
+    const { id, connectDragSource, connectDropTarget, isDragging, isOver, name } = this.props;
 
     const styles = {
       display: isDragging ? 'none' : 'block',
     };
 
+    const classes = classnames({
+      'card': true,
+      'isOver': isOver
+    });
+
     return connectDragSource(
       connectDropTarget(
-        <div id={`card_${id}`} className="card" style={styles} onClick={::this._handleClick}>
-          {::this._renderTags()}
-          {name}
-          {::this._renderFooter()}
+        <div id={`card_${id}`} className={classes} style={styles} onClick={::this._handleClick}>
+          <div className="card-content">
+            {::this._renderTags()}
+            {name}
+            {::this._renderFooter()}
+          </div>
         </div>
       )
     );
