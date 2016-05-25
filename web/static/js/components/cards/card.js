@@ -104,7 +104,7 @@ export default class Card extends React.Component {
 
     const classes = classnames({
       'card': true,
-      'isOver': isOver
+      'is-over': isOver
     });
 
     return connectDragSource(
