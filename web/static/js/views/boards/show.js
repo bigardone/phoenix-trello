@@ -125,6 +125,9 @@ class BoardsShowView extends React.Component {
     let targetList = lists[targetListIndex];
     const targetCardIndex = targetList.cards.findIndex((card) => { return card.id === target.id; });
     const targetCard = targetList.cards[targetCardIndex];
+    const previousTargetCard = sourceList.cards[sourceCardIndex + 1];
+
+    if (previousTargetCard === targetCard) { return false; }
 
     sourceList.cards.splice(sourceCardIndex, 1);
 
