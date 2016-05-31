@@ -129,9 +129,10 @@ class BoardsShowView extends React.Component {
     sourceList.cards.splice(sourceCardIndex, 1);
 
     if (sourceList === targetList) {
+      const insertIndex = sourceCardIndex < targetCardIndex ? targetCardIndex - 1 : targetCardIndex;
       // move at once to avoid complications
       targetList = sourceList;
-      sourceList.cards.splice(targetCardIndex, 0, source);
+      sourceList.cards.splice(insertIndex, 0, source);
     } else {
       // and move it to target
       targetList.cards.splice(targetCardIndex, 0, source);
