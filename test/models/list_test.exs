@@ -1,5 +1,5 @@
 defmodule PhoenixTrello.ListTest do
-  use PhoenixTrello.ModelCase, async: true
+  use PhoenixTrello.ModelCase
 
   import PhoenixTrello.Factory
 
@@ -9,7 +9,7 @@ defmodule PhoenixTrello.ListTest do
   @invalid_attrs %{}
 
   setup do
-    {:ok, board: create(:board)}
+    {:ok, board: insert(:board)}
   end
 
   test "changeset with valid attributes", %{board: board} do

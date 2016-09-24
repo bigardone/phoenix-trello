@@ -1,5 +1,5 @@
 defmodule PhoenixTrello.UserTest do
-  use PhoenixTrello.ModelCase, async: true
+  use PhoenixTrello.ModelCase
 
   alias PhoenixTrello.User
 

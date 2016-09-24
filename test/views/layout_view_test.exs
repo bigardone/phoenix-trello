@@ -1,3 +1,3 @@
 defmodule PhoenixTrello.LayoutViewTest do
-  use PhoenixTrello.ConnCase, async: true
+  use PhoenixTrello.ConnCase
 end
