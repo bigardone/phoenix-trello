@@ -28,19 +28,19 @@ defmodule PhoenixTrello.Card do
   If no params are provided, an invalid changeset is returned
   with no validation performed.
   """
-  def changeset(model, params \\ :empty) do
+  def changeset(model, params \\ %{}) do
     model
     |> cast(params, @required_fields, @optional_fields)
     |> calculate_position()
   end
 
-  def update_changeset(model, params \\ :empty) do
+  def update_changeset(model, params \\ %{}) do
     model
     |> cast(params, @required_fields, @optional_fields)
   end
 
   defp calculate_position(current_changeset) do
-    model = current_changeset.model
+    model = current_changeset.data
 
     query = from(c in Card,
             select: c.position,
