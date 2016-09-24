@@ -10,22 +10,10 @@ defmodule PhoenixTrello.CardTest do
 
   setup do
     user = insert(:user)
-    board = insert(:board, %{user_id: user.id})
-    list = insert(:list, %{board_id: board.id})
+    board = insert(:board, %{user: user})
+    list = insert(:list, %{board: board})
 
     {:ok, list: list}
-  end
-
-  test "changeset with valid attributes", %{list: list} do
-    changeset = Card.changeset(%Card{list_id: list.id}, @valid_attrs)
-
-    assert changeset.valid?
-  end
-
-  test "changeset with invalid attributes", %{list: list} do
-    changeset = Card.changeset(%Card{list_id: list.id}, @invalid_attrs)
-
-    refute changeset.valid?
   end
 
   test "existing cards for the same list", %{list: list} do
