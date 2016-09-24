@@ -41,6 +41,8 @@
     "invariant": "^2.2.0",
     "isomorphic-fetch": "^2.2.1",
     "moment": "^2.11.1",
+    "phoenix": "file:deps/phoenix",
+    "phoenix_html": "file:deps/phoenix_html",
     "react": "^0.14.5",
     "react-addons-css-transition-group": "^0.14.5",
     "react-dnd": "^2.0.2",
@@ -53,8 +55,6 @@
     "react-router-redux": "^4.0.0",
     "redux": "^3.3.1",
     "redux-logger": "^2.3.2",
-    "redux-thunk": "^1.0.2",
-    "phoenix": "file:deps/phoenix",
-    "phoenix_html": "file:deps/phoenix_html"
+    "redux-thunk": "^1.0.2"
   }
 }
