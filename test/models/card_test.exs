@@ -1,5 +1,5 @@
 defmodule PhoenixTrello.CardTest do
-  use PhoenixTrello.ModelCase, async: true
+  use PhoenixTrello.ModelCase
 
   import PhoenixTrello.Factory
 
@@ -9,9 +9,9 @@ defmodule PhoenixTrello.CardTest do
   @invalid_attrs %{}
 
   setup do
-    user = create(:user)
-    board = create(:board, %{user_id: user.id})
-    list = create(:list, %{board_id: board.id})
+    user = insert(:user)
+    board = insert(:board, %{user_id: user.id})
+    list = insert(:list, %{board_id: board.id})
 
     {:ok, list: list}
   end

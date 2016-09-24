@@ -1,5 +1,5 @@
 defmodule PhoenixTrello.UserBoardTest do
-  use PhoenixTrello.ModelCase, async: true
+  use PhoenixTrello.ModelCase
 
   import PhoenixTrello.Factory
 
@@ -9,8 +9,8 @@ defmodule PhoenixTrello.UserBoardTest do
   @invalid_attrs %{}
 
   setup do
-    user = create(:user)
-    board = create(:board)
+    user = insert(:user)
+    board = insert(:board)
 
     {:ok, user: user, board: board}
   end

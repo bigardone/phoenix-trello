@@ -1,5 +1,5 @@
 defmodule PhoenixTrello.CommentTest do
-  use PhoenixTrello.ModelCase, async: true
+  use PhoenixTrello.ModelCase
 
   import PhoenixTrello.Factory
 
@@ -9,7 +9,7 @@ defmodule PhoenixTrello.CommentTest do
   @invalid_attrs %{}
 
   setup do
-    list = create(:list_with_cards)
+    list = insert(:list_with_cards)
       |> Repo.preload([:board, :cards])
 
     {:ok, list: list, card: List.first(list.cards)}
