@@ -24,6 +24,18 @@ export default class CardModal extends React.Component {
     dispatch(push(`/boards/${boardId}`));
   }
 
+  _deleteCard(e) {
+    e.preventDefault();
+    const { card, channel, dispatch, boardId } = this.props;
+
+    if (confirm('Are you sure?')) {
+      dispatch(BoardActions.deleteCard(channel, card));
+      dispatch(push(`/boards/${boardId}`));
+    } else {
+      return;
+    }
+  }
+
   _renderCommentForm() {
     const { currentUser } = this.props;
 
@@ -269,6 +281,9 @@ export default class CardModal extends React.Component {
             <div className="md-content card-modal">
               <a className="close" href="#" onClick={::this._closeModal}>
                 <i className="fa fa-close"/>
+              </a>
+              <a className="delete" href="#" onClick={::this._deleteCard}>
+                <i className="fa fa-trash-o"/>
               </a>
               <div className="info">
                 {::this._renderHeader()}

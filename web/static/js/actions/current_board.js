@@ -70,6 +70,19 @@ const Actions = {
         });
       });
 
+      channel.on('card:delete', (msg) => {
+        dispatch({
+          type: Constants.BOARDS_SET_CURRENT_BOARD,
+          board: msg.board,
+        });
+
+        dispatch({
+          type: Constants.CURRENT_CARD_DELETE,
+          card: msg.card,
+        });
+
+      });
+
       channel.on('list:updated', (msg) => {
         dispatch({
           type: Constants.BOARDS_SET_CURRENT_BOARD,
@@ -121,6 +134,12 @@ const Actions = {
   updateCard: (channel, card) => {
     return dispatch => {
       channel.push('card:update', { card: card });
+    };
+  },
+
+  deleteCard: (channel, card) => {
+    return dispatch => {
+      channel.push('card:delete', { card: card });
     };
   },
 
