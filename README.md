@@ -24,7 +24,7 @@
 https://phoenix-trello.herokuapp.com
 
 ## Requirements
-You need to have **Elixir v1.2** and **PostgreSQL** installed.
+You need to have **Elixir v1.3** and **PostgreSQL** installed.
 
 ## Installation instructions
 To start your Phoenix Trello app:
@@ -44,7 +44,7 @@ Enjoy!
 Integration tests with [Hound](https://github.com/HashNuke/hound) and [Selenium ChromeDriver](https://github.com/SeleniumHQ/selenium/wiki/ChromeDriver). Instructions:
 
   1. Install **ChromeDriver** with `npm install -g chromedriver`
-  2. Run **ChromeDriver** in a new terminal window with `chromedriver`
+  2. Run **ChromeDriver** in a new terminal window with `chromedriver &`
   3. Run tests with `mix test`
 
 If you don't want to run integration tests just run `mix test --exclude integration`.
