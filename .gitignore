@@ -21,3 +21,4 @@ erl_crash.dump
 
 *.log
 priv/static
+elm-stuff
