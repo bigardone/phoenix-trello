@@ -8,7 +8,7 @@ var webpack = require('webpack');
 // e.g. join("web/static") => "/full/disk/path/to/hello/web/static"
 function join(dest) { return path.resolve(__dirname, dest); }
 
-function web(dest) { return join('web/static/' + dest); }
+function web(dest) { return join('web/' + dest); }
 
 var config = module.exports = {
 
@@ -18,19 +18,20 @@ var config = module.exports = {
   // css and js
   entry: {
     application: [
-      web('css/application.sass'),
-      web('js/application.js'),
+      web('static/css/app.sass'),
+      web('static/js/app.js'),
+      web('elm/src/Main.elm')
     ],
   },
 
   // where webpack should output our files
   output: {
     path: join('priv/static'),
-    filename: 'js/application.js',
+    filename: 'js/app.js',
   },
 
   resolve: {
-    extensions: ['', '.js', '.sass'],
+    extensions: ['', '.js', '.sass', '.elm'],
     modulesDirectories: ['node_modules'],
   },
 
@@ -47,9 +48,13 @@ var config = module.exports = {
         loader: 'babel',
         query: {
           cacheDirectory: true,
-          plugins: ['transform-decorators-legacy'],
-          presets: ['react', 'es2015', 'stage-2', 'stage-0'],
+          presets: ['es2015'],
         },
+      },
+      {
+        test:    /\.elm$/,
+        exclude: [/elm-stuff/, /node_modules/],
+        loader:  'elm-hot!elm-webpack?verbose=true&warn=true'
       },
       {
         test: /\.sass$/,
@@ -62,7 +67,7 @@ var config = module.exports = {
   // we'll also tell the plugin where the final CSS file should be generated
   // (relative to config.output.path)
   plugins: [
-    new ExtractTextPlugin('css/application.css'),
+    new ExtractTextPlugin('css/app.css'),
   ],
 };
 
