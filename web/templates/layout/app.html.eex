@@ -21,6 +21,6 @@
         crafted with ♥ for <a href="https://diacode.com/">Diacode</a>
         by <a href="https://twitter.com/bigardone">@bigardone</a></small>
     </footer>
-    <script src="<%= static_path(@conn, "/js/application.js") %>"></script>
+    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>
