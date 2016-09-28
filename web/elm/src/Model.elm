@@ -1,12 +1,17 @@
 module Model exposing (..)
 
 import Routing exposing (..)
+import Session.Model exposing (..)
 
 
 type alias Model =
-    { route : Route }
+    { route : Route
+    , session : Session.Model.Model
+    }
 
 
 initialModel : Routing.Route -> Model
 initialModel route =
-    { route = route }
+    { route = route
+    , session = Session.Model.initialModel
+    }

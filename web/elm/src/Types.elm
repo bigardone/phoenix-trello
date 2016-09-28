@@ -1,5 +1,7 @@
 module Types exposing (..)
 
+import Session.Types exposing (..)
+
 
 type Msg
-    = NoOp
+    = SessionMsg Session.Types.Msg
