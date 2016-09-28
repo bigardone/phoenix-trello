@@ -3,6 +3,7 @@
 var path = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var webpack = require('webpack');
+var elmSource = __dirname + '/web/elm';
 
 // helpers for writing path names
 // e.g. join("web/static") => "/full/disk/path/to/hello/web/static"
@@ -54,7 +55,7 @@ var config = module.exports = {
       {
         test:    /\.elm$/,
         exclude: [/elm-stuff/, /node_modules/],
-        loader:  'elm-hot!elm-webpack?verbose=true&warn=true'
+        loader:  'elm-hot!elm-webpack?verbose=true&warn=true&cwd=' + elmSource
       },
       {
         test: /\.sass$/,
