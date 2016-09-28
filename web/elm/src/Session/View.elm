@@ -49,7 +49,7 @@ view model =
                     [ text "Sign in" ]
                 ]
             , a
-                [ href "#" ]
+                [ onClick NavigateToRegistration ]
                 [ text "Create new account" ]
             ]
         ]

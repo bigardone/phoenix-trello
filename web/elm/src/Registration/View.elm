@@ -76,7 +76,7 @@ view model =
                     [ text "Sign up" ]
                 ]
             , a
-                [ href "#" ]
+                [ onClick NavigateToSession ]
                 [ text "Sign in" ]
             ]
         ]
