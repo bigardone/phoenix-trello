@@ -7,6 +7,7 @@ import Model exposing (..)
 import Types exposing (..)
 import Routing exposing (..)
 import Session.View as SessionView exposing (..)
+import Registration.View as RegistrationView exposing (..)
 
 
 view : Model -> Html Msg
@@ -21,6 +22,9 @@ page model =
     case model.route of
         SessionRoute ->
             Html.App.map SessionMsg (SessionView.view model.session)
+
+        RegistrationRoute ->
+            Html.App.map RegistrationMsg (RegistrationView.view model.registration)
 
         _ ->
             notFoundView

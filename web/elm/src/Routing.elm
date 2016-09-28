@@ -28,7 +28,7 @@ routeParser : Parser (Route -> a) a
 routeParser =
     oneOf
         [ format SessionRoute (s "")
-        , format RegistrationRoute (s "registration")
+        , format RegistrationRoute (s "sign-up")
         ]
 
 
