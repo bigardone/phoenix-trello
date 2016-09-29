@@ -23,7 +23,9 @@ view model =
                 [ id "sign_in_form", attribute "onSubmit" "" ]
                 [ errorView model.error
                 , div
-                    [ class "field" ]
+                    [ class "field"
+                    , onInput HandleEmailInput
+                    ]
                     [ input
                         [ defaultValue "john@phoenix-trello.com"
                         , id "user_email"
@@ -34,7 +36,9 @@ view model =
                         []
                     ]
                 , div
-                    [ class "field" ]
+                    [ class "field"
+                    , onInput HandlePasswordInput
+                    ]
                     [ input
                         [ defaultValue "12345678"
                         , id "user_password"

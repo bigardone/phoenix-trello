@@ -9,24 +9,28 @@ import Home.Update
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case msg of
-        HomeMsg subMsg ->
-            let
-                ( home, cmd ) =
-                    Home.Update.update subMsg model.home
-            in
-                { model | home = home } ! [ Cmd.map HomeMsg cmd ]
+    let
+        _ =
+            Debug.log "model" model
+    in
+        case msg of
+            HomeMsg subMsg ->
+                let
+                    ( home, cmd ) =
+                        Home.Update.update subMsg model.home
+                in
+                    { model | home = home } ! [ Cmd.map HomeMsg cmd ]
 
-        SessionMsg subMsg ->
-            let
-                ( session, cmd ) =
-                    Session.Update.update subMsg model.session
-            in
-                { model | session = session } ! [ Cmd.map SessionMsg cmd ]
+            SessionMsg subMsg ->
+                let
+                    ( session, cmd ) =
+                        Session.Update.update subMsg model.session
+                in
+                    { model | session = session } ! [ Cmd.map SessionMsg cmd ]
 
-        RegistrationMsg subMsg ->
-            let
-                ( registration, cmd ) =
-                    Registration.Update.update subMsg model.registration
-            in
-                { model | registration = registration } ! [ Cmd.map RegistrationMsg cmd ]
+            RegistrationMsg subMsg ->
+                let
+                    ( registration, cmd ) =
+                        Registration.Update.update subMsg model.registration
+                in
+                    { model | registration = registration } ! [ Cmd.map RegistrationMsg cmd ]
