@@ -7,6 +7,7 @@ import Types exposing (Msg(..))
 import Update exposing (..)
 import Routing exposing (Route)
 import Routing exposing (..)
+import Session.Model exposing (User)
 
 
 init : Result String Route -> ( Model, Cmd Msg )
@@ -35,7 +36,7 @@ urlUpdate result model =
                 ( { model | route = currentRoute }, Cmd.none )
 
 
-authenticationCheck : Maybe String -> Cmd Msg
+authenticationCheck : Maybe User -> Cmd Msg
 authenticationCheck currentUser =
     case currentUser of
         Nothing ->

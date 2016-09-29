@@ -2,8 +2,16 @@ module Session.Model exposing (..)
 
 
 type alias Model =
-    { currentUser : Maybe String
+    { currentUser : Maybe User
     , error : Maybe String
+    }
+
+
+type alias User =
+    { id : Int
+    , first_name : String
+    , last_name : String
+    , email : String
     }
 
 
