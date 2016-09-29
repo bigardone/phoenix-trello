@@ -6,8 +6,9 @@ import Html.Attributes exposing (..)
 import Model exposing (..)
 import Types exposing (..)
 import Routing exposing (..)
-import Session.View as SessionView exposing (..)
-import Registration.View as RegistrationView exposing (..)
+import Session.View as SessionView
+import Registration.View as RegistrationView
+import Home.View as HomeView
 
 
 view : Model -> Html Msg
@@ -20,6 +21,9 @@ view model =
 page : Model -> Html Msg
 page model =
     case model.route of
+        HomeIndexRoute ->
+            Html.App.map HomeMsg (HomeView.view model.home)
+
         SessionNewRoute ->
             Html.App.map SessionMsg (SessionView.view model.session)
 

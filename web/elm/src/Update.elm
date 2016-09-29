@@ -2,13 +2,21 @@ module Update exposing (..)
 
 import Types exposing (Msg(..))
 import Model exposing (..)
-import Session.Update exposing (..)
-import Registration.Update exposing (..)
+import Session.Update
+import Registration.Update
+import Home.Update
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
+        HomeMsg subMsg ->
+            let
+                ( home, cmd ) =
+                    Home.Update.update subMsg model.home
+            in
+                { model | home = home } ! [ Cmd.map HomeMsg cmd ]
+
         SessionMsg subMsg ->
             let
                 ( session, cmd ) =

@@ -23,10 +23,26 @@ urlUpdate result model =
     let
         currentRoute =
             Routing.routeFromResult result
+
+        currentUser =
+            model.session.currentUser
     in
         case currentRoute of
+            HomeIndexRoute ->
+                ( { model | route = currentRoute }, authenticationCheck currentUser )
+
             _ ->
                 ( { model | route = currentRoute }, Cmd.none )
+
+
+authenticationCheck : Maybe String -> Cmd Msg
+authenticationCheck currentUser =
+    case currentUser of
+        Nothing ->
+            Navigation.newUrl (toPath SessionNewRoute)
+
+        Just user ->
+            Cmd.none
 
 
 subscriptions : Model -> Sub Msg
