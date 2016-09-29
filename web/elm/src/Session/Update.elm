@@ -10,4 +10,4 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         NavigateToRegistration ->
-            model ! [ Navigation.newUrl (toPath RegistrationRoute) ]
+            model ! [ Navigation.newUrl (toPath RegistrationNewRoute) ]

@@ -6,18 +6,18 @@ import UrlParser exposing (..)
 
 
 type Route
-    = SessionRoute
-    | RegistrationRoute
+    = SessionNewRoute
+    | RegistrationNewRoute
     | NotFoundRoute
 
 
 toPath : Route -> String
 toPath route =
     case route of
-        SessionRoute ->
-            "/"
+        SessionNewRoute ->
+            "/sign-in"
 
-        RegistrationRoute ->
+        RegistrationNewRoute ->
             "/sign-up"
 
         NotFoundRoute ->
@@ -27,8 +27,8 @@ toPath route =
 routeParser : Parser (Route -> a) a
 routeParser =
     oneOf
-        [ format SessionRoute (s "")
-        , format RegistrationRoute (s "sign-up")
+        [ format SessionNewRoute (s "sign-in")
+        , format RegistrationNewRoute (s "sign-up")
         ]
 
 

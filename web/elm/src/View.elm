@@ -20,10 +20,10 @@ view model =
 page : Model -> Html Msg
 page model =
     case model.route of
-        SessionRoute ->
+        SessionNewRoute ->
             Html.App.map SessionMsg (SessionView.view model.session)
 
-        RegistrationRoute ->
+        RegistrationNewRoute ->
             Html.App.map RegistrationMsg (RegistrationView.view model.registration)
 
         _ ->
