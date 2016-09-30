@@ -25,20 +25,20 @@ urlUpdate result model =
         currentRoute =
             Routing.routeFromResult result
 
-        currentUser =
-            model.session.currentUser
+        user =
+            model.session.user
     in
         case currentRoute of
             HomeIndexRoute ->
-                ( { model | route = currentRoute }, authenticationCheck currentUser )
+                ( { model | route = currentRoute }, authenticationCheck user )
 
             _ ->
                 ( { model | route = currentRoute }, Cmd.none )
 
 
 authenticationCheck : Maybe User -> Cmd Msg
-authenticationCheck currentUser =
-    case currentUser of
+authenticationCheck user =
+    case user of
         Nothing ->
             Navigation.newUrl (toPath SessionNewRoute)
 

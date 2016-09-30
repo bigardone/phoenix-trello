@@ -20,7 +20,9 @@ view model =
                     []
                 ]
             , Html.form
-                [ id "sign_in_form", attribute "onSubmit" "" ]
+                [ id "sign_in_form"
+                , onSubmit HandleFormSubmit
+                ]
                 [ errorView model.error
                 , div
                     [ class "field"

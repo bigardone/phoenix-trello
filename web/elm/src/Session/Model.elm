@@ -2,7 +2,8 @@ module Session.Model exposing (..)
 
 
 type alias Model =
-    { currentUser : Maybe User
+    { jwt : Maybe String
+    , user : Maybe User
     , form : FormModel
     , error : Maybe String
     }
@@ -22,9 +23,16 @@ type alias FormModel =
     }
 
 
+type alias AuthResponseModel =
+    { jwt : String
+    , user : User
+    }
+
+
 initialModel : Model
 initialModel =
-    { currentUser = Nothing
+    { jwt = Nothing
+    , user = Nothing
     , form = FormModel "" ""
     , error = Nothing
     }
