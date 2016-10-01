@@ -11,6 +11,7 @@ import Routing exposing (..)
 import Session.Model exposing (User)
 import Session.Types exposing (Msg(..))
 import Session.API exposing (..)
+import Subscriptions exposing (..)
 
 
 init : Flags -> Result String Route -> ( Model, Cmd Types.Msg )
@@ -52,11 +53,6 @@ authenticationCheck session =
 
         Just user ->
             Cmd.none
-
-
-subscriptions : Model -> Sub Types.Msg
-subscriptions model =
-    Sub.none
 
 
 main : Program Flags

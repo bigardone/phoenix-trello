@@ -43,6 +43,8 @@ update msg model =
                     | jwt = Just res.jwt
                     , user = Just res.user
                     , form = FormModel "" ""
+                    , error = Nothing
+                    , state = JoiningLobby
                 }
                     ! cmds
 
@@ -50,7 +52,12 @@ update msg model =
             { model | error = (Just (toString error)) } ! []
 
         CurrentUserSuccess res ->
-            { model | user = Just res } ! []
+            { model
+                | user = Just res
+                , error = Nothing
+                , state = JoiningLobby
+            }
+                ! []
 
         CurrentUserError error ->
             let
