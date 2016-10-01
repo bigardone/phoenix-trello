@@ -15,7 +15,10 @@ view : Model -> Html Msg
 view model =
     div
         []
-        [ page model ]
+        [ page model
+        , hr [] []
+        , text (toString model)
+        ]
 
 
 page : Model -> Html Msg

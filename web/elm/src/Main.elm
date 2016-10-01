@@ -1,59 +1,67 @@
 module Main exposing (..)
 
 import Navigation
+import Task exposing (..)
 import View exposing (view)
 import Model exposing (..)
-import Types exposing (Msg(..))
+import Types exposing (..)
 import Update exposing (..)
 import Routing exposing (Route)
 import Routing exposing (..)
 import Session.Model exposing (User)
+import Session.Types exposing (Msg(..))
+import Session.API exposing (..)
 
 
-init : Result String Route -> ( Model, Cmd Msg )
-init result =
+init : Flags -> Result String Route -> ( Model, Cmd Types.Msg )
+init flags result =
     let
         currentRoute =
             Routing.routeFromResult result
     in
-        urlUpdate result (initialModel currentRoute)
+        urlUpdate result (initialModel flags currentRoute)
 
 
-urlUpdate : Result String Route -> Model -> ( Model, Cmd Msg )
+urlUpdate : Result String Route -> Model -> ( Model, Cmd Types.Msg )
 urlUpdate result model =
     let
         currentRoute =
             Routing.routeFromResult result
 
-        user =
-            model.session.user
+        session =
+            model.session
     in
         case currentRoute of
             HomeIndexRoute ->
-                ( { model | route = currentRoute }, authenticationCheck user )
+                ( { model | route = currentRoute }, authenticationCheck session )
 
             _ ->
                 ( { model | route = currentRoute }, Cmd.none )
 
 
-authenticationCheck : Maybe User -> Cmd Msg
-authenticationCheck user =
-    case user of
+authenticationCheck : Session.Model.Model -> Cmd Types.Msg
+authenticationCheck session =
+    case session.user of
         Nothing ->
-            Navigation.newUrl (toPath SessionNewRoute)
+            case session.jwt of
+                Nothing ->
+                    Navigation.newUrl (toPath SessionNewRoute)
+
+                Just jwt ->
+                    Cmd.map SessionMsg (Task.perform CurrentUserError CurrentUserSuccess (currentUser jwt))
 
         Just user ->
             Cmd.none
 
 
-subscriptions : Model -> Sub Msg
+subscriptions : Model -> Sub Types.Msg
 subscriptions model =
     Sub.none
 
 
-main : Program Never
+main : Program Flags
 main =
-    Navigation.program Routing.parser
+    Navigation.programWithFlags Routing.parser
         { init = init
         , view = view
         , update = update

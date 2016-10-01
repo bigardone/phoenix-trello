@@ -4,6 +4,7 @@ import Routing exposing (..)
 import Session.Model
 import Registration.Model
 import Home.Model
+import Types exposing (..)
 
 
 type alias Model =
@@ -14,10 +15,10 @@ type alias Model =
     }
 
 
-initialModel : Routing.Route -> Model
-initialModel route =
+initialModel : Flags -> Routing.Route -> Model
+initialModel flags route =
     { route = route
     , home = Home.Model.initialModel
-    , session = Session.Model.initialModel
+    , session = Session.Model.initialModel flags.jwt
     , registration = Registration.Model.initialModel
     }

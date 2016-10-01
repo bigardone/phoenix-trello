@@ -18,6 +18,20 @@ authUser model =
         |> Http.fromJson authResponseDecoder
 
 
+currentUser : String -> Task Error User
+currentUser jwt =
+    { verb = "GET"
+    , headers =
+        [ ( "Content-Type", "application/json" )
+        , ( "Authorization", jwt )
+        ]
+    , url = "/api/v1/current_user"
+    , body = Http.empty
+    }
+        |> Http.send Http.defaultSettings
+        |> Http.fromJson userDecoder
+
+
 userEncoder : FormModel -> JE.Value
 userEncoder form =
     JE.object

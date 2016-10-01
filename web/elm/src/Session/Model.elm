@@ -29,10 +29,10 @@ type alias AuthResponseModel =
     }
 
 
-initialModel : Model
-initialModel =
-    { jwt = Nothing
+initialModel : Maybe String -> Model
+initialModel jwt =
+    { jwt = jwt
     , user = Nothing
-    , form = FormModel "" ""
+    , form = FormModel "john@phoenix-trello.com" "12345678"
     , error = Nothing
     }

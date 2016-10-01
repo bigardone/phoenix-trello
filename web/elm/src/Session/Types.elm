@@ -11,3 +11,5 @@ type Msg
     | HandleFormSubmit
     | SignInSuccess AuthResponseModel
     | SignInError Http.Error
+    | CurrentUserSuccess User
+    | CurrentUserError Http.Error
