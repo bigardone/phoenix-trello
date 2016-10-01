@@ -6,6 +6,7 @@ import Phoenix.Socket as Socket exposing (Socket)
 import Model exposing (..)
 import Session.Model exposing (..)
 import Types exposing (..)
+import Home.Types exposing (..)
 
 
 socketUrl : String
@@ -21,6 +22,7 @@ socket token =
 lobby : String -> Channel Types.Msg
 lobby id =
     Channel.init ("users:" ++ id)
+        |> Channel.onJoin (always (HomeMsg <| FetchBoardsStart))
         |> Channel.withDebug
 
 

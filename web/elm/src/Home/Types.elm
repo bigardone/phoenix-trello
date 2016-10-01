@@ -1,5 +1,10 @@
 module Home.Types exposing (..)
 
+import Http exposing (..)
+import Home.Model exposing (..)
+
 
 type Msg
-    = NoOp
+    = FetchBoardsStart
+    | FetchBoardsSuccess FetchBoardsModel
+    | FetchBoardsError Http.Error

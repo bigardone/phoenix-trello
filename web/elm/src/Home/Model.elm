@@ -1,10 +1,24 @@
 module Home.Model exposing (..)
 
+import Boards.Model exposing (..)
+
 
 type alias Model =
-    { fetching : Bool }
+    { fetching : Bool
+    , owned_boards : List BoardModel
+    , invited_boards : List BoardModel
+    }
+
+
+type alias FetchBoardsModel =
+    { owned_boards : List BoardModel
+    , invited_boards : List BoardModel
+    }
 
 
 initialModel : Model
 initialModel =
-    { fetching = True }
+    { fetching = True
+    , owned_boards = []
+    , invited_boards = []
+    }
