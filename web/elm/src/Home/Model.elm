@@ -7,6 +7,7 @@ type alias Model =
     { fetching : Bool
     , owned_boards : List BoardModel
     , invited_boards : List BoardModel
+    , showBoardForm : Bool
     }
 
 
@@ -21,4 +22,5 @@ initialModel =
     { fetching = True
     , owned_boards = []
     , invited_boards = []
+    , showBoardForm = False
     }
