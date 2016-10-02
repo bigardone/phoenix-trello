@@ -9,6 +9,7 @@ type Msg
     = HomeMsg Home.Types.Msg
     | SessionMsg Session.Types.Msg
     | RegistrationMsg Registration.Types.Msg
+    | ToggleBoardsList Bool
 
 
 type alias Flags =

@@ -12,6 +12,7 @@ import Routing exposing (..)
 import Session.View as SessionView
 import Registration.View as RegistrationView
 import Home.View as HomeView
+import Boards.Model exposing (..)
 
 
 view : Model -> Html Types.Msg
@@ -40,7 +41,9 @@ view model =
 headerView : Model -> Html Types.Msg
 headerView model =
     header
-        [ class "main-header" ]
+        [ class "main-header"
+        , onMouseLeave (ToggleBoardsList False)
+        ]
         [ nav
             [ id "boards_nav" ]
             [ ul
@@ -48,12 +51,13 @@ headerView model =
                 [ li
                     []
                     [ a
-                        []
+                        [ onClick (ToggleBoardsList True) ]
                         [ i
                             [ class "fa fa-columns" ]
                             []
                         , text " Boards"
                         ]
+                    , boardsView model
                     ]
                 ]
             ]
@@ -77,6 +81,63 @@ headerView model =
                     [ signOutView model ]
                 ]
             ]
+        ]
+
+
+boardsView : Model -> Html Types.Msg
+boardsView model =
+    case model.showBoardsList of
+        True ->
+            let
+                ownedBoardsHeader =
+                    if List.length model.home.owned_boards > 0 then
+                        header
+                            [ class "title" ]
+                            [ i
+                                [ class "fa fa-user" ]
+                                []
+                            , text " Owned boards"
+                            ]
+                    else
+                        text ""
+
+                invitedBoardsHeader =
+                    if List.length model.home.invited_boards > 0 then
+                        header
+                            [ class "title" ]
+                            [ i
+                                [ class "fa fa-users" ]
+                                []
+                            , text " Invited boards"
+                            ]
+                    else
+                        text ""
+            in
+                div
+                    [ class "dropdown"
+                    , onMouseLeave (ToggleBoardsList False)
+                    ]
+                    [ ownedBoardsHeader
+                    , model.home.owned_boards
+                        |> List.map boardView
+                        |> ul []
+                    , invitedBoardsHeader
+                    , model.home.invited_boards
+                        |> List.map boardView
+                        |> ul []
+                    ]
+
+        False ->
+            text ""
+
+
+boardView : BoardModel -> Html Types.Msg
+boardView board =
+    li
+        []
+        [ a
+            []
+            [ text board.name ]
         ]
 
 

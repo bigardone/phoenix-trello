@@ -12,6 +12,7 @@ type alias Model =
     , home : Home.Model.Model
     , session : Session.Model.Model
     , registration : Registration.Model.Model
+    , showBoardsList : Bool
     }
 
 
@@ -21,4 +22,5 @@ initialModel flags route =
     , home = Home.Model.initialModel
     , session = Session.Model.initialModel flags.jwt
     , registration = Registration.Model.initialModel
+    , showBoardsList = False
     }
