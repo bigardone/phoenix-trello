@@ -9,3 +9,4 @@ type Msg
     | FetchBoardsStart
     | FetchBoardsSuccess FetchBoardsModel
     | FetchBoardsError Http.Error
+    | ToggleBoardForm Bool

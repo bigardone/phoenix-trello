@@ -84,7 +84,9 @@ boardForm model =
     case model.showBoardForm of
         False ->
             div
-                [ class "board add-new" ]
+                [ class "board add-new"
+                , onClick (ToggleBoardForm True)
+                ]
                 [ div
                     [ class "inner" ]
                     [ a
@@ -101,8 +103,31 @@ boardForm model =
                     [ h4
                         []
                         [ text "New board" ]
+                    , Html.form
+                        [ id "new_board_form" ]
+                        [ input
+                            [ id "board_name"
+                            , type' "text"
+                            , placeholder "Board name"
+                            , required True
+                            ]
+                            []
+                        , formErrorsView model
+                        , button
+                            [ type' "submit" ]
+                            [ text "Create board" ]
+                        , text " or "
+                        , a
+                            [ onClick (ToggleBoardForm False) ]
+                            [ text "cancel" ]
+                        ]
                     ]
                 ]
+
+
+formErrorsView : HomeModel.Model -> Html Msg
+formErrorsView model =
+    text ""
 
 
 invitedBoardsView : HomeModel.Model -> Html Msg

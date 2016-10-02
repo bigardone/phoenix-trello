@@ -125,6 +125,15 @@ boardsView model =
                     , model.home.invited_boards
                         |> List.map boardView
                         |> ul []
+                    , ul
+                        [ class "options" ]
+                        [ li
+                            []
+                            [ a
+                                [ onClick (HomeMsg <| NavigateToHome) ]
+                                [ text "View all boards" ]
+                            ]
+                        ]
                     ]
 
         False ->

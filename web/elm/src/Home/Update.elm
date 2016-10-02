@@ -35,3 +35,6 @@ update msg model jwt =
                     Debug.log "error" error
             in
                 model ! []
+
+        ToggleBoardForm show ->
+            { model | showBoardForm = show } ! []
