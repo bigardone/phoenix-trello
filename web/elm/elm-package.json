@@ -6,6 +6,7 @@
     "source-directories": [
         "./src",
         "./vendor"
+
     ],
     "exposed-modules": [],
     "dependencies": {

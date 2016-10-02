@@ -5,6 +5,7 @@ import Home.Model exposing (..)
 
 
 type Msg
-    = FetchBoardsStart
+    = NavigateToHome
+    | FetchBoardsStart
     | FetchBoardsSuccess FetchBoardsModel
     | FetchBoardsError Http.Error

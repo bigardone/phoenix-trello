@@ -29,7 +29,7 @@ update msg model =
             in
                 { model | form = { form | password = password } } ! []
 
-        HandleFormSubmit ->
+        SignIn ->
             model ! [ Task.perform SignInError SignInSuccess <| authUser model ]
 
         SignInSuccess res ->
@@ -67,3 +67,23 @@ update msg model =
                     ]
             in
                 { model | error = (Just (toString error)) } ! cmds
+
+        SignOut ->
+            model ! [ Task.perform SignOutError SignOutSuccess <| signOut (Maybe.withDefault "" model.jwt) ]
+
+        SignOutSuccess res ->
+            let
+                cmds =
+                    [ deleteToken ()
+                    , Navigation.newUrl (toPath SessionNewRoute)
+                    ]
+            in
+                { model
+                    | jwt = Nothing
+                    , state = LeftLobby
+                    , user = Nothing
+                }
+                    ! cmds
+
+        SignOutError error ->
+            model ! []

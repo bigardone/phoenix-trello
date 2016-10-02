@@ -26,3 +26,9 @@ authResponseDecoder =
     succeed AuthResponseModel
         |: ("jwt" := string)
         |: ("user" := userDecoder)
+
+
+signOutResponseDecoder : Decode.Decoder SignOutResponseModel
+signOutResponseDecoder =
+    succeed SignOutResponseModel
+        |: ("ok" := bool)

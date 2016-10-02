@@ -21,7 +21,7 @@ view model =
                 ]
             , Html.form
                 [ id "sign_in_form"
-                , onSubmit HandleFormSubmit
+                , onSubmit SignIn
                 ]
                 [ errorView model.error
                 , div

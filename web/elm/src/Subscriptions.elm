@@ -14,9 +14,14 @@ socketUrl =
     "ws://localhost:4000/socket/websocket"
 
 
-socket : String -> Socket
+socket : Maybe String -> Socket
 socket token =
-    Socket.init (socketUrl ++ "?token=" ++ token)
+    case token of
+        Nothing ->
+            Socket.init socketUrl
+
+        Just jwt ->
+            Socket.init (socketUrl ++ "?token=" ++ jwt)
 
 
 lobby : String -> Channel Types.Msg
@@ -30,7 +35,7 @@ subscriptions : Model.Model -> Sub Types.Msg
 subscriptions model =
     let
         token =
-            Maybe.withDefault "" model.session.jwt
+            model.session.jwt
 
         state =
             model.session.state
@@ -51,4 +56,4 @@ subscriptions model =
                 Phoenix.connect (socket token) [ lobby userId ]
 
             _ ->
-                Phoenix.connect (socket token) []
+                Sub.none

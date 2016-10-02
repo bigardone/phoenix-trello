@@ -32,6 +32,20 @@ currentUser jwt =
         |> Http.fromJson userDecoder
 
 
+signOut : String -> Task Error SignOutResponseModel
+signOut jwt =
+    { verb = "DELETE"
+    , headers =
+        [ ( "Content-Type", "application/json" )
+        , ( "Authorization", jwt )
+        ]
+    , url = "/api/v1/sessions"
+    , body = Http.empty
+    }
+        |> Http.send Http.defaultSettings
+        |> Http.fromJson signOutResponseDecoder
+
+
 userEncoder : FormModel -> JE.Value
 userEncoder form =
     JE.object

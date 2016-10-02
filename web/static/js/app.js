@@ -7,4 +7,5 @@ if (elmDiv) {
   const app = Elm.Main.embed(elmDiv, { jwt: jwt });
 
   app.ports.saveToken.subscribe((token) => localStorage.setItem('phoenixAuthToken', token));
+  app.ports.deleteToken.subscribe(() => localStorage.removeItem('phoenixAuthToken'));
 }

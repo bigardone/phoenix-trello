@@ -30,6 +30,10 @@ type alias AuthResponseModel =
     }
 
 
+type alias SignOutResponseModel =
+    { ok : Bool }
+
+
 type State
     = JoiningLobby
     | JoinedLobby

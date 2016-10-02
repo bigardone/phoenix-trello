@@ -8,8 +8,11 @@ type Msg
     = NavigateToRegistration
     | HandleEmailInput String
     | HandlePasswordInput String
-    | HandleFormSubmit
+    | SignIn
     | SignInSuccess AuthResponseModel
     | SignInError Http.Error
     | CurrentUserSuccess User
     | CurrentUserError Http.Error
+    | SignOut
+    | SignOutSuccess SignOutResponseModel
+    | SignOutError Http.Error
