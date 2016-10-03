@@ -8,6 +8,7 @@ type alias Model =
     , owned_boards : List BoardModel
     , invited_boards : List BoardModel
     , showBoardForm : Bool
+    , form : BoardFormModel
     }
 
 
@@ -17,10 +18,15 @@ type alias FetchBoardsModel =
     }
 
 
+type alias BoardFormModel =
+    { name : String }
+
+
 initialModel : Model
 initialModel =
     { fetching = True
     , owned_boards = []
     , invited_boards = []
     , showBoardForm = False
+    , form = { name = "" }
     }

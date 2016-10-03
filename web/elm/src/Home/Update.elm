@@ -37,4 +37,37 @@ update msg model jwt =
                 model ! []
 
         ToggleBoardForm show ->
-            { model | showBoardForm = show } ! []
+            { model
+                | showBoardForm = show
+                , form = { name = "" }
+            }
+                ! []
+
+        FormNameInput value ->
+            { model | form = { name = value } } ! []
+
+        CreateBoardStart ->
+            let
+                task =
+                    Task.perform CreateBoardError CreateBoardSuccess <| createBoard jwt model.form
+            in
+                model ! [ task ]
+
+        CreateBoardSuccess board ->
+            let
+                owned_boards =
+                    model.owned_boards
+            in
+                { model
+                    | owned_boards = (board :: owned_boards)
+                    , showBoardForm = False
+                    , form = { name = "" }
+                }
+                    ! []
+
+        CreateBoardError error ->
+            let
+                _ =
+                    Debug.log "error" error
+            in
+                model ! []

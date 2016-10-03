@@ -104,12 +104,17 @@ boardForm model =
                         []
                         [ text "New board" ]
                     , Html.form
-                        [ id "new_board_form" ]
+                        [ id "new_board_form"
+                        , onSubmit CreateBoardStart
+                        ]
                         [ input
                             [ id "board_name"
                             , type' "text"
                             , placeholder "Board name"
                             , required True
+                            , value model.form.name
+                            , autofocus True
+                            , onInput FormNameInput
                             ]
                             []
                         , formErrorsView model

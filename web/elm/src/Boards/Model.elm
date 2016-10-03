@@ -5,10 +5,11 @@ import Session.Model exposing (User)
 
 type alias BoardModel =
     { id : String
+    , user_id : Maybe Int
     , name : String
-    , user : User
-    , lists : List ListModel
-    , members : List User
+    , user : Maybe User
+    , lists : Maybe (List ListModel)
+    , members : Maybe (List User)
     }
 
 

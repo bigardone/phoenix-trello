@@ -10,10 +10,11 @@ boardModelDecoder : Decode.Decoder BoardModel
 boardModelDecoder =
     succeed BoardModel
         |: ("id" := string)
+        |: (maybe ("user_id" := int))
         |: ("name" := string)
-        |: ("user" := userDecoder)
-        |: ("lists" := (list listModelDecoder))
-        |: ("members" := (list userDecoder))
+        |: (maybe ("user" := userDecoder))
+        |: (maybe ("lists" := (list listModelDecoder)))
+        |: (maybe ("members" := (list userDecoder)))
 
 
 listModelDecoder : Decode.Decoder ListModel
