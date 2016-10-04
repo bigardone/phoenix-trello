@@ -7,6 +7,7 @@ import UrlParser exposing (..)
 
 type Route
     = HomeIndexRoute
+    | BoardShowRoute String
     | SessionNewRoute
     | RegistrationNewRoute
     | NotFoundRoute
@@ -17,6 +18,9 @@ toPath route =
     case route of
         HomeIndexRoute ->
             "/"
+
+        BoardShowRoute slug ->
+            "/boards/" ++ slug
 
         SessionNewRoute ->
             "/sign-in"
@@ -32,6 +36,7 @@ routeParser : Parser (Route -> a) a
 routeParser =
     oneOf
         [ format HomeIndexRoute (s "")
+        , format BoardShowRoute (s "boards" </> string)
         , format SessionNewRoute (s "sign-in")
         , format RegistrationNewRoute (s "sign-up")
         ]

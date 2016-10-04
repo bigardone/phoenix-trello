@@ -7,6 +7,7 @@ import Boards.Model exposing (..)
 
 type Msg
     = NavigateToHome
+    | NavigateToBoardShow String
     | FetchBoardsStart
     | FetchBoardsSuccess FetchBoardsModel
     | FetchBoardsError Http.Error

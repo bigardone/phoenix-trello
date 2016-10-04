@@ -14,6 +14,9 @@ update msg model jwt =
         NavigateToHome ->
             model ! [ Navigation.newUrl (toPath HomeIndexRoute) ]
 
+        NavigateToBoardShow slug ->
+            model ! [ Navigation.newUrl (toPath (BoardShowRoute slug)) ]
+
         FetchBoardsStart ->
             let
                 fetch =

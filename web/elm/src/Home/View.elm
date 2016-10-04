@@ -69,6 +69,7 @@ boardCardView board =
     div
         [ id board.id
         , class "board"
+        , onClick (NavigateToBoardShow board.id)
         ]
         [ div
             [ class "inner" ]

@@ -12,6 +12,7 @@ import Routing exposing (..)
 import Session.View as SessionView
 import Registration.View as RegistrationView
 import Home.View as HomeView
+import Boards.View as BoardsView
 import Boards.Model exposing (..)
 
 
@@ -196,6 +197,9 @@ page model =
     case model.route of
         HomeIndexRoute ->
             Html.App.map HomeMsg (HomeView.view model.session model.home)
+
+        BoardShowRoute slug ->
+            Html.App.map BoardsMsg (BoardsView.view model.session model.currentBoard)
 
         SessionNewRoute ->
             Html.App.map SessionMsg (SessionView.view model.session)
