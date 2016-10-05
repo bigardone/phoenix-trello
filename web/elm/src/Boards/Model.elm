@@ -3,6 +3,14 @@ module Boards.Model exposing (..)
 import Session.Model exposing (User)
 
 
+type alias Model =
+    { id : Maybe String
+    , state : State
+    , fetching : Bool
+    , board : Maybe BoardModel
+    }
+
+
 type alias BoardModel =
     { id : String
     , user_id : Maybe Int
@@ -40,4 +48,24 @@ type alias CommentModel =
     , user : User
     , text : String
     , inserted_at : String
+    }
+
+
+type State
+    = JoiningBoard
+    | JoinedBoard
+    | LeavingBoard
+    | LeftBoard
+
+
+type alias BoardResponseModel =
+    { board : BoardModel }
+
+
+initialModel : Model
+initialModel =
+    { id = Nothing
+    , state = LeftBoard
+    , fetching = True
+    , board = Nothing
     }

@@ -5,6 +5,7 @@ import Model exposing (..)
 import Session.Update
 import Registration.Update
 import Home.Update
+import Boards.Update
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -20,6 +21,13 @@ update msg model =
                         Home.Update.update subMsg model.home jwt
                 in
                     { model | home = home } ! [ Cmd.map HomeMsg cmd ]
+
+            BoardsMsg subMsg ->
+                let
+                    ( currentBoard, cmd ) =
+                        Boards.Update.update subMsg model.currentBoard
+                in
+                    { model | currentBoard = currentBoard } ! [ Cmd.map BoardsMsg cmd ]
 
             SessionMsg subMsg ->
                 let

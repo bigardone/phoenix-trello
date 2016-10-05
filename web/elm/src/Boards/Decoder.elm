@@ -48,3 +48,9 @@ commentModelDecoder =
         |: ("user" := userDecoder)
         |: ("text" := string)
         |: ("inserted_at" := string)
+
+
+boardResponseDecoder : Decode.Decoder BoardResponseModel
+boardResponseDecoder =
+    succeed BoardResponseModel
+        |: ("board" := boardModelDecoder)

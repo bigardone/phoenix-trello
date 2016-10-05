@@ -9,6 +9,7 @@ import Update exposing (..)
 import Routing exposing (Route)
 import Routing exposing (..)
 import Session.Model exposing (User)
+import Boards.Model exposing (State(..))
 import Session.Types exposing (Msg(..))
 import Session.API exposing (..)
 import Subscriptions exposing (..)
@@ -35,6 +36,24 @@ urlUpdate result model =
         case currentRoute of
             HomeIndexRoute ->
                 ( { model | route = currentRoute }, authenticationCheck session )
+
+            BoardShowRoute slug ->
+                let
+                    boardModel =
+                        model.currentBoard
+
+                    newCurrentBoard =
+                        { boardModel
+                            | id = Just slug
+                            , state = JoiningBoard
+                        }
+                in
+                    ( { model
+                        | route = currentRoute
+                        , currentBoard = newCurrentBoard
+                      }
+                    , authenticationCheck session
+                    )
 
             _ ->
                 ( { model | route = currentRoute }, Cmd.none )

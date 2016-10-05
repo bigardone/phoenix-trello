@@ -1,5 +1,7 @@
 module Boards.Types exposing (..)
 
+import Json.Encode as JE
+
 
 type Msg
-    = NoOp
+    = JoinChannelSuccess JE.Value
