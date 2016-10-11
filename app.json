@@ -1,0 +1,19 @@
+{
+    "name": "phonix-trello987",
+    "scripts": {
+    },
+    "env": {
+        "NPM_CONFIG_PRODUCTION": false,
+        "SECRET_KEY_BASE": false,
+        "DATABASE_URL": false,
+        "GUARDIAN_SECRET_KEY": false        
+    },
+    "formation": {},
+    "addons": [],
+    "buildpacks": [
+        {
+            "url": "https://github.com/ddollar/heroku-buildpack-multi"
+        }
+    ],
+    "success_url": "/"
+}
