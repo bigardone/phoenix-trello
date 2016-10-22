@@ -6,8 +6,8 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Model exposing (..)
 import Types exposing (..)
-import Home.Types exposing (..)
-import Session.Types exposing (..)
+import Home.Types as HomeTypes
+import Session.Types as SessionTypes
 import Routing exposing (..)
 import Session.View as SessionView
 import Registration.View as RegistrationView
@@ -66,7 +66,7 @@ headerView model =
             []
             [ span
                 [ class "logo"
-                , onClick (HomeMsg <| NavigateToHome)
+                , onClick (HomeMsg <| HomeTypes.NavigateToHome)
                 ]
                 []
             ]
@@ -131,7 +131,7 @@ boardsView model =
                         [ li
                             []
                             [ a
-                                [ onClick (HomeMsg <| NavigateToHome) ]
+                                [ onClick (HomeMsg <| HomeTypes.NavigateToHome) ]
                                 [ text "View all boards" ]
                             ]
                         ]
@@ -141,12 +141,12 @@ boardsView model =
             text ""
 
 
-boardView : BoardsModel.BoardModel -> Html Types.Msg
+boardView : BoardsModel.BoardModel -> Html Msg
 boardView board =
     li
         []
         [ a
-            []
+            [ onClick (HomeMsg <| HomeTypes.NavigateToBoardShow board.id) ]
             [ text board.name ]
         ]
 
@@ -181,7 +181,7 @@ signOutView model =
     case model.session.user of
         Just user ->
             a
-                [ onClick (SessionMsg <| SignOut) ]
+                [ onClick (SessionMsg <| SessionTypes.SignOut) ]
                 [ i
                     [ class "fa fa-sign-out" ]
                     []
