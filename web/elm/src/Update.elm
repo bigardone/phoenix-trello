@@ -6,6 +6,8 @@ import Session.Update
 import Registration.Update
 import Home.Update
 import Boards.Update
+import Session.Types as SessionTypes
+import Boards.Types as BoardsTypes
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -26,15 +28,42 @@ update msg model =
                 let
                     ( currentBoard, cmd ) =
                         Boards.Update.update subMsg model.currentBoard
+
+                    state =
+                        case subMsg of
+                            BoardsTypes.JoinChannelSuccess _ ->
+                                JoiningBoard
                 in
-                    { model | currentBoard = currentBoard } ! [ Cmd.map BoardsMsg cmd ]
+                    { model
+                        | currentBoard = currentBoard
+                        , state = state
+                    }
+                        ! [ Cmd.map BoardsMsg cmd ]
 
             SessionMsg subMsg ->
                 let
                     ( session, cmd ) =
                         Session.Update.update subMsg model.session
+
+                    state =
+                        case subMsg of
+                            SessionTypes.SignInSuccess _ ->
+                                JoiningLobby
+
+                            SessionTypes.CurrentUserSuccess _ ->
+                                JoiningLobby
+
+                            SessionTypes.SignOutSuccess _ ->
+                                LeftLobby
+
+                            _ ->
+                                model.state
                 in
-                    { model | session = session } ! [ Cmd.map SessionMsg cmd ]
+                    { model
+                        | session = session
+                        , state = state
+                    }
+                        ! [ Cmd.map SessionMsg cmd ]
 
             RegistrationMsg subMsg ->
                 let

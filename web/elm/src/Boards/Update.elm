@@ -15,7 +15,6 @@ update msg model =
                     { model
                         | fetching = False
                         , board = Just response.board
-                        , state = JoinedBoard
                     }
                         ! []
 

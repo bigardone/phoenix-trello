@@ -4,11 +4,9 @@ import Phoenix
 import Phoenix.Channel as Channel exposing (Channel)
 import Phoenix.Socket as Socket exposing (Socket)
 import Model exposing (..)
-import Session.Model exposing (..)
-import Boards.Model exposing (State(..))
 import Types exposing (..)
-import Home.Types exposing (..)
-import Boards.Types exposing (..)
+import Home.Types as HomeTypes
+import Boards.Types as BoardsTypes
 
 
 socketUrl : String
@@ -26,21 +24,21 @@ socket token =
             Socket.init (socketUrl ++ "?token=" ++ jwt)
 
 
-lobby : String -> Channel Types.Msg
+lobby : String -> Channel Msg
 lobby id =
     Channel.init ("users:" ++ id)
-        |> Channel.onJoin (always (HomeMsg <| FetchBoardsStart))
+        |> Channel.onJoin (always (HomeMsg <| HomeTypes.FetchBoardsStart))
         |> Channel.withDebug
 
 
-board : String -> Channel Types.Msg
+board : String -> Channel Msg
 board id =
     Channel.init ("boards:" ++ id)
-        |> Channel.onJoin (\res -> (BoardsMsg <| JoinChannelSuccess res))
+        |> Channel.onJoin (\res -> (BoardsMsg <| BoardsTypes.JoinChannelSuccess res))
         |> Channel.withDebug
 
 
-subscriptions : Model.Model -> Sub Types.Msg
+subscriptions : Model -> Sub Msg
 subscriptions model =
     let
         token =
@@ -56,27 +54,19 @@ subscriptions model =
 
         boardId =
             Maybe.withDefault "" model.currentBoard.id
-
-        sessionSub =
-            case model.session.state of
-                JoiningLobby ->
-                    Phoenix.connect (socket token) [ lobby userId ]
-
-                JoinedLobby ->
-                    Phoenix.connect (socket token) [ lobby userId ]
-
-                _ ->
-                    Sub.none
-
-        boardSub =
-            case model.currentBoard.state of
-                JoiningBoard ->
-                    Phoenix.connect (socket token) [ board boardId ]
-
-                JoinedBoard ->
-                    Phoenix.connect (socket token) [ board boardId ]
-
-                _ ->
-                    Sub.none
     in
-        Sub.batch [ sessionSub, boardSub ]
+        case model.state of
+            JoiningLobby ->
+                Phoenix.connect (socket token) [ lobby userId ]
+
+            JoinedLobby ->
+                Phoenix.connect (socket token) [ lobby userId ]
+
+            JoiningBoard ->
+                Phoenix.connect (socket token) [ board boardId, lobby userId ]
+
+            JoinedBoard ->
+                Phoenix.connect (socket token) [ board boardId, lobby userId ]
+
+            _ ->
+                Sub.none
