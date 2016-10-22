@@ -8,6 +8,7 @@ type alias Model =
     , state : State
     , fetching : Bool
     , board : Maybe BoardModel
+    , connectedUsers : List User
     }
 
 
@@ -68,4 +69,5 @@ initialModel =
     , state = LeftBoard
     , fetching = True
     , board = Nothing
+    , connectedUsers = []
     }
