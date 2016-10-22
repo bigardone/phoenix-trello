@@ -44,6 +44,7 @@ update msg model =
                     , user = Just res.user
                     , form = FormModel "" ""
                     , error = Nothing
+                    , state = JoiningLobby
                 }
                     ! cmds
 
@@ -54,6 +55,7 @@ update msg model =
             { model
                 | user = Just res
                 , error = Nothing
+                , state = JoiningLobby
             }
                 ! []
 
@@ -78,6 +80,7 @@ update msg model =
             in
                 { model
                     | jwt = Nothing
+                    , state = LeftLobby
                     , user = Nothing
                 }
                     ! cmds

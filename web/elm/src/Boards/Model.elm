@@ -5,6 +5,7 @@ import Session.Model exposing (User)
 
 type alias Model =
     { id : Maybe String
+    , state : State
     , fetching : Bool
     , board : Maybe BoardModel
     }
@@ -50,6 +51,13 @@ type alias CommentModel =
     }
 
 
+type State
+    = JoiningBoard
+    | JoinedBoard
+    | LeavingBoard
+    | LeftBoard
+
+
 type alias BoardResponseModel =
     { board : BoardModel }
 
@@ -57,6 +65,7 @@ type alias BoardResponseModel =
 initialModel : Model
 initialModel =
     { id = Nothing
+    , state = LeftBoard
     , fetching = True
     , board = Nothing
     }

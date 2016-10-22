@@ -6,6 +6,7 @@ type alias Model =
     , user : Maybe User
     , form : FormModel
     , error : Maybe String
+    , state : State
     }
 
 
@@ -33,10 +34,18 @@ type alias SignOutResponseModel =
     { ok : Bool }
 
 
+type State
+    = JoiningLobby
+    | JoinedLobby
+    | LeavingLobby
+    | LeftLobby
+
+
 initialModel : Maybe String -> Model
 initialModel jwt =
     { jwt = jwt
     , user = Nothing
     , form = FormModel "john@phoenix-trello.com" "12345678"
     , error = Nothing
+    , state = LeftLobby
     }
