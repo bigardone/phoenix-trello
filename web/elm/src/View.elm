@@ -13,7 +13,7 @@ import Session.View as SessionView
 import Registration.View as RegistrationView
 import Home.View as HomeView
 import Boards.View as BoardsView
-import Boards.Model exposing (..)
+import Boards.Model as BoardsModel
 
 
 view : Model -> Html Types.Msg
@@ -141,7 +141,7 @@ boardsView model =
             text ""
 
 
-boardView : BoardModel -> Html Types.Msg
+boardView : BoardsModel.BoardModel -> Html Types.Msg
 boardView board =
     li
         []
