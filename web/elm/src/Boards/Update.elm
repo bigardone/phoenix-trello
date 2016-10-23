@@ -84,8 +84,11 @@ addMember model =
                     JE.object
                         [ ( "email", JE.string model.membersForm.email ) ]
 
+                channel =
+                    "boards:" ++ board.id
+
                 push =
-                    Push.init ("boards:" ++ (toString board.id)) "members:add"
+                    Push.init channel "members:add"
                         |> Push.withPayload payload
                         |> Push.onOk AddMemberSuccess
                         |> Push.onError AddMemberError
