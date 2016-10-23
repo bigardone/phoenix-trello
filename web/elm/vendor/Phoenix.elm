@@ -880,7 +880,11 @@ pushSocket endpoint message selfCb state =
             Just socket ->
                 case ChannelHelpers.get endpoint message.topic state.channels of
                     Nothing ->
-                        queuedState
+                        let
+                            _ =
+                                Debug.log "Queued message (no channel exists)" message
+                        in
+                            queuedState
 
                     Just channel ->
                         case channel.state of
@@ -889,7 +893,11 @@ pushSocket endpoint message selfCb state =
                                     <&> afterSocketPush socket
 
                             _ ->
-                                queuedState
+                                let
+                                    _ =
+                                        Debug.log "Queued message (channel not joined)" message
+                                in
+                                    queuedState
 
 
 

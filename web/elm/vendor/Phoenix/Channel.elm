@@ -1,4 +1,4 @@
-module Phoenix.Channel exposing (Channel, State(..), init, withPayload, onJoin, onRejoin, onJoinError, onDisconnect, on, onLeave, onLeaveError, withDebug)
+module Phoenix.Channel exposing (Channel, State(..), init, withPayload, onJoin, onRejoin, onJoinError, onError, onDisconnect, on, onLeave, onLeaveError, withDebug)
 
 {-| A channel declares which topic should be joined, registers event handlers and has various callbacks for possible lifecycle events.
 
