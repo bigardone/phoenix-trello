@@ -85,7 +85,7 @@ defmodule PhoenixTrello.BoardChannel do
           {:reply, {:error, %{error: "Error adding new member"}}, socket}
       end
     catch
-      _, _-> {:reply, {:error, %{error: "User does not exist"}}, socket}
+      _, _ -> {:reply, {:error, %{error: "User does not exist"}}, socket}
     end
   end
 
@@ -178,7 +178,7 @@ defmodule PhoenixTrello.BoardChannel do
           {:reply, {:error, %{error: "Error adding new member"}}, socket}
       end
     catch
-      _, _-> {:reply, {:error, %{error: "Member does not exist"}}, socket}
+      _, _ -> {:reply, {:error, %{error: "Member does not exist"}}, socket}
     end
   end
 
