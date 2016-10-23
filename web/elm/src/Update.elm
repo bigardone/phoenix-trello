@@ -25,7 +25,7 @@ update msg model =
             BoardsMsg subMsg ->
                 let
                     ( currentBoard, cmd ) =
-                        Boards.Update.update subMsg model.currentBoard
+                        Boards.Update.update subMsg model.currentBoard jwt
                 in
                     { model | currentBoard = currentBoard } ! [ Cmd.map BoardsMsg cmd ]
 

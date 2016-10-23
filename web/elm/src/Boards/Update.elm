@@ -1,13 +1,17 @@
 module Boards.Update exposing (..)
 
 import Json.Decode as JD
+import Json.Encode as JE
+import Phoenix exposing (..)
+import Phoenix.Push as Push
 import Boards.Types exposing (..)
 import Boards.Model exposing (..)
 import Boards.Decoder exposing (..)
+import Subscriptions exposing (socketUrl)
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
+update : Msg -> Model -> String -> ( Model, Cmd Msg )
+update msg model jwt =
     case msg of
         JoinChannelSuccess raw ->
             case JD.decodeValue boardResponseDecoder raw of
@@ -40,3 +44,53 @@ update msg model =
 
         ShowMembersForm show ->
             { model | membersForm = MembersFormModel show "" Nothing } ! []
+
+        HandleMembersFormEmailInput value ->
+            let
+                membersForm =
+                    model.membersForm
+            in
+                { model
+                    | membersForm =
+                        { membersForm
+                            | email = value
+                        }
+                }
+                    ! []
+
+        AddMemberStart ->
+            model ! [ addMember model jwt ]
+
+        AddMemberSuccess _ ->
+            { model | membersForm = initialMembersFormModel } ! []
+
+        AddMemberError raw ->
+            let
+                _ =
+                    Debug.log "AddMemberError" raw
+            in
+                model ! []
+
+
+addMember : Model -> String -> Cmd Msg
+addMember model jwt =
+    case model.board of
+        Nothing ->
+            Cmd.none
+
+        Just board ->
+            let
+                payload =
+                    JE.object
+                        [ ( "email", JE.string model.membersForm.email ) ]
+
+                push =
+                    Push.init ("boards:" ++ toString board.id) "members:add"
+                        |> Push.withPayload payload
+                        |> Push.onOk AddMemberSuccess
+                        |> Push.onError AddMemberError
+
+                url =
+                    socketUrl jwt
+            in
+                Phoenix.push url push

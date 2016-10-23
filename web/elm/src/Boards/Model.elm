@@ -75,6 +75,11 @@ type alias ConnectedUsersListResponseModel =
     { users : List Int }
 
 
+initialMembersFormModel : MembersFormModel
+initialMembersFormModel =
+    MembersFormModel False "" Nothing
+
+
 initialModel : Model
 initialModel =
     { id = Nothing
@@ -82,5 +87,5 @@ initialModel =
     , fetching = True
     , board = Nothing
     , connectedUsers = []
-    , membersForm = MembersFormModel False "" Nothing
+    , membersForm = initialMembersFormModel
     }

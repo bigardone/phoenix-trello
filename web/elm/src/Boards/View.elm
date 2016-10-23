@@ -120,7 +120,7 @@ addNewMemberForm model =
             [ li
                 []
                 [ Html.form
-                    []
+                    [ onSubmit AddMemberStart ]
                     [ h4
                         []
                         [ text "Add new member" ]
@@ -130,6 +130,7 @@ addNewMemberForm model =
                         , value model.membersForm.email
                         , required True
                         , placeholder "Member's email"
+                        , onInput HandleMembersFormEmailInput
                         ]
                         []
                     , button
