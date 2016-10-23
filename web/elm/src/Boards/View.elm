@@ -2,6 +2,7 @@ module Boards.View exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 import Session.Model as SessionModel exposing (..)
 import Boards.Model as BoardsModel exposing (..)
 import Boards.Types exposing (..)
@@ -52,8 +53,8 @@ membersView model board =
         connectedUsers =
             model.connectedUsers
     in
-        members
-            |> List.map (\member -> memberView connectedUsers member)
+        [ addNewMemberList model ]
+            |> List.append (List.map (\member -> memberView connectedUsers member) members)
             |> ul
                 [ class "board-users" ]
 
@@ -61,9 +62,6 @@ membersView model board =
 memberView : List Int -> SessionModel.User -> Html Msg
 memberView connectedUsers user =
     let
-        _ =
-            Debug.log "connectedUsers" connectedUsers
-
         classes =
             classList
                 [ ( "connected", List.any (\member -> member == user.id) connectedUsers )
@@ -79,4 +77,68 @@ memberView connectedUsers user =
                 , src gravatarUrl
                 ]
                 []
+            ]
+
+
+addNewMemberList : BoardsModel.Model -> Html Msg
+addNewMemberList model =
+    li
+        []
+        [ a
+            [ class "add-new"
+            , onClick (ShowMembersForm True)
+            ]
+            [ i
+                [ class "fa fa-plus" ]
+                []
+            ]
+        , addNewMemberForm model
+        ]
+
+
+addNewMemberForm : BoardsModel.Model -> Html Msg
+addNewMemberForm model =
+    let
+        classes =
+            classList
+                [ ( "drop-down", True )
+                , ( "active", model.membersForm.show )
+                ]
+
+        errorContent =
+            case model.membersForm.error of
+                Nothing ->
+                    text ""
+
+                Just error ->
+                    div
+                        [ class "error" ]
+                        [ text error ]
+    in
+        ul
+            [ classes ]
+            [ li
+                []
+                [ Html.form
+                    []
+                    [ h4
+                        []
+                        [ text "Add new member" ]
+                    , errorContent
+                    , input
+                        [ type' "email"
+                        , value model.membersForm.email
+                        , required True
+                        , placeholder "Member's email"
+                        ]
+                        []
+                    , button
+                        [ type' "submit" ]
+                        [ text "Add member" ]
+                    , text " or "
+                    , a
+                        [ onClick (ShowMembersForm False) ]
+                        [ text "cancel" ]
+                    ]
+                ]
             ]

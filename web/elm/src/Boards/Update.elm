@@ -37,3 +37,6 @@ update msg model =
                             Debug.log "error" error
                     in
                         { model | fetching = False } ! []
+
+        ShowMembersForm show ->
+            { model | membersForm = MembersFormModel show "" Nothing } ! []

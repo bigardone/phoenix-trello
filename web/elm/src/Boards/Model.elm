@@ -9,6 +9,7 @@ type alias Model =
     , fetching : Bool
     , board : Maybe BoardModel
     , connectedUsers : List Int
+    , membersForm : MembersFormModel
     }
 
 
@@ -19,6 +20,13 @@ type alias BoardModel =
     , user : Maybe User
     , lists : Maybe (List ListModel)
     , members : Maybe (List User)
+    }
+
+
+type alias MembersFormModel =
+    { show : Bool
+    , email : String
+    , error : Maybe String
     }
 
 
@@ -74,4 +82,5 @@ initialModel =
     , fetching = True
     , board = Nothing
     , connectedUsers = []
+    , membersForm = MembersFormModel False "" Nothing
     }
