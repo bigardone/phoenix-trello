@@ -11,19 +11,21 @@ import Home.Types exposing (..)
 import Boards.Types exposing (..)
 
 
-socketUrl : String -> String
-socketUrl token =
-    "ws://localhost:4000/socket/websocket" ++ "?token=" ++ token
+socketUrl : String
+socketUrl =
+    "ws://localhost:4000/socket/websocket"
 
 
 socket : Maybe String -> Socket
 socket token =
     case token of
         Nothing ->
-            Socket.init (socketUrl "")
+            Socket.init socketUrl
 
         Just jwt ->
-            Socket.init (socketUrl jwt)
+            Socket.init socketUrl
+                |> Socket.withDebug
+                |> Socket.withParams [ ( "token", jwt ) ]
 
 
 lobby : String -> Channel Types.Msg

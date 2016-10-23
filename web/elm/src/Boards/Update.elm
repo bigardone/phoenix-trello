@@ -10,8 +10,8 @@ import Boards.Decoder exposing (..)
 import Subscriptions exposing (socketUrl)
 
 
-update : Msg -> Model -> String -> ( Model, Cmd Msg )
-update msg model jwt =
+update : Msg -> Model -> ( Model, Cmd Msg )
+update msg model =
     case msg of
         JoinChannelSuccess raw ->
             case JD.decodeValue boardResponseDecoder raw of
@@ -59,7 +59,7 @@ update msg model jwt =
                     ! []
 
         AddMemberStart ->
-            model ! [ addMember model jwt ]
+            model ! [ addMember model ]
 
         AddMemberSuccess _ ->
             { model | membersForm = initialMembersFormModel } ! []
@@ -72,8 +72,8 @@ update msg model jwt =
                 model ! []
 
 
-addMember : Model -> String -> Cmd Msg
-addMember model jwt =
+addMember : Model -> Cmd Msg
+addMember model =
     case model.board of
         Nothing ->
             Cmd.none
@@ -85,12 +85,9 @@ addMember model jwt =
                         [ ( "email", JE.string model.membersForm.email ) ]
 
                 push =
-                    Push.init ("boards:" ++ toString board.id) "members:add"
+                    Push.init ("boards:" ++ (toString board.id)) "members:add"
                         |> Push.withPayload payload
                         |> Push.onOk AddMemberSuccess
                         |> Push.onError AddMemberError
-
-                url =
-                    socketUrl jwt
             in
-                Phoenix.push url push
+                Phoenix.push socketUrl push
