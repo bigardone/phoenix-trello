@@ -2,6 +2,7 @@ module Boards.Decoder exposing (..)
 
 import Json.Decode as Decode exposing (..)
 import Json.Decode.Extra exposing ((|:))
+import Model exposing (ErrorModel)
 import Boards.Model exposing (..)
 import Session.Decoder exposing (..)
 
@@ -60,3 +61,9 @@ connectedUsersResponseDecoder : Decode.Decoder ConnectedUsersListResponseModel
 connectedUsersResponseDecoder =
     succeed ConnectedUsersListResponseModel
         |: ("users" := list int)
+
+
+errorResponseDecoder : Decode.Decoder ErrorModel
+errorResponseDecoder =
+    succeed ErrorModel
+        |: ("error" := string)

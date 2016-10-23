@@ -32,3 +32,9 @@ signOutResponseDecoder : Decode.Decoder SignOutResponseModel
 signOutResponseDecoder =
     succeed SignOutResponseModel
         |: ("ok" := bool)
+
+
+userResponseDecoder : Decode.Decoder UserResponseModel
+userResponseDecoder =
+    succeed UserResponseModel
+        |: ("user" := userDecoder)

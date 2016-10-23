@@ -7,6 +7,7 @@ import Phoenix.Push as Push
 import Boards.Types exposing (..)
 import Boards.Model exposing (..)
 import Boards.Decoder exposing (..)
+import Session.Decoder exposing (userResponseDecoder)
 import Subscriptions exposing (socketUrl)
 
 
@@ -65,11 +66,48 @@ update msg model =
             { model | membersForm = initialMembersFormModel } ! []
 
         AddMemberError raw ->
-            let
-                _ =
-                    Debug.log "AddMemberError" raw
-            in
-                model ! []
+            case JD.decodeValue errorResponseDecoder raw of
+                Ok payload ->
+                    let
+                        membersForm =
+                            model.membersForm
+                    in
+                        { model | membersForm = { membersForm | error = Just payload.error } } ! []
+
+                Err error ->
+                    let
+                        _ =
+                            Debug.log "AddMemberError" raw
+                    in
+                        model ! []
+
+        MemberAdded raw ->
+            case JD.decodeValue userResponseDecoder raw of
+                Ok payload ->
+                    let
+                        ( board, members ) =
+                            case model.board of
+                                Nothing ->
+                                    ( initialBoard, [ payload.user ] )
+
+                                Just board ->
+                                    ( board, payload.user :: (Maybe.withDefault [] board.members) )
+
+                        newBoard =
+                            { board | members = Just members }
+                    in
+                        { model
+                            | board = Just newBoard
+                            , membersForm = initialMembersFormModel
+                        }
+                            ! []
+
+                Err error ->
+                    let
+                        _ =
+                            Debug.log "AddMemberError" raw
+                    in
+                        model ! []
 
 
 addMember : Model -> Cmd Msg

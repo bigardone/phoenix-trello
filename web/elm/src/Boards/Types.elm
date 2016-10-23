@@ -11,3 +11,4 @@ type Msg
     | AddMemberStart
     | AddMemberSuccess JE.Value
     | AddMemberError JE.Value
+    | MemberAdded JE.Value

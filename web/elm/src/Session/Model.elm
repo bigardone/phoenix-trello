@@ -30,6 +30,10 @@ type alias AuthResponseModel =
     }
 
 
+type alias UserResponseModel =
+    { user : User }
+
+
 type alias SignOutResponseModel =
     { ok : Bool }
 

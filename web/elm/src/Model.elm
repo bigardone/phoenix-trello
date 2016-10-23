@@ -18,6 +18,10 @@ type alias Model =
     }
 
 
+type alias ErrorModel =
+    { error : String }
+
+
 initialModel : Flags -> Routing.Route -> Model
 initialModel flags route =
     { route = route

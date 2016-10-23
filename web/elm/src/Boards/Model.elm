@@ -89,3 +89,14 @@ initialModel =
     , connectedUsers = []
     , membersForm = initialMembersFormModel
     }
+
+
+initialBoard : BoardModel
+initialBoard =
+    { id = ""
+    , user_id = Nothing
+    , name = ""
+    , user = Nothing
+    , lists = Nothing
+    , members = Nothing
+    }
