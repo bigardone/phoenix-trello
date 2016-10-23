@@ -54,3 +54,9 @@ boardResponseDecoder : Decode.Decoder BoardResponseModel
 boardResponseDecoder =
     succeed BoardResponseModel
         |: ("board" := boardModelDecoder)
+
+
+connectedUsersResponseDecoder : Decode.Decoder ConnectedUsersListResponseModel
+connectedUsersResponseDecoder =
+    succeed ConnectedUsersListResponseModel
+        |: ("users" := list int)

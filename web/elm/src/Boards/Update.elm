@@ -11,13 +11,25 @@ update msg model =
     case msg of
         JoinChannelSuccess raw ->
             case JD.decodeValue boardResponseDecoder raw of
-                Ok response ->
+                Ok payload ->
                     { model
                         | fetching = False
-                        , board = Just response.board
+                        , board = Just payload.board
                         , state = JoinedBoard
                     }
                         ! []
+
+                Err error ->
+                    let
+                        _ =
+                            Debug.log "error" error
+                    in
+                        { model | fetching = False } ! []
+
+        UserJoined raw ->
+            case JD.decodeValue connectedUsersResponseDecoder raw of
+                Ok payload ->
+                    { model | connectedUsers = payload.users } ! []
 
                 Err error ->
                     let

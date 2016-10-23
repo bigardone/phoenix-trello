@@ -22,10 +22,7 @@ view model =
         Nothing ->
             div
                 []
-                [ page model
-                , hr [] []
-                , text (toString model)
-                ]
+                [ page model ]
 
         Just user ->
             div

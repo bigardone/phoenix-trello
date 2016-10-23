@@ -35,7 +35,7 @@ contentView sessionModel model =
                     [ h3
                         []
                         [ text board.name ]
-                    , membersView board
+                    , membersView model board
                     ]
                 ]
 
@@ -43,24 +43,30 @@ contentView sessionModel model =
             text ""
 
 
-membersView : BoardsModel.BoardModel -> Html Msg
-membersView board =
+membersView : BoardsModel.Model -> BoardsModel.BoardModel -> Html Msg
+membersView model board =
     let
         members =
             Maybe.withDefault [] board.members
+
+        connectedUsers =
+            model.connectedUsers
     in
         members
-            |> List.map memberView
+            |> List.map (\member -> memberView connectedUsers member)
             |> ul
                 [ class "board-users" ]
 
 
-memberView : SessionModel.User -> Html Msg
-memberView user =
+memberView : List Int -> SessionModel.User -> Html Msg
+memberView connectedUsers user =
     let
+        _ =
+            Debug.log "connectedUsers" connectedUsers
+
         classes =
             classList
-                [ ( "connected", True )
+                [ ( "connected", List.any (\member -> member == user.id) connectedUsers )
                 ]
 
         gravatarUrl =

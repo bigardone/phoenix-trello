@@ -8,7 +8,7 @@ type alias Model =
     , state : State
     , fetching : Bool
     , board : Maybe BoardModel
-    , connectedUsers : List User
+    , connectedUsers : List Int
     }
 
 
@@ -61,6 +61,10 @@ type State
 
 type alias BoardResponseModel =
     { board : BoardModel }
+
+
+type alias ConnectedUsersListResponseModel =
+    { users : List Int }
 
 
 initialModel : Model

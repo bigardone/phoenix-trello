@@ -36,7 +36,8 @@ lobby id =
 board : String -> Channel Types.Msg
 board id =
     Channel.init ("boards:" ++ id)
-        |> Channel.onJoin (\res -> (BoardsMsg <| JoinChannelSuccess res))
+        |> Channel.onJoin (\raw -> (BoardsMsg <| JoinChannelSuccess raw))
+        |> Channel.on "user:joined" (\raw -> (BoardsMsg <| UserJoined raw))
         |> Channel.withDebug
 
 
