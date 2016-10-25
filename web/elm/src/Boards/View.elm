@@ -6,6 +6,7 @@ import Html.Events exposing (..)
 import Session.Model as SessionModel exposing (..)
 import Boards.Model as BoardsModel exposing (..)
 import Boards.Types exposing (..)
+import Lists.View exposing (..)
 
 
 view : SessionModel.Model -> BoardsModel.Model -> Html Msg
@@ -17,31 +18,36 @@ view sessionModel model =
         _ ->
             div
                 [ class "view-container boards show" ]
-                [ contentView sessionModel model ]
+                (contentView sessionModel model)
 
 
-contentView : SessionModel.Model -> BoardsModel.Model -> Html Msg
+contentView : SessionModel.Model -> BoardsModel.Model -> List (Html Msg)
 contentView sessionModel model =
     case ( model.fetching, model.board ) of
         ( True, _ ) ->
-            i
+            [ i
                 [ class "fa fa-spinner fa-spin" ]
                 []
+            ]
 
         ( False, Just board ) ->
-            div
-                []
-                [ header
-                    [ class "view-header" ]
-                    [ h3
-                        []
-                        [ text board.name ]
-                    , membersView model board
-                    ]
+            [ header
+                [ class "view-header" ]
+                [ h3
+                    []
+                    [ text board.name ]
+                , membersView model board
                 ]
+            , div
+                [ class "canvas-wrapper" ]
+                [ div
+                    [ class "canvas" ]
+                    [ listsWrapperView board.lists ]
+                ]
+            ]
 
         _ ->
-            text ""
+            [ text "" ]
 
 
 membersView : BoardsModel.Model -> BoardsModel.BoardModel -> Html Msg

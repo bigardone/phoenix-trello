@@ -1,6 +1,7 @@
 module Boards.Model exposing (..)
 
 import Session.Model exposing (User)
+import Lists.Model as Lists
 
 
 type alias Model =
@@ -18,7 +19,7 @@ type alias BoardModel =
     , user_id : Maybe Int
     , name : String
     , user : Maybe User
-    , lists : Maybe (List ListModel)
+    , lists : Maybe (List Lists.Model)
     , members : Maybe (List User)
     }
 
@@ -27,36 +28,6 @@ type alias MembersFormModel =
     { show : Bool
     , email : String
     , error : Maybe String
-    }
-
-
-type alias ListModel =
-    { id : Int
-    , board_id : Int
-    , name : String
-    , position : Int
-    , cards : List CardModel
-    }
-
-
-type alias CardModel =
-    { id : Int
-    , list_id : Int
-    , name : String
-    , description : Maybe String
-    , position : Int
-    , tags : List String
-    , comments : List CommentModel
-    , members : List User
-    }
-
-
-type alias CommentModel =
-    { id : Int
-    , card_id : Int
-    , user : User
-    , text : String
-    , inserted_at : String
     }
 
 
