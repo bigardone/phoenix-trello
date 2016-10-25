@@ -20,7 +20,9 @@ view model =
                     []
                 ]
             , Html.form
-                [ id "sign_in_form", attribute "onSubmit" "" ]
+                [ id "sign_in_form"
+                , onSubmit SignUp
+                ]
                 [ div
                     [ class "field" ]
                     [ input
@@ -28,6 +30,8 @@ view model =
                         , placeholder "First name"
                         , required True
                         , type' "text"
+                        , onInput HandleFirstNameInput
+                        , value model.form.firstName
                         ]
                         []
                     ]
@@ -38,6 +42,8 @@ view model =
                         , placeholder "Last name"
                         , required True
                         , type' "text"
+                        , onInput HandlePLastNameInput
+                        , value model.form.lastName
                         ]
                         []
                     ]
@@ -48,6 +54,8 @@ view model =
                         , placeholder "Email"
                         , required True
                         , type' "email"
+                        , onInput HandleEmailInput
+                        , value model.form.email
                         ]
                         []
                     ]
@@ -58,6 +66,8 @@ view model =
                         , placeholder "Password"
                         , required True
                         , type' "password"
+                        , onInput HandlePasswordInput
+                        , value model.form.password
                         ]
                         []
                     ]
@@ -68,6 +78,8 @@ view model =
                         , placeholder "Confirm password"
                         , required True
                         , type' "password"
+                        , onInput HandlePasswordConfirmationInput
+                        , value model.form.passwordConfirmation
                         ]
                         []
                     ]

@@ -8,16 +8,16 @@ type alias Model =
 
 
 type alias FormModel =
-    { firstName : Maybe String
-    , lastName : Maybe String
-    , email : Maybe String
-    , password : Maybe String
-    , passwordConfirmation : Maybe String
+    { firstName : String
+    , lastName : String
+    , email : String
+    , password : String
+    , passwordConfirmation : String
     }
 
 
 initialModel : Model
 initialModel =
-    { form = FormModel Nothing Nothing Nothing Nothing Nothing
+    { form = FormModel "" "" "" "" ""
     , errors = Nothing
     }

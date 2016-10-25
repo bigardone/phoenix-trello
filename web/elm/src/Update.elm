@@ -41,7 +41,7 @@ update msg model =
                     ( registration, cmd ) =
                         Registration.Update.update subMsg model.registration
                 in
-                    { model | registration = registration } ! [ Cmd.map RegistrationMsg cmd ]
+                    { model | registration = registration } ! [ cmd ]
 
             ToggleBoardsList show ->
                 { model | showBoardsList = show } ! []
