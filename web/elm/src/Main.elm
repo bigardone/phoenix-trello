@@ -35,7 +35,12 @@ urlUpdate result model =
     in
         case currentRoute of
             HomeIndexRoute ->
-                ( { model | route = currentRoute }, authenticationCheck session )
+                ( { model
+                    | route = currentRoute
+                    , showBoardsList = False
+                  }
+                , authenticationCheck session
+                )
 
             BoardShowRoute slug ->
                 let
@@ -51,12 +56,18 @@ urlUpdate result model =
                     ( { model
                         | route = currentRoute
                         , currentBoard = newCurrentBoard
+                        , showBoardsList = False
                       }
                     , authenticationCheck session
                     )
 
             _ ->
-                ( { model | route = currentRoute }, Cmd.none )
+                ( { model
+                    | route = currentRoute
+                    , showBoardsList = False
+                  }
+                , Cmd.none
+                )
 
 
 authenticationCheck : Session.Model.Model -> Cmd Types.Msg
