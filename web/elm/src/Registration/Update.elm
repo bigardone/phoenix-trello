@@ -1,6 +1,7 @@
 module Registration.Update exposing (..)
 
 import Navigation
+import Http exposing (Error)
 import Task exposing (..)
 import Registration.Types as RegistrationTypes
 import Session.Types as SessionTypes
@@ -54,9 +55,14 @@ update msg model =
         RegistrationTypes.SignUp ->
             model ! [ Task.perform (\payload -> RegistrationMsg <| (RegistrationTypes.SignUpError payload)) (\payload -> SessionMsg <| (SessionTypes.SignInSuccess payload)) <| signUpUser model ]
 
-        RegistrationTypes.SignUpError error ->
-            let
-                _ =
-                    Debug.log "error" error
-            in
-                model ! []
+        RegistrationTypes.SignUpError err ->
+            case err of
+                Http.BadResponse code raw ->
+                    { model | error = Just raw } ! []
+
+                _ ->
+                    let
+                        _ =
+                            Debug.log "SignUpError" err
+                    in
+                        model ! []

@@ -45,6 +45,11 @@ type State
     | LeftLobby
 
 
+initialForm : FormModel
+initialForm =
+    FormModel "john@phoenix-trello.com" "12345678"
+
+
 initialModel : Maybe String -> Model
 initialModel jwt =
     { jwt = jwt
@@ -53,8 +58,3 @@ initialModel jwt =
     , error = Nothing
     , state = LeftLobby
     }
-
-
-initialForm : FormModel
-initialForm =
-    FormModel "john@phoenix-trello.com" "12345678"

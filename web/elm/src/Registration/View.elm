@@ -23,7 +23,8 @@ view model =
                 [ id "sign_in_form"
                 , onSubmit SignUp
                 ]
-                [ div
+                [ errorView model.error
+                , div
                     [ class "field" ]
                     [ input
                         [ id "user_first_name"
