@@ -6,6 +6,8 @@ import Session.Update
 import Registration.Update
 import Home.Update
 import Boards.Update
+import Session.Types as SessionTypes
+import Home.Model as HomeModel
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -28,6 +30,17 @@ update msg model =
                         Boards.Update.update subMsg model.currentBoard
                 in
                     { model | currentBoard = currentBoard } ! [ Cmd.map BoardsMsg cmd ]
+
+            SessionMsg (SessionTypes.SignOutSuccess raw) ->
+                let
+                    ( session, cmd ) =
+                        Session.Update.update (SessionTypes.SignOutSuccess raw) model.session
+                in
+                    { model
+                        | session = session
+                        , home = HomeModel.initialModel
+                    }
+                        ! [ Cmd.map SessionMsg cmd ]
 
             SessionMsg subMsg ->
                 let

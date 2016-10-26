@@ -82,6 +82,7 @@ update msg model =
                     | jwt = Nothing
                     , state = LeftLobby
                     , user = Nothing
+                    , form = initialForm
                 }
                     ! cmds
 

@@ -49,7 +49,12 @@ initialModel : Maybe String -> Model
 initialModel jwt =
     { jwt = jwt
     , user = Nothing
-    , form = FormModel "john@phoenix-trello.com" "12345678"
+    , form = initialForm
     , error = Nothing
     , state = LeftLobby
     }
+
+
+initialForm : FormModel
+initialForm =
+    FormModel "john@phoenix-trello.com" "12345678"
