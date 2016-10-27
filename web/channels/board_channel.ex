@@ -36,7 +36,7 @@ defmodule PhoenixTrello.BoardChannel do
         list = Repo.preload(list, [:board, :cards])
 
         broadcast! socket, "list:created", %{list: list}
-        {:noreply, socket}
+        {:reply, :ok, socket}
       {:error, _changeset} ->
         {:reply, {:error, %{error: "Error creating list"}}, socket}
     end
@@ -80,7 +80,7 @@ defmodule PhoenixTrello.BoardChannel do
 
           PhoenixTrello.Endpoint.broadcast_from! self(), "users:#{user.id}", "boards:add", %{board: board}
 
-          {:noreply, socket}
+          {:reply, :ok, socket}
         {:error, _changeset} ->
           {:reply, {:error, %{error: "Error adding new member"}}, socket}
       end
