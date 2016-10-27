@@ -11,6 +11,7 @@ type alias Model =
     , board : Maybe BoardModel
     , connectedUsers : List Int
     , membersForm : MembersFormModel
+    , listForm : Lists.ListForm
     }
 
 
@@ -59,6 +60,7 @@ initialModel =
     , board = Nothing
     , connectedUsers = []
     , membersForm = initialMembersFormModel
+    , listForm = Lists.initialListForm Nothing
     }
 
 
