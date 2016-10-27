@@ -12,3 +12,4 @@ type Msg
     | AddMemberSuccess JE.Value
     | AddMemberError JE.Value
     | MemberAdded JE.Value
+    | ShowListForm Bool

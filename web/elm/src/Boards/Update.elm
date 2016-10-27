@@ -109,6 +109,13 @@ update msg model =
                     in
                         model ! []
 
+        ShowListForm show ->
+            let
+                listForm =
+                    model.listForm
+            in
+                { model | listForm = { listForm | show = show } } ! []
+
 
 addMember : Model -> Cmd Msg
 addMember model =
