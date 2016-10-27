@@ -14,7 +14,7 @@ type alias Model =
 
 type alias ListForm =
     { id : Maybe Int
-    , name : String
+    , name' : String
     , error : Maybe String
     , show : Bool
     }
@@ -23,7 +23,7 @@ type alias ListForm =
 initialListForm : Maybe Int -> ListForm
 initialListForm maybeId =
     { id = maybeId
-    , name = ""
+    , name' = ""
     , error = Nothing
     , show = False
     }

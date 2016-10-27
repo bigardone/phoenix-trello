@@ -12,4 +12,10 @@ type Msg
     | AddMemberSuccess JE.Value
     | AddMemberError JE.Value
     | MemberAdded JE.Value
-    | ShowListForm Bool
+    | ShowListForm
+    | HideListForm
+    | HandleListFormNameInput String
+    | SaveListStart
+    | SaveListSuccess JE.Value
+    | SaveListError JE.Value
+    | ListCreated JE.Value

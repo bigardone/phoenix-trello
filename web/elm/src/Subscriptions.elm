@@ -41,6 +41,7 @@ board id =
         |> Channel.onJoin (\raw -> (BoardsMsg <| JoinChannelSuccess raw))
         |> Channel.on "user:joined" (\raw -> (BoardsMsg <| UserJoined raw))
         |> Channel.on "member:added" (\raw -> (BoardsMsg <| MemberAdded raw))
+        |> Channel.on "list:created" (\raw -> (BoardsMsg <| ListCreated raw))
         |> Channel.withDebug
 
 

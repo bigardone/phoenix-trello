@@ -1,12 +1,16 @@
 module Lists.Decoder exposing (..)
 
-import Json.Decode as Decode exposing (..)
+import Json.Decode as JD exposing (..)
 import Json.Decode.Extra exposing ((|:))
 import Lists.Model as ListsModel
 import Cards.Decoder exposing (..)
 
 
-listModelDecoder : Decode.Decoder ListsModel.Model
+type alias ListReponse =
+    { list : ListsModel.Model }
+
+
+listModelDecoder : JD.Decoder ListsModel.Model
 listModelDecoder =
     succeed ListsModel.Model
         |: ("id" := int)
@@ -14,3 +18,9 @@ listModelDecoder =
         |: ("name" := string)
         |: ("position" := int)
         |: ("cards" := (list cardModelDecoder))
+
+
+listResponseDecoder : JD.Decoder ListReponse
+listResponseDecoder =
+    succeed ListReponse
+        |: ("list" := listModelDecoder)

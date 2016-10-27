@@ -2,7 +2,6 @@ module Cards.View exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Events exposing (..)
 import Cards.Model exposing (..)
 import Boards.Types exposing (..)
 

@@ -59,7 +59,7 @@ addButtonView : Html Msg
 addButtonView =
     div
         [ class "list add-new"
-        , onClick <| ShowListForm True
+        , onClick <| ShowListForm
         ]
         [ div
             [ class "inner" ]
@@ -83,14 +83,17 @@ listFormView listForm =
             [ div
                 [ class "inner" ]
                 [ Html.form
-                    [ id "new_list_form" ]
+                    [ id "new_list_form"
+                    , onSubmit SaveListStart
+                    ]
                     [ input
                         [ rel "name"
                         , id "list_name"
                         , type' "text"
-                        , value listForm.name
+                        , value listForm.name'
                         , placeholder "Add a new list..."
                         , required True
+                        , onInput HandleListFormNameInput
                         ]
                         []
                     , formErrorView listForm.error
@@ -99,7 +102,7 @@ listFormView listForm =
                         [ text buttonText ]
                     , text " or "
                     , a
-                        []
+                        [ onClick <| HideListForm ]
                         [ text "cancel" ]
                     ]
                 ]

@@ -8,7 +8,9 @@ import Boards.Types exposing (..)
 import Boards.Model exposing (..)
 import Boards.Decoder exposing (..)
 import Session.Decoder exposing (userResponseDecoder)
+import Lists.Decoder exposing (listResponseDecoder)
 import Subscriptions exposing (socketUrl)
+import Lists.Model exposing (initialListForm)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -96,25 +98,81 @@ update msg model =
                         newBoard =
                             { board | members = Just members }
                     in
-                        { model
-                            | board = Just newBoard
-                            , membersForm = initialMembersFormModel
-                        }
-                            ! []
+                        { model | board = Just newBoard } ! []
 
                 Err error ->
                     let
                         _ =
-                            Debug.log "AddMemberError" raw
+                            Debug.log "MemberAdded" raw
                     in
                         model ! []
 
-        ShowListForm show ->
+        ShowListForm ->
             let
                 listForm =
                     model.listForm
             in
-                { model | listForm = { listForm | show = show } } ! []
+                { model | listForm = { listForm | show = True } } ! []
+
+        HideListForm ->
+            { model | listForm = initialListForm Nothing } ! []
+
+        HandleListFormNameInput value ->
+            let
+                listForm =
+                    model.listForm
+            in
+                { model | listForm = { listForm | name' = value } } ! []
+
+        SaveListStart ->
+            model ! [ saveList model ]
+
+        SaveListSuccess _ ->
+            { model | listForm = initialListForm Nothing } ! []
+
+        SaveListError raw ->
+            case JD.decodeValue errorResponseDecoder raw of
+                Ok payload ->
+                    let
+                        listForm =
+                            model.listForm
+                    in
+                        { model | listForm = { listForm | error = Just payload.error } } ! []
+
+                Err error ->
+                    let
+                        _ =
+                            Debug.log "SaveListError" raw
+                    in
+                        model ! []
+
+        ListCreated raw ->
+            case JD.decodeValue listResponseDecoder raw of
+                Ok payload ->
+                    case model.board of
+                        Nothing ->
+                            model ! []
+
+                        Just board ->
+                            let
+                                newList =
+                                    payload.list
+
+                                lists =
+                                    [ newList ]
+                                        |> List.append (Maybe.withDefault [] board.lists)
+
+                                newCurrentBoard =
+                                    { board | lists = Just lists }
+                            in
+                                { model | board = Just newCurrentBoard } ! []
+
+                Err error ->
+                    let
+                        _ =
+                            Debug.log "ListCreated" raw
+                    in
+                        model ! []
 
 
 addMember : Model -> Cmd Msg
@@ -137,5 +195,44 @@ addMember model =
                         |> Push.withPayload payload
                         |> Push.onOk AddMemberSuccess
                         |> Push.onError AddMemberError
+            in
+                Phoenix.push socketUrl push
+
+
+saveList : Model -> Cmd Msg
+saveList model =
+    case model.board of
+        Nothing ->
+            Cmd.none
+
+        Just board ->
+            let
+                listForm =
+                    model.listForm
+
+                payload =
+                    JE.object
+                        [ ( "list"
+                          , JE.object
+                                [ ( "name", JE.string listForm.name' ) ]
+                          )
+                        ]
+
+                channel =
+                    "boards:" ++ board.id
+
+                topic =
+                    case listForm.id of
+                        Nothing ->
+                            "lists:create"
+
+                        Just listId ->
+                            "lists:update"
+
+                push =
+                    Push.init channel topic
+                        |> Push.withPayload payload
+                        |> Push.onOk SaveListSuccess
+                        |> Push.onError SaveListError
             in
                 Phoenix.push socketUrl push
