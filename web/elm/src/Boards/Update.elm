@@ -110,7 +110,7 @@ update msg model =
         ShowListForm ->
             let
                 listForm =
-                    model.listForm
+                    initialListForm Nothing
             in
                 { model | listForm = { listForm | show = True } } ! []
 
@@ -174,6 +174,32 @@ update msg model =
                     in
                         model ! []
 
+        EditList list ->
+            let
+                listForm =
+                    initialListForm (Just list.id)
+            in
+                { model
+                    | listForm =
+                        { listForm
+                            | name' = list.name
+                            , show = True
+                        }
+                }
+                    ! []
+
+        UpdateBoard raw ->
+            case JD.decodeValue boardResponseDecoder raw of
+                Ok payload ->
+                    { model | board = Just payload.board } ! []
+
+                Err error ->
+                    let
+                        _ =
+                            Debug.log "error" error
+                    in
+                        { model | fetching = False } ! []
+
 
 addMember : Model -> Cmd Msg
 addMember model =
@@ -214,7 +240,9 @@ saveList model =
                     JE.object
                         [ ( "list"
                           , JE.object
-                                [ ( "name", JE.string listForm.name' ) ]
+                                [ ( "id", JE.int (Maybe.withDefault 0 listForm.id) )
+                                , ( "name", JE.string listForm.name' )
+                                ]
                           )
                         ]
 
@@ -227,7 +255,7 @@ saveList model =
                             "lists:create"
 
                         Just listId ->
-                            "lists:update"
+                            "list:update"
 
                 push =
                     Push.init channel topic

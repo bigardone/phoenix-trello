@@ -4,55 +4,61 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Lists.Model exposing (..)
+import Boards.Model as BoardsModel
 import Boards.Types exposing (..)
 import Cards.View exposing (..)
 
 
-listsWrapperView : Maybe (List Model) -> ListForm -> Html Msg
-listsWrapperView maybeLists listForm =
+listsWrapperView : BoardsModel.Model -> Maybe (List Model) -> ListForm -> Html Msg
+listsWrapperView boardModel maybeLists listForm =
     case maybeLists of
         Nothing ->
             text ""
 
         Just lists ->
             [ addNewListView listForm ]
-                |> List.append (List.map listView lists)
+                |> List.append (List.map (\list -> listView boardModel.listForm list) lists)
                 |> div
                     [ class "lists-wrapper" ]
 
 
-listView : Model -> Html Msg
-listView list =
+listView : ListForm -> Model -> Html Msg
+listView listForm list =
     div
         [ id <| toString list.id
         , class "list"
         ]
         [ div
             [ class "inner" ]
-            [ headerView list
+            [ headerView listForm list
             , cardsWrapperView list.cards
             ]
         ]
 
 
-headerView : Model -> Html Msg
-headerView list =
-    header
-        []
-        [ h4
-            []
-            [ text list.name ]
-        ]
+headerView : ListForm -> Model -> Html Msg
+headerView listForm list =
+    case ( Maybe.withDefault 0 listForm.id == list.id, listForm.show ) of
+        ( True, True ) ->
+            listFormView listForm
+
+        _ ->
+            header
+                [ onClick (EditList list) ]
+                [ h4
+                    []
+                    [ text list.name ]
+                ]
 
 
 addNewListView : ListForm -> Html Msg
 addNewListView listForm =
-    case listForm.show of
-        False ->
-            addButtonView
-
-        True ->
+    case ( listForm.show, listForm.id ) of
+        ( True, Nothing ) ->
             listFormView listForm
+
+        _ ->
+            addButtonView
 
 
 addButtonView : Html Msg
@@ -70,13 +76,13 @@ addButtonView =
 listFormView : ListForm -> Html Msg
 listFormView listForm =
     let
-        buttonText =
+        ( buttonText, namePlaceholder ) =
             case listForm.id of
                 Nothing ->
-                    "Save list"
+                    ( "Save list", "Add a new list..." )
 
                 Just _ ->
-                    "Update list"
+                    ( "Update list", "Name" )
     in
         div
             [ class "list form" ]
@@ -91,7 +97,7 @@ listFormView listForm =
                         , id "list_name"
                         , type' "text"
                         , value listForm.name'
-                        , placeholder "Add a new list..."
+                        , placeholder namePlaceholder
                         , required True
                         , onInput HandleListFormNameInput
                         ]

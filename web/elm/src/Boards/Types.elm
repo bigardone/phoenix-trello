@@ -1,6 +1,7 @@
 module Boards.Types exposing (..)
 
 import Json.Encode as JE
+import Lists.Model as ListsModel
 
 
 type Msg
@@ -19,3 +20,5 @@ type Msg
     | SaveListSuccess JE.Value
     | SaveListError JE.Value
     | ListCreated JE.Value
+    | EditList ListsModel.Model
+    | UpdateBoard JE.Value

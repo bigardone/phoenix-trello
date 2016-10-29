@@ -42,7 +42,7 @@ contentView sessionModel model =
                 [ class "canvas-wrapper" ]
                 [ div
                     [ class "canvas" ]
-                    [ listsWrapperView board.lists model.listForm ]
+                    [ listsWrapperView model board.lists model.listForm ]
                 ]
             ]
 

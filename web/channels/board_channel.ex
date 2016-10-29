@@ -122,7 +122,7 @@ defmodule PhoenixTrello.BoardChannel do
       {:ok, _list} ->
         board = get_current_board(socket)
         broadcast! socket, "list:updated", %{board: board}
-        {:noreply, socket}
+        {:reply, :ok, socket}
       {:error, _changeset} ->
         {:reply, {:error, %{error: "Error updating list"}}, socket}
     end
