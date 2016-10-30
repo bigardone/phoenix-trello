@@ -33,7 +33,7 @@ update msg model =
                     in
                         { model | fetching = False } ! []
 
-        UserJoined raw ->
+        ConnectedUsers raw ->
             case JD.decodeValue connectedUsersResponseDecoder raw of
                 Ok payload ->
                     { model | connectedUsers = payload.users } ! []

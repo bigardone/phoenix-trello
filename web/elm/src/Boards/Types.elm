@@ -6,7 +6,7 @@ import Lists.Model as ListsModel
 
 type Msg
     = JoinChannelSuccess JE.Value
-    | UserJoined JE.Value
+    | ConnectedUsers JE.Value
     | ShowMembersForm Bool
     | HandleMembersFormEmailInput String
     | AddMemberStart

@@ -38,6 +38,7 @@ urlUpdate result model =
                 ( { model
                     | route = currentRoute
                     , showBoardsList = False
+                    , currentBoard = Boards.Model.initialModel
                   }
                 , authenticationCheck session
                 )
