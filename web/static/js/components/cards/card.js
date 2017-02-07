@@ -15,6 +15,7 @@ const cardSource = {
       list_id: props.list_id,
       name: props.name,
       position: props.position,
+      description: props.description,
     };
   },
 
@@ -33,6 +34,7 @@ const cardTarget = {
         list_id: targetProps.list_id,
         name: targetProps.name,
         position: targetProps.position,
+        description: targetProps.description,
       };
 
       targetProps.onDrop({ source, target });
@@ -96,7 +98,9 @@ export default class Card extends React.Component {
   }
 
   render() {
-    const { id, connectDragSource, connectDropTarget, isDragging, isOver, name } = this.props;
+    const { id, connectDragSource, connectDropTarget, isDragging, isOver, name, description } = this.props;
+
+    console.log("Des " + description);
 
     const styles = {
       display: isDragging ? 'none' : 'block',
@@ -113,6 +117,8 @@ export default class Card extends React.Component {
           <div className="card-content">
             {::this._renderTags()}
             {name}
+            <br />
+            <p className="card-description">{description}</p>
             {::this._renderFooter()}
           </div>
         </div>
