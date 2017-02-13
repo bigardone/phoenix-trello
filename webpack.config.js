@@ -30,8 +30,8 @@ var config = module.exports = {
   },
 
   resolve: {
-    extensions: ['', '.js', '.sass'],
-    modulesDirectories: ['node_modules'],
+    extensions: ['.js', '.sass'],
+    modules: ['node_modules'],
   },
 
   // more information on how our modules are structured, and
@@ -40,11 +40,11 @@ var config = module.exports = {
   // we use regexes to tell Webpack what files require special treatment, and
   // what patterns to exclude.
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel',
+        loader: 'babel-loader',
         query: {
           cacheDirectory: true,
           plugins: ['transform-decorators-legacy'],
@@ -53,9 +53,12 @@ var config = module.exports = {
       },
       {
         test: /\.sass$/,
-        loader: ExtractTextPlugin.extract('style', 'css!sass?indentedSyntax&includePaths[]=' + __dirname +  '/node_modules'),
-      },
-    ],
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader!sass-loader?indentedSyntax&includePaths[]=' + __dirname +  '/node_modules',
+        })
+      }
+    ]
   },
 
   // what plugins we'll be using - in this case, just our ExtractTextPlugin.
