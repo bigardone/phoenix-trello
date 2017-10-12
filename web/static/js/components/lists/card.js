@@ -68,30 +68,20 @@ const cardTarget = {
 
 export default class ListCard extends React.Component {
   _renderCards() {
-    const { isTeamBoard,cards, dispatch, boardId } = this.props;
-    console.log("cards are ",JSON.stringify(cards));
-    console.log("is team board ",isTeamBoard);
-   
-
+    const { isTeamBoard, dispatch, boardId } = this.props;
+    
+    let cards=this.props.cards
+    let storyCards=[];
     if(isTeamBoard){
-      let storyCards=[];
       cards.forEach((card) => {
         console.log(JSON.stringify(card))
         if(card.category==='story'){
           storyCards.push(card);
          }
         });
-        this.returnCards(storyCards)
-
+        cards=storyCards;
     }
-    else{
-      this.returnCards(cards)
-    }
-    
-  }
 
-
-  returnCards(cards){
 
     return cards.map((card) => {
       console.log(JSON.stringify(card))

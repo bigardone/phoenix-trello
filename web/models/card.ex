@@ -3,25 +3,27 @@ defmodule PhoenixTrello.Card do
 
   alias PhoenixTrello.{Repo, List, Card, Comment, CardMember}
 
-  @derive {Poison.Encoder, only: [:id, :list_id, :name, :description, :position, :comments, :tags, :members]}
+  @derive {Poison.Encoder, only: [:id, :list_id, :name, :description, :position, :comments, :tags, :members, :card_id]}
 
   schema "cards" do
     field :name, :string
     field :description, :string
     field :position, :integer
     field :tags, {:array, :string}
+    field :category, :string
 
+    belongs_to :card, Card
     belongs_to :list, List
     has_many :comments, Comment
     has_many :card_members, CardMember
-    has_many :child_cards, Card, foreign_key: :parent_id
+    has_many :child_cards, Card, foreign_key: :card_id
     has_many :members, through: [:card_members, :user]
 
     timestamps
   end
 
   @required_fields ~w(name list_id)
-  @optional_fields ~w(description position tags parent_id)
+  @optional_fields ~w(description position tags card_id category)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -57,8 +59,8 @@ defmodule PhoenixTrello.Card do
 
   def preload_all(query \\ %Card{}) do
     comments_query = from c in Comment, order_by: [desc: c.inserted_at], preload: :user
-
-    from c in query, preload: [:members, [comments: ^comments_query]]
+    
+    from c in query, preload: [:members, :child_cards, [comments: ^comments_query]]
   end
 
   def get_by_user_and_board(query \\ %Card{}, card_id, user_id, board_id) do

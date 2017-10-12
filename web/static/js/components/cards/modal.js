@@ -95,7 +95,7 @@ export default class CardModal extends React.Component {
 
     const story = {
       parent_id: id,
-      category:story,
+      category:'story',
 
       story: storyText.value.trim(),
     };
