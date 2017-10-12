@@ -151,6 +151,29 @@ defmodule PhoenixTrello.BoardChannel do
     end
   end
 
+  def handle_in("card:add_story", %{"parent_id" => parent_id, "story" => story, "category" => category}, socket) do
+    current_user = socket.assigns.current_user
+
+    card = socket.assigns.board
+      |> assoc(:child_cards)
+      |> Repo.get!(parent_id)
+      |> build_assoc(:child_cards)
+
+    changeset = Card.changeset(card, %{name: story, category: category, card_id: parent_id, user_id: current_user.id})
+
+    case Repo.insert(changeset) do
+      {:ok, _comment} ->
+        card = Card
+        |> Card.preload_all
+        |> Repo.get(parent_id)
+
+        broadcast! socket, "card:created", %{board: get_current_board(socket), card: card}
+        {:noreply, socket}
+      {:error, _changeset} ->
+        {:reply, {:error, %{error: "Error creating story"}}, socket}
+    end
+  end
+
   def handle_in("card:add_member", %{"card_id" => card_id, "user_id" => user_id}, socket) do
     try do
       current_board = socket.assigns.board
