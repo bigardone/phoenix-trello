@@ -25,6 +25,13 @@ const Actions = {
       channel.push('card:add_comment', comment);
     };
   },
+  //to create a story
+  createCardStory: (channel, comment) => {
+    return dispatch => {
+      channel.push('card:add_story', comment);
+    };
+  },
+
 
   reset: (channel, comment) => {
     return dispatch => {

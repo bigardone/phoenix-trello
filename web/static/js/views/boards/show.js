@@ -59,7 +59,9 @@ class BoardsShowView extends React.Component {
   }
 
   _renderLists() {
-    const { lists, channel, editingListId, id, addingNewCardInListId } = this.props.currentBoard;
+    //dummy
+    this.props.currentBoard.isTeamBoard=false;
+    const { lists, channel, editingListId, id, addingNewCardInListId,isTeamBoard } = this.props.currentBoard;
 
     return lists.map((list) => {
       return (
@@ -68,6 +70,7 @@ class BoardsShowView extends React.Component {
           boardId={id}
           dispatch={this.props.dispatch}
           channel={channel}
+          isTeamBoard={isTeamBoard}
           isEditing={editingListId === list.id}
           onDropCard={::this._handleDropCard}
           onDropCardWhenEmpty={::this._handleDropCardWhenEmpty}

@@ -7,6 +7,17 @@ export default class BoardForm extends React.Component {
   componentDidMount() {
     this.refs.name.focus();
   }
+  constructor(props) {
+    super(props);
+    this.state = {
+      isChecked: false,
+    };
+  }
+  toggleChange = () => {
+    this.setState({
+      isChecked: !this.state.isChecked,
+    });
+  }
 
   _handleSubmit(e) {
     e.preventDefault();
@@ -35,10 +46,19 @@ export default class BoardForm extends React.Component {
         <div className="board form">
           <div className="inner">
             <h4>New board</h4>
+            
             <form id="new_board_form" onSubmit={::this._handleSubmit}>
               <input ref="name" id="board_name" type="text" placeholder="Board name" required="true"/>
+              <div>
+            <input className="team-check" type="checkbox"
+              checked={this.state.isChecked}
+              onChange={this.toggleChange}
+            />
+            Is a team board
+           </div>
               {renderErrorsFor(errors, 'name')}
               <button type="submit">Create board</button> or <a href="#" onClick={::this._handleCancelClick}>cancel</a>
+              
             </form>
           </div>
         </div>

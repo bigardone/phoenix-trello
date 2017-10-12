@@ -3,17 +3,37 @@ import ReactGravatar      from 'react-gravatar';
 import PageClick          from 'react-page-click';
 import moment             from 'moment';
 import { push }           from 'react-router-redux';
+ //import StoryCard         from './story_card';
+
 
 import Actions            from '../../actions/current_card';
 import BoardActions       from '../../actions/current_board';
 import MembersSelector    from './members_selector';
 import TagsSelector       from './tags_selector';
 
+
 export default class CardModal extends React.Component {
   componentDidUpdate() {
     const { edit } = this.props;
 
     if (edit) this.refs.name.focus();
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      showComponent: false,
+      renderStory :false
+    };
+    this._onButtonClick = this._onButtonClick.bind(this);
+    this._renderStoryCard = this._renderStoryCard.bind(this);
+    
+  }
+  
+  _onButtonClick() {
+    this.setState({
+      showComponent: true,
+    });
   }
 
   _closeModal(e) {
@@ -64,6 +84,25 @@ export default class CardModal extends React.Component {
     dispatch(Actions.createCardComment(channel, comment));
 
     commentText.value = '';
+  }
+
+  _handleStoryFormSubmit(e) {
+    e.preventDefault();
+
+    const { id } = this.props.card;
+    const { channel, dispatch } = this.props;
+    const { storyText } = this.refs;
+
+    const story = {
+      parent_id: id,
+      category:story,
+
+      story: storyText.value.trim(),
+    };
+
+    dispatch(Actions.createCardStory(channel, story));
+
+    storyText.value = '';
   }
 
   _renderComments(card) {
@@ -213,6 +252,7 @@ export default class CardModal extends React.Component {
     dispatch(Actions.showTagsSelector(true));
   }
 
+
   _renderMembersSelector() {
     const { card, boardMembers, showMembersSelector, dispatch, channel } = this.props;
     const { members } = card;
@@ -258,6 +298,54 @@ export default class CardModal extends React.Component {
     dispatch(Actions.showTagsSelector(false));
   }
 
+
+  _renderStoryCard(e){
+    e.preventDefault();
+    this.setState({
+      renderStory:true
+    })
+
+    }
+
+
+
+    _renderStoryForm() {
+      const { currentUser } = this.props;
+  
+      return (
+        <div className="form-wrapper">
+          <form onSubmit={::this._handleStoryFormSubmit}>
+            <header>
+              <h4>Add Story</h4>
+            </header>
+            <div className="gravatar-wrapper">
+              <ReactGravatar className="react-gravatar" email={currentUser.email} https />
+            </div>
+            <div className="form-controls">
+              <textarea
+                ref="storyText"
+                rows="1"
+                placeholder="Write a Story..."
+                required="true"/>
+              <button type="submit">Save story</button>
+            </div>
+          </form>
+        </div>
+      );
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+   
   render() {
     const { card, boardMembers, showMembersSelector } = this.props;
     const { members } = card;
@@ -273,6 +361,9 @@ export default class CardModal extends React.Component {
               <div className="info">
                 {::this._renderHeader()}
                 {::this._renderCommentForm()}
+                
+                {::this._renderStoryForm()}
+                
                 {::this._renderComments(card)}
               </div>
               <div className="options">
@@ -280,19 +371,27 @@ export default class CardModal extends React.Component {
                 <a className="button" href="#" onClick={::this._handleShowMembersClick}>
                   <i className="fa fa-user"/> Members
                 </a>
+                
                 {::this._renderMembersSelector()}
                 <a className="button" href="#" onClick={::this._handleShowTagsClick}>
                   <i className="fa fa-tag"/> Tags
                 </a>
                 {::this._renderTagsSelector()}
               </div>
+              
+              
+              
             </div>
+          
           </PageClick>
         </div>
+       
       </div>
     );
   }
 }
+
+
 
 CardModal.propTypes = {
 };
