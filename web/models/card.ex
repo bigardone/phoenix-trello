@@ -14,13 +14,14 @@ defmodule PhoenixTrello.Card do
     belongs_to :list, List
     has_many :comments, Comment
     has_many :card_members, CardMember
+    has_many :child_cards, Card, foreign_key: :parent_id
     has_many :members, through: [:card_members, :user]
 
     timestamps
   end
 
   @required_fields ~w(name list_id)
-  @optional_fields ~w(description position tags)
+  @optional_fields ~w(description position tags parent_id)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
