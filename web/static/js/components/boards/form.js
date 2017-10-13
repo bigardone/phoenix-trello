@@ -23,10 +23,14 @@ export default class BoardForm extends React.Component {
     e.preventDefault();
 
     const { dispatch } = this.props;
-    const { name } = this.refs;
+    const { name,team_board } = this.refs;
+    console.log("checking for team board",team_board.checked);
 
     const data = {
       name: name.value,
+      is_team_board:team_board.checked
+      
+    
     };
 
     dispatch(Actions.create(data));
@@ -50,7 +54,7 @@ export default class BoardForm extends React.Component {
             <form id="new_board_form" onSubmit={::this._handleSubmit}>
               <input ref="name" id="board_name" type="text" placeholder="Board name" required="true"/>
               <div>
-            <input className="team-check" type="checkbox"
+            <input className="team-check" type="checkbox" ref="team_board"
               checked={this.state.isChecked}
               onChange={this.toggleChange}
             />
