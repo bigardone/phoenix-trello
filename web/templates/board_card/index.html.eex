@@ -1,0 +1,28 @@
+<h2>Listing board cards</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Board</th>
+      <th>Card</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for board_card <- @board_cards do %>
+    <tr>
+      <td><%= board_card.board_id %></td>
+      <td><%= board_card.card_id %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: board_card_path(@conn, :show, board_card), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: board_card_path(@conn, :edit, board_card), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: board_card_path(@conn, :delete, board_card), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New board card", to: board_card_path(@conn, :new) %>

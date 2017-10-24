@@ -18,8 +18,8 @@
     <footer id="main_footer">
       <small>
         <a href="https://trello.com/" target="_blank">TrelloX</a> built for TandF people
-        crafted with ♥ for <a href="https://diacode.com/">Diacode</a>
-        by <a href="https://twitter.com/bigardone">@bigardone</a></small>
+        crafted with ♥Respect for <a href="https://henryjacob.com/">Henry Jacob</a>
+        by <a href="https://twitter.com/jesuvalan">@Jesu</a></small>
     </footer>
     <script src="<%= static_path(@conn, "/js/application.js") %>"></script>
   </body>

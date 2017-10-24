@@ -1,0 +1,18 @@
+<h2>Show list card</h2>
+
+<ul>
+
+  <li>
+    <strong>List:</strong>
+    <%= @list_card.list_id %>
+  </li>
+
+  <li>
+    <strong>Card:</strong>
+    <%= @list_card.card_id %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: list_card_path(@conn, :edit, @list_card) %>
+<%= link "Back", to: list_card_path(@conn, :index) %>
