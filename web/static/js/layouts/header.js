@@ -33,7 +33,7 @@ class Header extends React.Component {
       return this._createBoardItem(dispatch, currentBoard, socket, board);
     });
 
-    const ownedBoardsItemsHeader = ownedBoardsItems.length > 0 ? <header className="title"><i className="fa fa-user"/> Owned boards</header> : null;
+    const ownedBoardsItemsHeader = ownedBoardsItems.length > 0 ? <header className="title"><i className="fa fa-user"/> Owned projects</header> : null;
 
     const invitedBoardsItems = invitedBoards.map((board) => {
       return this._createBoardItem(dispatch, currentBoard, socket, board);
@@ -54,7 +54,7 @@ class Header extends React.Component {
           </ul>
           <ul className="options">
             <li>
-              <Link to="/" onClick={::this._hideBoards}>View all boards</Link>
+              <Link to="/" onClick={::this._hideBoards}>View all projects</Link>
             </li>
           </ul>
         </div>
