@@ -143,7 +143,7 @@ export default class CardModal extends React.Component {
               placeholder="Description"
               rows="5"
               defaultValue={card.description} />
-            <button type="submit">Save card</button> or <a href="#" onClick={::this._handleCancelClick}>cancel</a>
+            <button type="submit">Save task</button> or <a href="#" onClick={::this._handleCancelClick}>cancel</a>
           </form>
         </header>
       );

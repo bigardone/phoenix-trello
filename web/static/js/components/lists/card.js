@@ -104,7 +104,7 @@ export default class ListCard extends React.Component {
     if (isAddingNewCard) return false;
 
     return (
-      <a className="add-new" href="#" onClick={::this._handleAddClick}>Add a new card...</a>
+      <a className="add-new" href="#" onClick={::this._handleAddClick}>Add a new task...</a>
     );
   }
 
