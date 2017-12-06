@@ -25,7 +25,7 @@ config :logger, level: :info
 config :phoenix_trello, PhoenixTrello.Repo,
   adapter: Ecto.Adapters.Postgres,
   url: System.get_env("DATABASE_URL"),
-  pool_size: 20
+  pool_size: 10
 
 # Configure guardian
 config :guardian, Guardian,
