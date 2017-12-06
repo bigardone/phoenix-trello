@@ -8,7 +8,7 @@ defmodule PhoenixTrello.UserSocket do
   channel "users:*", PhoenixTrello.UserChannel
 
   # Transports
-  transport :websocket, Phoenix.Transports.WebSocket
+  transport :websocket, Phoenix.Transports.WebSocket,
   transport :longpoll, Phoenix.Transports.LongPoll
 
   def connect(%{"token" => token}, socket) do
