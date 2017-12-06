@@ -124,7 +124,7 @@ class Header extends React.Component {
         <nav id="boards_nav">
           <ul>
             <li>
-              <a href="#" onClick={::this._handleBoardsClick}><i className="fa fa-columns"/> Boards</a>
+              <a href="#" onClick={::this._handleBoardsClick}><i className="fa fa-columns"/> Projects</a>
               {::this._renderBoards()}
             </li>
           </ul>
