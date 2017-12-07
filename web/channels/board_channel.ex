@@ -95,9 +95,8 @@ defmodule PhoenixTrello.BoardChannel do
       |> Repo.get!(card_params["id"])
 
     changeset = Card.update_changeset(card, card_params)
-
     case Repo.update(changeset) do
-      {:ok, card} ->
+      {:ok, _card} ->
         board = get_current_board(socket)
 
         card = Card

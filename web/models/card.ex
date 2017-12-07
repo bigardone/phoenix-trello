@@ -30,13 +30,13 @@ defmodule PhoenixTrello.Card do
   """
   def changeset(model, params \\ %{}) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @required_fields ++ @optional_fields)
     |> calculate_position()
   end
 
   def update_changeset(model, params \\ %{}) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @required_fields ++ @optional_fields)
   end
 
   defp calculate_position(current_changeset) do
