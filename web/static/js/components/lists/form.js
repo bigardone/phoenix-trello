@@ -45,7 +45,7 @@ export default class ListForm extends React.Component {
 
   render() {
     const defaultValue = this.props.list ? this.props.list.name : '';
-    const buttonText   = this.props.list ? 'Update list' : 'Save list';
+    const buttonText   = this.props.list ? 'Update stage' : 'Save stage';
 
     return (
       <PageClick onClick={::this._handleCancelClick}>
