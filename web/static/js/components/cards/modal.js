@@ -8,6 +8,7 @@ import Actions            from '../../actions/current_card';
 import BoardActions       from '../../actions/current_board';
 import MembersSelector    from './members_selector';
 import TagsSelector       from './tags_selector';
+import PrioritySetter     from './priority_setter';
 
 export default class CardModal extends React.Component {
   componentDidUpdate() {
@@ -213,6 +214,14 @@ export default class CardModal extends React.Component {
     dispatch(Actions.showTagsSelector(true));
   }
 
+  _handleShowPriorityClick(e) {
+    e.preventDefault();
+
+    const { dispatch } = this.props;
+
+    dispatch(Actions.showPrioritySetter(true));
+  }
+
   _renderMembersSelector() {
     const { card, boardMembers, showMembersSelector, dispatch, channel } = this.props;
     const { members } = card;
@@ -258,6 +267,28 @@ export default class CardModal extends React.Component {
     dispatch(Actions.showTagsSelector(false));
   }
 
+  _renderPrioritySetter() {
+    const { card, showPrioritySetter, dispatch, channel } = this.props;
+    const { priority } = card;
+
+    if(!showPrioritySetter) return false;
+
+    return (
+      <PrioritySetter
+        channel={channel}
+        cardId={card.id}
+        dispatch={dispatch}
+        settedPriority={priority}
+        close={::this._onPrioritySetterClose}/>
+    )
+  }
+
+  _onPrioritySetterClose() {
+    const { dispatch } = this.props;
+
+    dispatch(Actions.showPrioritySetter(false));
+  }
+
   render() {
     const { card, boardMembers, showMembersSelector } = this.props;
     const { members } = card;
@@ -285,6 +316,10 @@ export default class CardModal extends React.Component {
                   <i className="fa fa-tag"/> Tags
                 </a>
                 {::this._renderTagsSelector()}
+                <a className="button" href="#" onClick={::this._handleShowPriorityClick}>
+                  <i className="fa fa-tasks"/> Priority
+                </a>
+                {::this._renderPrioritySetter()}
               </div>
             </div>
           </PageClick>

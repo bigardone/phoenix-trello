@@ -27,7 +27,7 @@ export default class BoardMembers extends React.Component {
 
     return (
       <li>
-        <a onClick={::this._handleAddNewClick} className="add-new" href="#"><i className="fa fa-plus"/><p>Add member</p></a>
+        <a onClick={::this._handleAddNewClick} className="add-new" href="#"><i className="fa fa-user-plus"/><p>Add member</p></a>
         {::this._renderForm()}
       </li>
     );

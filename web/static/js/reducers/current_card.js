@@ -7,6 +7,7 @@ const initialState = {
   fetching: true,
   showMembersSelector: false,
   showTagsSelector: false,
+  showPrioritySetter: false,
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -37,6 +38,9 @@ export default function reducer(state = initialState, action = {}) {
 
     case Constants.CURRENT_CARD_SHOW_TAGS_SELECTOR:
       return { ...state, showTagsSelector: action.show };
+
+    case Constants.CURRENT_CARD_SHOW_PRIORITY_SETTER:
+      return { ...state, showPrioritySetter: action.show };
 
     default:
       return state;
