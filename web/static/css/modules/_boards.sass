@@ -94,6 +94,7 @@
           +transition
           opacity: 1
           display: block
+          width: 170px
           position: relative
           border: 1px solid rgba(#fff, .5)
           color: rgba(#fff, .5)
@@ -101,6 +102,12 @@
           font-size: .9em
 
           .fa
+            +transform(translate(-50%, -50%))
+            position: absolute
+            top: 50%
+            left: 10%
+
+          p
             +transform(translate(-50%, -50%))
             position: absolute
             top: 50%

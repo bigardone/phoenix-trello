@@ -9,7 +9,7 @@ import BoardForm            from '../../components/boards/form';
 
 class HomeIndexView extends React.Component {
   componentDidMount() {
-    setDocumentTitle('Boards');
+    setDocumentTitle('Projects');
   }
 
   componentWillUnmount() {

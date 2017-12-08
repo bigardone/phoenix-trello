@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Phoenix Trello</title>
+    <title>Projectiv</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/application.css") %>">
     <link id="favicon" rel="icon" type="image/png" sizes="64x64" href="<%= static_path(@conn, "/images/favicon.png") %>"/>
