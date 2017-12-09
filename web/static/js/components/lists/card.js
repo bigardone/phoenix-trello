@@ -145,7 +145,7 @@ export default class ListCard extends React.Component {
     } else {
       return (
         <header onClick={::this._handleHeaderClick}>
-          <h4>{this.props.name}</h4>
+          <h4>{this.props.name}</h4><i className="fa fa-edit"/>
         </header>
       );
     }

@@ -40,7 +40,7 @@ export default class CardModal extends React.Component {
           <div className="form-controls">
             <textarea
               ref="commentText"
-              rows="5"
+              rows="3"
               placeholder="Write a comment..."
               required="true"/>
             <button type="submit">Save comment</button>
@@ -152,12 +152,13 @@ export default class CardModal extends React.Component {
       return (
         <header>
           <h3>{card.name}</h3>
+          <h5>{card.priority}</h5>
           <div className="items-wrapper">
             {::this._renderMembers()}
             {::this._renderTags()}
           </div>
           <h5>Description</h5>
-          <p>{card.description}</p>
+          <div className="description">{card.description}</div>
           <a href="#" onClick={::this._handleHeaderClick}>Edit</a>
         </header>
       );

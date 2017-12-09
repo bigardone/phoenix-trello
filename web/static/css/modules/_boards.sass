@@ -195,6 +195,14 @@
         cursor: -moz-grab
         cursor: grab
 
+        .card
+          &:hover
+            box-shadow: 6px 0 shade($base-font-color, 20)
+            // cursor: move
+          &:active
+            cursor: move
+
+
         .list.form
           +flex(none)
           +fill-parent
@@ -210,6 +218,17 @@
         text-overflow: ellipsis
         white-space: nowrap
         overflow: hidden
+        display: flex
+        align-items: center
+        &:hover
+          .fa
+            opacity: 1
+
+        h4, .fa
+          margin: 0em .4em .75em 0em
+
+        .fa
+          opacity: 0
 
       &.form
         display: inline-block

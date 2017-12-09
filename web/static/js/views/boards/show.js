@@ -96,7 +96,7 @@ class BoardsShowView extends React.Component {
     return (
       <div className="list add-new" onClick={::this._handleAddNewClick}>
         <div className="inner">
-          Add new list...
+          Add new stage...
         </div>
       </div>
     );
