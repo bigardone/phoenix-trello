@@ -20,6 +20,24 @@ const Actions = {
     };
   },
 
+  editTitle: (edit) => {
+    return dispatch => {
+      dispatch({
+        type: Constants.CURRENT_CARD_TITLE_EDIT,
+        edit: edit,
+      });
+    };
+  },
+
+  editDescription: (edit) => {
+    return dispatch => {
+      dispatch({
+        type: Constants.CURRENT_CARD_DESCRIPTION_EDIT,
+        edit: edit,
+      });
+    };
+  },
+
   createCardComment: (channel, comment) => {
     return dispatch => {
       channel.push('card:add_comment', comment);

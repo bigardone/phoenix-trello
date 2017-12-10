@@ -21,7 +21,7 @@ export default class PrioritySetter extends React.Component {
   _renderPrioritiesList() {
     const { settedPriority } = this.props;
 
-    const priorities = ['No priority', 'Low', 'Normal', 'Medium', 'High', 'Critical'];
+    const priorities = [ 'Low', 'Medium', 'High' ];
 
     const prioritiesNodes = priorities.map((priority) => {
       const isSelected = priority == settedPriority;

@@ -97,72 +97,124 @@ export default class CardModal extends React.Component {
     );
   }
 
-  _handleHeaderClick(e) {
-    e.preventDefault();
+  _renderDescription() {
+    const { card, editDescription } = this.props;
 
-    const { dispatch } = this.props;
-    dispatch(Actions.editCard(true));
+    if (editDescription) {
+      return (
+        <form onSubmit={::this._handleDescriptionSubmit}>
+          <h5>Description</h5>
+          <textarea
+            ref="description"
+            type="text"
+            placeholder="Description"
+            rows="5"
+            defaultValue={card.description} />
+          <button type="submit">Save</button> or <a href="#" onClick={::this._handleDescriptionCancel}>cancel</a>
+        </form>
+      );
+    }
+    else {
+      return (
+        <div>
+          <h5>Description</h5>
+          <div className="description">{card.description}</div>
+          <a href="#" onClick={::this._handleDescriptionClick}>Edit</a>
+        </div>
+      );
+    }
   }
 
-  _handleCancelClick(e) {
+  _handleDescriptionClick(e) {
     e.preventDefault();
     const { dispatch } = this.props;
-    dispatch(Actions.editCard(false));
+    dispatch(Actions.editDescription(true))
   }
 
-  _handleFormSubmit(e) {
+  _handleDescriptionCancel(e) {
+    e.preventDefault();
+    const { dispatch } = this.props;
+    dispatch(Actions.editDescription(false));
+  }
+
+  _handleDescriptionSubmit(e) {
     e.preventDefault();
 
-    const { name, description } = this.refs;
+    const { description } = this.refs;
 
     const { card } = this.props;
 
-    card.name = name.value.trim();
     card.description = description.value.trim();
 
     const { channel, dispatch } = this.props;
 
     dispatch(BoardActions.updateCard(channel, card));
+    dispatch(Actions.editDescription(false));
+  }
+
+  _renderTitle() {
+    const { card, editTitle } = this.props;
+
+    if(editTitle) {
+      return (
+        <PageClick onClick={::this._handleTitleClose}>
+          <input
+            ref="name"
+            type="text"
+            placeholder="Title"
+            required="true"
+            defaultValue={card.name}/>
+        </PageClick>
+      );
+    }
+    else {
+      return (
+        <h3>
+          <a href="#" onClick={::this._handleTitleClick}>{card.name}</a>
+        </h3>
+      );
+    }
+  }
+
+  _handleTitleClick(e) {
+    e.preventDefault();
+
+    const { dispatch } = this.props;
+    dispatch(Actions.editTitle(true))
+  }
+
+  _handleTitleClose(e) {
+    e.preventDefault();
+
+    const { name } = this.refs;
+
+    const { card } = this.props;
+
+    const { channel, dispatch } = this.props;
+
+    if (name != card.name) {
+      card.name = name.value.trim();
+
+      dispatch(BoardActions.updateCard(channel, card));
+    }
+
+    dispatch(Actions.editTitle(false));
   }
 
   _renderHeader() {
-    const { card, edit } = this.props;
+    const { card } = this.props;
 
-    if (edit) {
-      return (
-        <header className="editing">
-          <form onSubmit={::this._handleFormSubmit}>
-            <input
-              ref="name"
-              type="text"
-              placeholder="Title"
-              required="true"
-              defaultValue={card.name} />
-            <textarea
-              ref="description"
-              type="text"
-              placeholder="Description"
-              rows="5"
-              defaultValue={card.description} />
-            <button type="submit">Save task</button> or <a href="#" onClick={::this._handleCancelClick}>cancel</a>
-          </form>
-        </header>
-      );
-    } else {
-      return (
-        <header>
-          <h3>{card.name}</h3>
-          <h5>{card.priority}</h5>
-          <div className="items-wrapper">
-            {::this._renderMembers()}
-            {::this._renderTags()}
-          </div>
-          <h5>Description</h5>
-          <div className="description">{card.description}</div>
-          <a href="#" onClick={::this._handleHeaderClick}>Edit</a>
-        </header>
-      );
-    }
+    return (
+      <header>
+        {::this._renderTitle()}
+        <h5>Priority: {card.priority}</h5>
+        <div className="items-wrapper">
+          {::this._renderMembers()}
+          {::this._renderTags()}
+        </div>
+        {::this._renderDescription()}
+      </header>
+    );
   }
 
   _renderMembers() {
