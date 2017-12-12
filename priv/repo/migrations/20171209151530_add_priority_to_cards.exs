@@ -3,7 +3,7 @@ defmodule PhoenixTrello.Repo.Migrations.AddPriorityToCards do
 
   def change do
     alter table(:cards) do
-      add :priority, :text
+      add :priority, :boolean, null: false
     end
   end
 end

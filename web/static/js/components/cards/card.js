@@ -98,11 +98,20 @@ export default class Card extends React.Component {
   _renderPriority() {
     const { priority } = this.props;
 
+    if (priority) {
+      return (
+        <i className="fa fa-star"/>
+      );
+    }
+    else {
+      return false;
+    }
+  }
+
+  _renderEdit() {
     return (
-      <div className="priority-wrapper">
-        <h5>Priority: {priority}</h5>
-      </div>
-    )
+      <i className="fa fa-edit"/>
+    );
   }
 
   render() {
@@ -124,6 +133,7 @@ export default class Card extends React.Component {
             {::this._renderTags()}
             {name}
             {::this._renderPriority()}
+            {::this._renderEdit()}
             {::this._renderFooter()}
           </div>
         </div>

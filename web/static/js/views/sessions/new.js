@@ -37,6 +37,8 @@ class SessionsNew extends React.Component {
         <main>
           <header>
             <div className="logo" />
+            <p>Make Project Management Easier</p>
+            <p>Sign in or sign up to start managing your projects</p>
           </header>
           <form id="sign_in_form" onSubmit={::this._handleSubmit}>
             {::this._renderError()}

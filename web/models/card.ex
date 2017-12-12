@@ -10,7 +10,7 @@ defmodule PhoenixTrello.Card do
     field :description, :string
     field :position, :integer
     field :tags, {:array, :string}
-    field :priority, :string
+    field :priority, :boolean, default: false
 
     belongs_to :list, List
     has_many :comments, Comment

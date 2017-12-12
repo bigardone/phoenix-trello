@@ -152,6 +152,34 @@ export default class CardModal extends React.Component {
     dispatch(Actions.editDescription(false));
   }
 
+
+  _handleStarClick(e) {
+    e.preventDefault();
+
+    const { card } = this.props;
+
+    const { channel, dispatch } = this.props;
+
+    card.priority = !card.priority;
+
+    dispatch(BoardActions.updateCard(channel, card))
+  }
+
+  _renderStar() {
+    const { card } = this.props;
+
+    if (card.priority) {
+      return (
+        <i className="fa fa-star"/>
+      );
+    }
+    else {
+      return (
+        <i className="fa fa-star-o"/>
+      );
+    }
+  }
+
   _renderTitle() {
     const { card, editTitle } = this.props;
 
@@ -171,6 +199,7 @@ export default class CardModal extends React.Component {
       return (
         <h3>
           <a href="#" onClick={::this._handleTitleClick}>{card.name}</a>
+          <a href="#" onClick={::this._handleStarClick}>{::this._renderStar()}</a>
         </h3>
       );
     }
@@ -207,7 +236,6 @@ export default class CardModal extends React.Component {
     return (
       <header>
         {::this._renderTitle()}
-        <h5>Priority: {card.priority}</h5>
         <div className="items-wrapper">
           {::this._renderMembers()}
           {::this._renderTags()}
@@ -245,7 +273,7 @@ export default class CardModal extends React.Component {
 
     return (
       <div className="card-tags">
-      <h5>Tags</h5>
+      <h5>Colors</h5>
         {tagsNodes}
       </div>
     );
@@ -267,13 +295,13 @@ export default class CardModal extends React.Component {
     dispatch(Actions.showTagsSelector(true));
   }
 
-  _handleShowPriorityClick(e) {
-    e.preventDefault();
-
-    const { dispatch } = this.props;
-
-    dispatch(Actions.showPrioritySetter(true));
-  }
+  // _handleShowPriorityClick(e) {
+  //   e.preventDefault();
+  //
+  //   const { dispatch } = this.props;
+  //
+  //   dispatch(Actions.showPrioritySetter(true));
+  // }
 
   _renderMembersSelector() {
     const { card, boardMembers, showMembersSelector, dispatch, channel } = this.props;
@@ -320,27 +348,27 @@ export default class CardModal extends React.Component {
     dispatch(Actions.showTagsSelector(false));
   }
 
-  _renderPrioritySetter() {
-    const { card, showPrioritySetter, dispatch, channel } = this.props;
-    const { priority } = card;
-
-    if(!showPrioritySetter) return false;
-
-    return (
-      <PrioritySetter
-        channel={channel}
-        cardId={card.id}
-        dispatch={dispatch}
-        settedPriority={priority}
-        close={::this._onPrioritySetterClose}/>
-    )
-  }
-
-  _onPrioritySetterClose() {
-    const { dispatch } = this.props;
-
-    dispatch(Actions.showPrioritySetter(false));
-  }
+  // _renderPrioritySetter() {
+  //   const { card, showPrioritySetter, dispatch, channel } = this.props;
+  //   const { priority } = card;
+  //
+  //   if(!showPrioritySetter) return false;
+  //
+  //   return (
+  //     <PrioritySetter
+  //       channel={channel}
+  //       cardId={card.id}
+  //       dispatch={dispatch}
+  //       settedPriority={priority}
+  //       close={::this._onPrioritySetterClose}/>
+  //   )
+  // }
+  //
+  // _onPrioritySetterClose() {
+  //   const { dispatch } = this.props;
+  //
+  //   dispatch(Actions.showPrioritySetter(false));
+  // }
 
   render() {
     const { card, boardMembers, showMembersSelector } = this.props;
@@ -366,13 +394,9 @@ export default class CardModal extends React.Component {
                 </a>
                 {::this._renderMembersSelector()}
                 <a className="button" href="#" onClick={::this._handleShowTagsClick}>
-                  <i className="fa fa-tag"/> Tags
+                  <i className="fa fa-tag"/> Colors
                 </a>
                 {::this._renderTagsSelector()}
-                <a className="button" href="#" onClick={::this._handleShowPriorityClick}>
-                  <i className="fa fa-tasks"/> Priority
-                </a>
-                {::this._renderPrioritySetter()}
               </div>
             </div>
           </PageClick>
@@ -381,6 +405,11 @@ export default class CardModal extends React.Component {
     );
   }
 }
+
+// <a className="button" href="#" onClick={::this._handleShowPriorityClick}>
+//   <i className="fa fa-tasks"/> Priority
+// </a>
+// {::this._renderPrioritySetter()}
 
 CardModal.propTypes = {
 };

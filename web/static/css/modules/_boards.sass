@@ -198,6 +198,8 @@
         .card
           &:hover
             box-shadow: 6px 0 shade($base-font-color, 20)
+            > .card-content > .fa-edit
+              opacity: 1
             // cursor: move
           &:active
             cursor: move
@@ -294,6 +296,14 @@
           border-radius: $base-border-radius
           border-bottom: 1px solid $gray
 
+          .fa-star
+            color: $yellow
+            margin-left: .5em
+
+          .fa-edit
+            margin-left: .5em
+            opacity: 0
+
         .tags-wrapper
           +clearfix
 
@@ -305,6 +315,7 @@
             border-radius: $base-border-radius
             &:hover
               box-shadow: 0 0 0
+
 
         .react-gravatar
           border-radius: $base-border-radius

@@ -18,6 +18,10 @@ export default class CardForm extends React.Component {
     this.props.onSubmit();
   }
 
+  _handleEdit(e) {
+    e.preventDefault();
+  }
+
   _renderErrors(field) {
     const { errors } = this.props;
 
@@ -51,7 +55,7 @@ export default class CardForm extends React.Component {
           <form id="new_card_form" onSubmit={::this._handleSubmit}>
             <textarea ref="name" id="card_name" type="text" required="true" rows={5}/>
             {::this._renderErrors('name')}
-            <button type="submit">Add</button> or <a href="#" onClick={::this._handleCancelClick}>cancel</a>
+            <button type="submit">Add</button><a href="#" onClick={::this._handleCancelClick}>cancel</a>
           </form>
         </div>
       </PageClick>
