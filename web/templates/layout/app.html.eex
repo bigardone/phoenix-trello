@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Trello tribute done in Elixir, Phoenix, React and Redux.">
+    <meta name="description" content="Trello tribute done in Elixir, Phoenix and Elm.">
     <meta name="author" content="ricardo@codeloveandboards.com">
 
     <title>Phoenix Trello</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/application.css") %>">
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
     <link id="favicon" rel="icon" type="image/png" sizes="64x64" href="<%= static_path(@conn, "/images/favicon.png") %>"/>
   </head>
 
@@ -18,9 +18,8 @@
     <footer id="main_footer">
       <small>
         <a href="https://trello.com/" target="_blank">Trello</a> tribute for educational purposes
-        crafted with ♥ for <a href="https://diacode.com/">Diacode</a>
-        by <a href="https://twitter.com/bigardone">@bigardone</a></small>
+        crafted with ♥ by <a href="https://twitter.com/bigardone">@bigardone</a></small>
     </footer>
-    <script src="<%= static_path(@conn, "/js/application.js") %>"></script>
+    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>
