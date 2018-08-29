@@ -20,6 +20,24 @@ const Actions = {
     };
   },
 
+  editTitle: (edit) => {
+    return dispatch => {
+      dispatch({
+        type: Constants.CURRENT_CARD_TITLE_EDIT,
+        edit: edit,
+      });
+    };
+  },
+
+  editDescription: (edit) => {
+    return dispatch => {
+      dispatch({
+        type: Constants.CURRENT_CARD_DESCRIPTION_EDIT,
+        edit: edit,
+      });
+    };
+  },
+
   createCardComment: (channel, comment) => {
     return dispatch => {
       channel.push('card:add_comment', comment);
@@ -52,6 +70,15 @@ const Actions = {
     };
   },
 
+  showPrioritySetter: (show) => {
+    return dispatch => {
+      dispatch({
+        type: Constants.CURRENT_CARD_SHOW_PRIORITY_SETTER,
+        show: show,
+      });
+    };
+  },
+
   addMember: (channel, cardId, userId) => {
     return dispatch => {
       channel.push('card:add_member', { card_id: cardId, user_id: userId });
@@ -67,6 +94,12 @@ const Actions = {
   updateTags: (channel, cardId, tags) => {
     return dispatch => {
       channel.push('card:update', { card: { id: cardId, tags: tags } });
+    };
+  },
+
+  updatePriority: (channel, cardId, priority) => {
+    return dispatch => {
+      channel.push('card:update', { card: { id: cardId, priority: priority } });
     };
   },
 };

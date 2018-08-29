@@ -34,11 +34,11 @@ export default class BoardForm extends React.Component {
       <PageClick onClick={::this._handleCancelClick}>
         <div className="board form">
           <div className="inner">
-            <h4>New board</h4>
+            <h4>New project</h4>
             <form id="new_board_form" onSubmit={::this._handleSubmit}>
-              <input ref="name" id="board_name" type="text" placeholder="Board name" required="true"/>
+              <input ref="name" id="board_name" type="text" placeholder="Project name" required="true"/>
               {renderErrorsFor(errors, 'name')}
-              <button type="submit">Create board</button> or <a href="#" onClick={::this._handleCancelClick}>cancel</a>
+              <button type="submit">Create project</button> or <a href="#" onClick={::this._handleCancelClick}>cancel</a>
             </form>
           </div>
         </div>

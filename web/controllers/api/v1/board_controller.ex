@@ -4,7 +4,7 @@ defmodule PhoenixTrello.BoardController do
   plug Guardian.Plug.EnsureAuthenticated, handler: PhoenixTrello.SessionController
   plug :scrub_params, "board" when action in [:create]
 
-  alias PhoenixTrello.{Repo, Board, UserBoard}
+  alias PhoenixTrello.{Repo, Board, UserBoard, List}
 
   def index(conn, _params) do
     current_user = Guardian.Plug.current_resource(conn)
@@ -25,13 +25,28 @@ defmodule PhoenixTrello.BoardController do
 
   def create(conn, %{"board" => board_params}) do
     current_user = Guardian.Plug.current_resource(conn)
-
     changeset = current_user
       |> build_assoc(:owned_boards)
       |> Board.changeset(board_params)
 
     if changeset.valid? do
       board = Repo.insert!(changeset)
+
+      board
+      |> build_assoc(:lists)
+      |> List.changeset(%{"id" => nil, "name" => "To Do"})
+      |> Repo.insert!
+
+      board
+      |> build_assoc(:lists)
+      |> List.changeset(%{"id" => nil, "name" => "In Progress"})
+      |> Repo.insert!
+
+      board
+      |> build_assoc(:lists)
+      |> List.changeset(%{"id" => nil, "name" => "Compelete"})
+      |> Repo.insert!
+
 
       board
       |> build_assoc(:user_boards)

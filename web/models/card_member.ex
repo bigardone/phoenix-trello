@@ -22,7 +22,7 @@ defmodule PhoenixTrello.CardMember do
   """
   def changeset(model, params \\ %{}) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @required_fields ++ @optional_fields)
     |> unique_constraint(:user_board_id, name: :card_members_card_id_user_board_id_index)
   end
 

@@ -94,6 +94,7 @@
           +transition
           opacity: 1
           display: block
+          width: 170px
           position: relative
           border: 1px solid rgba(#fff, .5)
           color: rgba(#fff, .5)
@@ -101,6 +102,12 @@
           font-size: .9em
 
           .fa
+            +transform(translate(-50%, -50%))
+            position: absolute
+            top: 50%
+            left: 10%
+
+          p
             +transform(translate(-50%, -50%))
             position: absolute
             top: 50%
@@ -188,6 +195,16 @@
         cursor: -moz-grab
         cursor: grab
 
+        .card
+          &:hover
+            box-shadow: 6px 0 shade($base-font-color, 20)
+            > .card-content > .fa-edit
+              opacity: 1
+            // cursor: move
+          &:active
+            cursor: move
+
+
         .list.form
           +flex(none)
           +fill-parent
@@ -203,6 +220,17 @@
         text-overflow: ellipsis
         white-space: nowrap
         overflow: hidden
+        display: flex
+        align-items: center
+        &:hover
+          .fa
+            opacity: 1
+
+        h4, .fa
+          margin: 0em .4em .75em 0em
+
+        .fa
+          opacity: 0
 
       &.form
         display: inline-block
@@ -268,6 +296,14 @@
           border-radius: $base-border-radius
           border-bottom: 1px solid $gray
 
+          .fa-star
+            color: $yellow
+            margin-left: .5em
+
+          .fa-edit
+            margin-left: .5em
+            opacity: 0
+
         .tags-wrapper
           +clearfix
 
@@ -279,6 +315,7 @@
             border-radius: $base-border-radius
             &:hover
               box-shadow: 0 0 0
+
 
         .react-gravatar
           border-radius: $base-border-radius

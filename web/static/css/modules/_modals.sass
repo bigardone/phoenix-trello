@@ -36,7 +36,7 @@
       animation-name: fadeIn
 
       > header
-        margin-bottom: 1em
+          margin-bottom: 1em
 
 
   .card-modal
@@ -60,6 +60,14 @@
 
     .info
       +span-columns(9)
+
+      .description
+        background: #fff
+        border-radius: $base-border-radius
+        padding: .5em
+        border: 0px none
+        border-bottom: 1px solid $gray
+        height: 100px
 
     .options
       +span-columns(3)
@@ -92,6 +100,21 @@
     header
       h3
         color: $base-font-color
+
+        a
+          color: $base-font-color
+          margin-right: .5em
+          &:hover
+            color: #fff
+
+        .fa
+          color: $yellow
+
+      input
+        border-radius: $base-border-radius
+        padding: .5em
+        border: 0px none
+        border-bottom: 1px solid $gray
 
 
     input, textarea

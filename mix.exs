@@ -42,9 +42,9 @@ defmodule PhoenixTrello.Mixfile do
     [
       {:phoenix, "~> 1.2.1"},
       {:phoenix_pubsub, "~> 1.0"},
-      {:phoenix_ecto, "~> 3.0.1"},
+      {:phoenix_ecto, "~> 3.3.0"},
       {:postgrex, ">= 0.0.0", override: true},
-      {:phoenix_html, "~> 2.6.2"},
+      {:phoenix_html, "~> 2.9"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:cowboy, "~> 1.0"},
       {:comeonin, "~> 2.5.3"},

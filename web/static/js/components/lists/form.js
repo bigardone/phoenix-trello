@@ -45,14 +45,14 @@ export default class ListForm extends React.Component {
 
   render() {
     const defaultValue = this.props.list ? this.props.list.name : '';
-    const buttonText   = this.props.list ? 'Update list' : 'Save list';
+    const buttonText   = this.props.list ? 'Update stage' : 'Save stage';
 
     return (
       <PageClick onClick={::this._handleCancelClick}>
         <div className="list form">
           <div className="inner">
             <form id="new_list_form" onSubmit={::this._handleSubmit}>
-              <input ref="name" id="list_name" type="text" defaultValue={defaultValue} placeholder="Add a new list..." required="true"/>
+              <input ref="name" id="list_name" type="text" defaultValue={defaultValue} placeholder="Add a new stage..." required="true"/>
               {::this._renderErrors('name')}
               <button type="submit">{buttonText}</button> or <a href="#" onClick={::this._handleCancelClick}>cancel</a>
             </form>

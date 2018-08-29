@@ -95,8 +95,27 @@ export default class Card extends React.Component {
     );
   }
 
+  _renderPriority() {
+    const { priority } = this.props;
+
+    if (priority) {
+      return (
+        <i className="fa fa-star"/>
+      );
+    }
+    else {
+      return false;
+    }
+  }
+
+  _renderEdit() {
+    return (
+      <i className="fa fa-edit"/>
+    );
+  }
+
   render() {
-    const { id, connectDragSource, connectDropTarget, isDragging, isOver, name } = this.props;
+    const { id, connectDragSource, connectDropTarget, isDragging, isOver, name, priority } = this.props;
 
     const styles = {
       display: isDragging ? 'none' : 'block',
@@ -113,6 +132,8 @@ export default class Card extends React.Component {
           <div className="card-content">
             {::this._renderTags()}
             {name}
+            {::this._renderPriority()}
+            {::this._renderEdit()}
             {::this._renderFooter()}
           </div>
         </div>

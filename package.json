@@ -33,7 +33,7 @@
     "webpack": "^1.12.11"
   },
   "dependencies": {
-    "bourbon": "^4.2.6",
+    "bourbon": "^4.3.2",
     "bourbon-neat": "^1.7.2",
     "classnames": "^2.2.1",
     "es6-promise": "^3.0.2",
