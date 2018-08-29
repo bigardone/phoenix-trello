@@ -1,0 +1,6 @@
+<h2>New board card</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: board_card_path(@conn, :create) %>
+
+<%= link "Back", to: board_card_path(@conn, :index) %>

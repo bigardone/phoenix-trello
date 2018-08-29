@@ -9,6 +9,7 @@ defmodule PhoenixTrello.Board do
   schema "boards" do
     field :name, :string
     field :slug, :string
+    field :is_team_board, :boolean
 
     belongs_to :user, User
     has_many :lists, List
@@ -19,7 +20,7 @@ defmodule PhoenixTrello.Board do
     timestamps
   end
 
-  @required_fields ~w(name user_id)
+  @required_fields ~w(name user_id is_team_board)
   @optional_fields ~w(slug)
 
   @doc """

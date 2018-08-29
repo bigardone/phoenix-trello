@@ -68,9 +68,23 @@ const cardTarget = {
 
 export default class ListCard extends React.Component {
   _renderCards() {
-    const { cards, dispatch, boardId } = this.props;
+    const { isTeamBoard, dispatch, boardId } = this.props;
+    
+    let cards=this.props.cards
+    let storyCards=[];
+    if(isTeamBoard){
+      cards.forEach((card) => {
+        console.log(JSON.stringify(card))
+        if(card.category==='story'){
+          storyCards.push(card);
+         }
+        });
+        cards=storyCards;
+    }
+
 
     return cards.map((card) => {
+      console.log(JSON.stringify(card))
       return (
         <Card
           key={card.id}
@@ -80,6 +94,10 @@ export default class ListCard extends React.Component {
           onDrop={::this._handleDropCard} />
       );
     });
+
+
+
+
   }
 
   _renderForm() {

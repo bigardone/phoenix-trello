@@ -1,0 +1,28 @@
+<h2>Listing list cards</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>List</th>
+      <th>Card</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for list_card <- @list_cards do %>
+    <tr>
+      <td><%= list_card.list_id %></td>
+      <td><%= list_card.card_id %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: list_card_path(@conn, :show, list_card), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: list_card_path(@conn, :edit, list_card), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: list_card_path(@conn, :delete, list_card), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New list card", to: list_card_path(@conn, :new) %>

@@ -1,0 +1,18 @@
+<h2>Show board card</h2>
+
+<ul>
+
+  <li>
+    <strong>Board:</strong>
+    <%= @board_card.board_id %>
+  </li>
+
+  <li>
+    <strong>Card:</strong>
+    <%= @board_card.card_id %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: board_card_path(@conn, :edit, @board_card) %>
+<%= link "Back", to: board_card_path(@conn, :index) %>

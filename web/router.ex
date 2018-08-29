@@ -25,9 +25,11 @@ defmodule PhoenixTrello.Router do
       delete "/sessions", SessionController, :delete
 
       get "/current_user", CurrentUserController, :show
-
+      resources "/board_cards", BoardCardController
+      resources "/list_cards", ListCardController
       resources "/boards", BoardController, only: [:index, :create] do
         resources "/cards", CardController, only: [:show]
+        resources "/board_cards", BoardCardController
       end
     end
   end
